@@ -70,7 +70,7 @@ public class Login {
 	/*-----------------------------------------------------------------------------------
 	 * Method : getDataFromCSV
 	 * Scope  : private
-	 * Param  : no param
+	 * Param  : role
 	 * return : the input password
 	 * 
 	 * Short explaination:
@@ -256,6 +256,7 @@ public class Login {
 	 * This method will control the flow of the login system.
 	 *----------------------------------------------------------------------------------- */
 	public void display(){
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("_________Login Screen__________");
