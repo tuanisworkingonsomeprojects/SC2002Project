@@ -93,32 +93,57 @@ public class Login {
 		return null;
 	}
 	
+	/**
+	 * Only return the user's passwor if the access is granted.
+	 * @return password
+	 * @return {@code null}
+	 * */
 	public String getPassword() {
 		if (granted) return password;
 		return null;
 	}
 	
+	/**
+	 * Only return the user's name if the access is granted.
+	 * @return name
+	 * @return {@code null}
+	 * */
 	public String getName() {
 		if (granted) return name;
 		return null;
 	}
 	
+	/**
+	 * Only return the eamil if the access is granted.
+	 * @return email
+	 * @return {@code null}
+	 * */
 	public String getEmail() {
 		if (granted) return email;
 		return null;
 	}
 	
+	/**
+	 * Only return the user's faculty if the access is granted.
+	 * @return faculty
+	 * @return {@code null}
+	 * */
 	public String getFaculty() {
 		if (granted) return faculty;
 		return null;
 	}
 	
+	/**
+	 * Only return the user's role if the access is granted.
+	 * @return role
+	 * @return {@code null}f
+	 * */
 	public String getRole() {
 		if (granted) return role;
 		return null;
 	}
 	
-	//Pseudo clear screen
+	/**Pseudo clear screen*/
 	private void clearScreen() {
 		for (int i = 0; i < 50; i++) {
 			System.out.println();
@@ -276,15 +301,13 @@ public class Login {
 	}
 	
 	
-	/*-----------------------------------------------------------------------------------
-	 * Method : validateControl
-	 * Scope  : private
-	 * Param  : input_userid, input_userpassword
-	 * return : void
-	 * 
-	 * Short explaination:
+	/**
 	 * This method control the flow of validating by calling validate() method
-	 *----------------------------------------------------------------------------------- */
+	 * @param input_userid
+	 *        userid from user's input
+	 * @param input_password
+	 * 		  password from user's input
+	 **/
 	
 	private void validateControl(String input_userid, String input_password){
 		System.out.println("Validating...");
@@ -309,13 +332,7 @@ public class Login {
 	}
 	
 	
-	/*-----------------------------------------------------------------------------------
-	 * Method : display
-	 * Scope  : public
-	 * Param  : no param
-	 * return : void
-	 * 
-	 * Short explaination:
+	/**
 	 * This method will control the flow of the login system.
 	 *----------------------------------------------------------------------------------- */
 	public void display(){
