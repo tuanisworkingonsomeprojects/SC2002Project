@@ -3,18 +3,71 @@ package sce.sc2002.FinalProject;
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ When the program started it require the instance of
+ this class to run to create a login option
+ @author Nguyen Tuan
+ @version 1.0
+ @since 11/2/2023
+*/
 
 public class Login {
+
+
+	/**
+	 Access Granted or Not Granted.<br>
+	 Initialize to false.
+	 */
 	private boolean granted;
+	
+	/**
+	 * The UserID of the user.<br>
+	 * Initialize to null.<br>
+	 * Update when access granted.
+	 * */
 	private String userid;
+	
+	/**
+	 * The user's password.<br>
+	 * Initialize to null.<br>
+	 * Update when access granted.
+	 * */
 	private String password;
+	
+	/**
+	 * The user's name.<br>
+	 * Initialize to null.<br>
+	 * Update when access granted.
+	 * */
 	private String name;
+	
+	/**
+	 * The user's email.<br>
+	 * Initialize to null.<br>
+	 * Update when access granted.
+	 * */
 	private String email;
+	
+	/**
+	 * The user's name.<br>
+	 * Initialize to null.<br>
+	 * Update when access granted.
+	 * */
 	private String faculty;
+	
+	/**
+	 * The user's name.<br>
+	 * Initialize to null.<br>
+	 * Update when access granted based on the UserID.
+	 * */
 	private String role;
 	
 	
-	// Constructor
+	/**
+	* Constructor of the Login class.<br>
+	* Initialize {@code granted} to {@code false}.<br>
+	* Initialize remain values to {@code null}.<br>
+	*/
 	public Login() {
 		granted = false;
 		userid = null;
@@ -25,10 +78,16 @@ public class Login {
 		role = null;
 	}
 	
+	/**
+	 * Return true if access granted and false otherwise*/
 	public boolean accessGranted(){
 		return granted;
 	}
 	
+	/**
+	 * Only return the user's id if the access is granted.
+	 * @return userid
+	 * @return {@code null}*/
 	public String getUserId() {
 		if (granted) return userid;
 		return null;
@@ -67,17 +126,16 @@ public class Login {
 	}
 	
 	
-	/*-----------------------------------------------------------------------------------
-	 * Method : getDataFromCSV
-	 * Scope  : private
-	 * Param  : role
-	 * return : the input password
+	/**
+	 * This method will base on the role parameter. Then, it will find and return the
+	 * appropriate user list with all the users' data needed.<br>
 	 * 
-	 * Short explaination:
-	 * This method will mask the password and do not let the user or other parties see the
-	 * input password if the program runs outside the IDLE (i.e. when the program runs on
-	 * the system terminal or console.
-	 *----------------------------------------------------------------------------------- */
+	 * @param role
+	 * 		  The role of the users in the csv this method will retrieve.
+	 * @return The Scanner instance that have the data of the required csv file.
+	 * @see #validateControl(String, String)
+	 * 
+	 **/
 	
 	private Scanner getDataFromCSV(String role) {
 		Scanner sc = null;
@@ -118,17 +176,14 @@ public class Login {
 		return sc;
 	}
 	
-	/*-----------------------------------------------------------------------------------
-	 * Method : readPassword
-	 * Scope  : private
-	 * Param  : no param
-	 * return : the input password
-	 * 
-	 * Short explaination:
+	/**
 	 * This method will mask the password and do not let the user or other parties see the
-	 * input password if the program runs outside the IDLE (i.e. when the program runs on
-	 * the system terminal or console.
-	 *----------------------------------------------------------------------------------- */
+	 * input password if the program runs outside the IDLE.<br>
+	 * (i.e when the program runs on the system terminal or console)<br>
+	 * 
+	 * @return password.
+	 * @see #display()
+	 **/
 	
 	private String readPassword() {
 		Console console = System.console();
@@ -147,17 +202,25 @@ public class Login {
 	}
 	
 	
-	/*-----------------------------------------------------------------------------------
-	 * Method : validate
-	 * Scope  : private
-	 * Param  : input_userid, input_userpassword, csvFile
-	 * return : void
+	/**
+	 * This method will validate the input userid and input password by comparing:<br>
+	 * 	- The userid created from the email (the part before '@') retrieved from csv file.<br>
+	 * 	- The password in the data retreived from csv file.<br>
+	 * If the user's is valid, all the appropriate variable in this class will update.
+	 * @param input_userid
+	 * 		  userid from user's input
+	 * @param input_password
+	 * 		  password from user's input
+	 * @param csvFile
+	 * 		  Scanner object that point to the csv file used to check the user's validation.
+	 * @see #validateControl(String, String)
+	 * @see #userid
+	 * @see #password
+	 * @see #name
+	 * @see #email
+	 * @see #faculty
 	 * 
-	 * Short explaination:
-	 * * This method will validate the input userid and input password by comparing:
-	 * 	- The userid created from the email (the part before '@') retrieved from csv file
-	 * 	- The password in the data retreived from csv file
-	 *----------------------------------------------------------------------------------- */
+	 **/
 	
 	private void validate(String input_userid, String input_password, Scanner csvFile) {
 		
