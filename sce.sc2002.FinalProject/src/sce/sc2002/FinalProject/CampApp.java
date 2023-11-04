@@ -15,14 +15,14 @@ public class CampApp {
 		//Displaying Student Menu after login
 		StudentMenu StudentLoginScreen = new StudentMenu();
 		StudentLoginScreen.StudentMenuDisplay();
-		int userChoice;
+		int studentChoice;
 		Scanner sc = new Scanner(System.in);
 
 		do{
 			System.out.println("Please Select Your Choice Of Action");
-			userChoice=sc.nextInt();
+			studentChoice=sc.nextInt();
             
-            switch(userChoice){
+            switch(studentChoice){
                 case 1:
                     break;
                 case 2:
@@ -36,6 +36,6 @@ public class CampApp {
             }
             
 
-        }while(userChoice<6);
+        }while(studentChoice<6);
 	}
 }
