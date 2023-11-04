@@ -8,16 +8,16 @@ package sce.sc2002.FinalProject;
 */
 
 public class StudentMenu extends Login{
-    public void display(){
+    public void StudentMenuDisplay(){
+        System.out.println("");
         System.out.println("--------------------------------------");
-        System.out.println("Student Camp Main");
+        System.out.println("Welcome to the Student Camp Menu");
         System.out.println("--------------------------------------");
         System.out.println("Choice 1 : List Opened Camps");
         System.out.println("Choice 2 : Register for Camp");
         System.out.println("Choice 3 : Submit Enquiries");
         System.out.println("Choice 4 : View Regisetered Camps");
         System.out.println("Choice 5 : Withdraw From Camp"); 
-
     }
 
     public void registerCamp(){
