@@ -8,12 +8,14 @@ import java.util.*;
  @since 11/2/2023
 */
 
-public class StudentMenu{
-    public static void start(){
+public class StudentMenu extends Menu{
+
+
+    public void display(){
         int studentChoice;
         Scanner sc = new Scanner(System.in);
 
-        StudentMenuDisplay();
+        studentDisplay();
         System.out.println("Enter your choice: ");
         studentChoice = sc.nextInt();
         do{
@@ -32,7 +34,7 @@ public class StudentMenu{
         }while(studentChoice<6);
     }
 
-    public static void StudentMenuDisplay(){
+    public void studentDisplay(){
         System.out.println("");
         System.out.println("--------------------------------------");
         System.out.println("Welcome to the Student Camp Menu");
