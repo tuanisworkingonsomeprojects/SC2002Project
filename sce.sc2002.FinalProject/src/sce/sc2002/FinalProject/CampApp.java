@@ -9,9 +9,9 @@ public class CampApp {
 		
 		Login loginScreen = new Login();
 		
-		while (!loginScreen.accessGranted()) {
-			loginScreen.display();
-		}
+
+		loginScreen.display();
+
 		
 		System.out.println("hi");
 		
