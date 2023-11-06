@@ -20,6 +20,16 @@ public class Password {
 		role = null;
 	}
 	
+	public String getUserid(){
+		if (granted) return userid;
+		return null;
+	}
+
+	public String getRole(){
+		if (granted) return role;
+		return null;
+	}
+
 	public boolean logedIn() {
 		return granted;
 	}
