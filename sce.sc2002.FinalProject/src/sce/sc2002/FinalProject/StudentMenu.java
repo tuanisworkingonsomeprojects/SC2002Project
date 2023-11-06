@@ -10,40 +10,101 @@ import java.util.*;
 
 public class StudentMenu extends Menu{
 
-
-    public void display(){
-        int studentChoice;
-        Scanner sc = new Scanner(System.in);
-
-        studentDisplay();
-        System.out.println("Enter your choice: ");
-        studentChoice = sc.nextInt();
-        do{
-            switch(studentChoice){
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-            }
-        }while(studentChoice<6);
+    public StudentMenu(Login user){
+        super();
+        currentUser = user;
     }
 
-    public void studentDisplay(){
-        System.out.println("");
-        System.out.println("--------------------------------------");
-        System.out.println("Welcome to the Student Camp Menu");
-        System.out.println("--------------------------------------");
-        System.out.println("Choice 1 : List Opened Camps");
-        System.out.println("Choice 2 : Register for Camp");
-        System.out.println("Choice 3 : Submit Enquiries");
-        System.out.println("Choice 4 : View Regisetered Camps");
-        System.out.println("Choice 5 : Withdraw From Camp"); 
+
+    private void printHeader() {
+		System.out.println("+-----------------------------------+");
+        System.out.println("|           Welcome to              |");
+        System.out.println("|        Awesome Camp App           |");
+        System.out.println("+-----------------------------------+");
+	}
+
+
+
+    public void runMenu() {
+		printHeader();
+
+		while(!exit) {
+			display();
+			int choice = getMenuChoice();
+			performAction(choice);
+		}
+	}
+
+    private int getMenuChoice() {
+        Scanner keyboard = new Scanner(System.in);
+        int choice = -1;
+        do {
+            System.out.print("Enter your choice: ");
+            try {
+                choice = Integer.parseInt(keyboard.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid selection. Numbers only please.");
+            }
+            if (choice < 0 || choice > 7) {
+                System.out.println("Choice outside of range. Please chose again.");
+            }
+        } while (choice < 0 || choice > 7);
+        return choice;
+    }
+
+    public void display(){
+        System.out.println("Student Attendee Portal: ");
+        System.out.println();
+        System.out.println("1. Change password");
+        System.out.println("2. View all camp");
+        System.out.println("3. View Regisetered Camps");
+        System.out.println("4. Register for Camp");
+        System.out.println("7. Exit");
+    }
+
+    private void performAction(int choice) {
+        switch (choice) {
+
+            // Change password option
+            case 1: 
+                clearScreen();
+                System.out.println("Change password Menu:");
+                currentUser.changePassword();
+                break;
+
+            case 2: 
+                System.out.println("Viewing all camps...");
+                //  calls display camp methods
+                // 	Can have option to create, edit or delete the camps
+                
+                break;
+            case 3:
+                System.out.println("Viewing registerd camps...");
+                // calls method to display all create camps
+                break;
+            case 4:
+                System.out.println("Register for camp");
+                // calls method to display all enquires to camps created by staff
+                // Can reply to enquires
+                break;
+            case 5:
+                System.out.println("Submit Enquiry");
+                // calls method to display all suggestions by CC to camps created by staff
+                // Can choose to reply to suggestions
+                break;
+            case 6:
+            	System.out.println("Withdraw from camp");
+            	// calls method to generate report
+            	// has option to choose what kind of report to generate
+            	// attendance report; performance report; enquire report
+                break;
+            case 7:
+                System.out.println("Exiting...");
+                exit = true;
+                break;
+            default:
+                System.out.println("Unknown error has occured.");
+        }
     }
 
     public void registerCamp(){

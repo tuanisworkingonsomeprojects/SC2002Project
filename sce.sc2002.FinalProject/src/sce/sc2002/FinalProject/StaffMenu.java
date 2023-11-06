@@ -13,11 +13,18 @@ import java.util.*;
 
 
 public class StaffMenu extends Menu{
-	
-	boolean exit;
+
+
+    public StaffMenu(Login user){
+        super();
+        currentUser = user;
+    }
+
+
 	
 	public void runMenu() {
 		printHeader();
+
 		while(!exit) {
 			display();
 			int choice = getMenuChoice();
@@ -27,22 +34,24 @@ public class StaffMenu extends Menu{
 	
 	private void printHeader() {
 		System.out.println("+-----------------------------------+");
-        System.out.println("|        Welcome to Mr.V's          |");
+        System.out.println("|           Welcome to              |");
         System.out.println("|        Awesome Camp App           |");
         System.out.println("+-----------------------------------+");
 	}
+
 	public void display() {
-		
-		System.out.print("1. Change password\n");
-		System.out.print("2. View all camps\n");  //can choose to create, edit or delete all camps
-		System.out.print("3. View created camps\n"); //create a camp
-		System.out.print("4. Enquiries\n"); // will show all enquires to camps staff has created, 
-											// can choose to reply to which enquire	
-		System.out.print("5. Suggestions \n");	// will show all suggestions by CC to camps staff has created, 
-												// can choose to reply to which suggestion
-		System.out.print("6. Generate report\n"); 	// can choose which camp (created by staff) to generate what
-													// kind of report (attendance report; performance report; 
-													// enquire report)
+		System.out.println("Staff Portal: ");
+        System.out.println();
+		System.out.println("1. Change password");
+		System.out.println("2. View all camps");        //can choose to create, edit or delete all camps
+		System.out.println("3. View created camps");    //create a camp
+		System.out.println("4. Enquiries");             // will show all enquires to camps staff has created, 
+											            // can choose to reply to which enquire	
+		System.out.println("5. Suggestions");	        // will show all suggestions by CC to camps staff has created, 
+												        // can choose to reply to which suggestion
+		System.out.println("6. Generate report"); 	    // can choose which camp (created by staff) to generate what
+													    // kind of report (attendance report; performance report; 
+													    // enquire report)
 	}
 	
 
@@ -66,9 +75,12 @@ public class StaffMenu extends Menu{
 
     private void performAction(int choice) {
         switch (choice) {
+
+            // Change password option
             case 1:
-                System.out.println("Changing password...");
-                // calls change password method
+                clearScreen();
+                System.out.println("Change password Menu:");
+                currentUser.changePassword();
                 break;
             case 2: 
                 System.out.println("Viewing all camps...");
