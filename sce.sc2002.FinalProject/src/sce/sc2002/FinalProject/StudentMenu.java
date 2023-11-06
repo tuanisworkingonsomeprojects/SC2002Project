@@ -57,9 +57,8 @@ public class StudentMenu extends Menu{
         System.out.println();
         System.out.println("1. Change password");
         System.out.println("2. View all camp");
-        System.out.println("3. View Regisetered Camps");
-        System.out.println("4. Register for Camp");
-        System.out.println("7. Exit");
+        System.out.println("3. Register for Camp");
+        System.out.println("4. Exit");
     }
 
     private void performAction(int choice) {
@@ -73,33 +72,13 @@ public class StudentMenu extends Menu{
                 break;
 
             case 2: 
-                System.out.println("Viewing all camps...");
-                //  calls display camp methods
-                // 	Can have option to create, edit or delete the camps
-                
+                System.out.println("Viewing all camps...");  
                 break;
             case 3:
-                System.out.println("Viewing registerd camps...");
-                // calls method to display all create camps
+                System.out.println("Register for camp");
                 break;
             case 4:
-                System.out.println("Register for camp");
-                // calls method to display all enquires to camps created by staff
-                // Can reply to enquires
-                break;
-            case 5:
-                System.out.println("Submit Enquiry");
-                // calls method to display all suggestions by CC to camps created by staff
-                // Can choose to reply to suggestions
-                break;
-            case 6:
-            	System.out.println("Withdraw from camp");
-            	// calls method to generate report
-            	// has option to choose what kind of report to generate
-            	// attendance report; performance report; enquire report
-                break;
-            case 7:
-                System.out.println("Exiting...");
+                 System.out.println("Exiting...");
                 exit = true;
                 break;
             default:
