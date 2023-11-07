@@ -40,8 +40,8 @@ public class Password {
 	}
 	
 	
-	protected boolean validate(String userid, String password) {
-		if (studentData.getPassword(userid) == null && staffData.getPassword(userid) == null) return false;
+	protected void validate(String userid, String password) {
+		if (studentData.getPassword(userid) == null && staffData.getPassword(userid) == null) return;
 		
 		if (studentData.getPassword(userid) != null && studentData.getPassword(userid).equals(password)) {
 			role = "student";
@@ -49,7 +49,7 @@ public class Password {
 			this.userid = userid;
 			userData = studentData;
 			if (studentData.getPassword(userid).equals("password")) changePassword();
-			return true;
+			return;
 		}
 		else if (staffData.getPassword(userid) != null && staffData.getPassword(userid).equals(password)) {
 			role = "staff";
@@ -57,10 +57,10 @@ public class Password {
 			this.userid = userid;
 			userData = studentData;
 			if (staffData.getPassword(userid).equals("password")) changePassword();
-			return true;
+			return;
 		}
 
-		return false;
+		return;
 	}
 	
 	protected String readPassword() {
