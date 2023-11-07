@@ -130,44 +130,38 @@ public class UserData {
 		return null;
 	}
 	
-	public void changePassword(String userid, String new_password) {
+	public void changePassword(String userid, String new_password, String key) {
+		if (key.equals("asdfljknqwe6238745fg23av3gv246hrejbq4tybetjysdafg5y")){
+			for (int i = 0; i < numberOfUser; i++) {
+				if (userData[i][4].equals(userid)) {
+					userData[i][3] = new_password;
+					break;
+				} 
+			}
+			
+			try (PrintWriter writer = new PrintWriter(new File(accessPath))) {
+				StringBuilder stringbuilder = new StringBuilder();
+				
+				
+				stringbuilder.append("Name,Email,Faculty,Password,\n");
+				for (int i = 0; i < numberOfUser; i++) {
+					for (int j = 0; j < 4; j++) {
+						stringbuilder.append(userData[i][j]);
+						stringbuilder.append(',');
+					}
+				}
 
-		for (int i = 0; i < numberOfUser; i++) {
-			if (userData[i][4].equals(userid)) {
-				userData[i][3] = new_password;
-				break;
+				writer.write(stringbuilder.toString());
+				System.out.println("done!");
 			} 
+			catch (FileNotFoundException exception) {
+				System.out.println(exception.getMessage());
+			}
 		}
-		
-		try (PrintWriter writer = new PrintWriter(new File(accessPath))) {
-		      StringBuilder stringbuilder = new StringBuilder();
-		      
-		      
-		      
-		      
-		      stringbuilder.append("Name,Email,Faculty,Password,\n");
-		      for (int i = 0; i < numberOfUser; i++) {
-		    	  for (int j = 0; j < 4; j++) {
-		    		  stringbuilder.append(userData[i][j]);
-		    		  stringbuilder.append(',');
-		    	  }
-		      }
-
-		      writer.write(stringbuilder.toString());
-		      System.out.println("done!");
-		} 
-		catch (FileNotFoundException exception) {
-			 System.out.println(exception.getMessage());
+		else {
+			System.out.println("The class does not have enough authority");
 		}
-		
-
-		
-		
-		
 	}
-	
-	
-	
 	
 	
 }

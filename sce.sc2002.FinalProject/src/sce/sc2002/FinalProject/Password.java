@@ -98,7 +98,7 @@ public class Password {
 			String confirmPassword = readPassword();
 			
 			if (newPassword.equals(confirmPassword) && !newPassword.equals(userData.getPassword(userid, secretKey))) {
-				userData.changePassword(userid, newPassword);
+				userData.changePassword(userid, newPassword, secretKey);
 				changed = true;
 			}
 			else {
