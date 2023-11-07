@@ -4,17 +4,27 @@ import java.util.*;
 
 public class CampList {
 	
-	private ArrayList<Camp> campList;
+	private List<Camp> campList;
 	
 	public CampList() {
 		campList = new ArrayList<Camp>();
 	}
 	
-	public void viewAllCamp(Login currentUser) {
-		for(int i=0;i<campList.size();i++)
-			if(currentUser.getRole().equals("student") && Camp.visibility == true)
-				System.
-		
+	public void addCamp(Camp camp) {
+		campList.add(camp);
+		Camp.createCamp(camp);
 	}
-
+	
+	public void viewAllCamp(Login currentUser) {
+		for(Camp camp: campList) {
+			if(currentUser.getRole().equals("student") && camp.visibility)
+				System.out.print("Camp Name: " + camp.getcampName());
+				for(Committee committee: Camp.getcampInfo().getCommitteeList()) {
+					System.out.print("[Committee]");
+					break;
+				}
+					
+		
+		}
+	}
 }

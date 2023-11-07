@@ -6,14 +6,14 @@ public class CampInformation {
 	private String 		campName;
 	private int    		startDate;
 	private int    		endDate;
-	private int    		registrationClosingDate;
+	private int    		closingDate;
 	private String 		avaialbleTo;
 	private String 		location;
 
 	private int    		attendeeSlot = 40;
-	private int    		campCommSlots = 10;
+	private int    		campCommSlot = 10;
 	private String 		description;
-	private String 		staffIn_Charge; //creator of the camp
+	private String 		staffInCharge; //creator of the camp
 	private boolean 	visibility;
 
 	private ArrayList<Student> 	  studentAttendees;
@@ -31,7 +31,23 @@ public class CampInformation {
 		blacklist        = new ArrayList<Student>(); 			// list of 'Student' objects
 	}
 	
-
+	// Setter methods, please do not delete Tuan :")
+	public void setcampName(String campName) 		{this.campName = campName;}
+	public void setstartDate(int startDate) 		{this.startDate = startDate;}
+	public void setendDate(int endDate) 			{this.endDate = endDate;}
+	public void setclosingDate(int closingDate) 	{this.closingDate = closingDate;}
+	public void setavailableTo(String availableTo) 	{this.avaialbleTo = availableTo;}
+	public void setlocation(String location) 		{this.location = location;}
+	public void setattendeeSlot(int attendeeSlot) 	{this.attendeeSlot = attendeeSlot ;}
+	public void setdescription(String description) 	{this.description = description;}
+	public void setstaffInCharge(Login currentUser) {this.staffInCharge = currentUser.getUserid();}	
+	public void setvisibility(char x) {
+		if(x == 'Y') {
+			visibility = true;
+		}
+		else {visibility = false;}
+	}
+	
 	
 	public int getvisibility() {
 		if(visibility) {return 1;}
