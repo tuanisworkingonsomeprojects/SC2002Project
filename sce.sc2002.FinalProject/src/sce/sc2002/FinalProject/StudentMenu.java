@@ -8,7 +8,6 @@ import java.util.*;
 */
 
 public class StudentMenu extends Menu{
-
     public StudentMenu(Login user){
         super();
         currentUser = user;
