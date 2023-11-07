@@ -15,8 +15,8 @@ import java.util.*;
 public class StaffMenu extends Menu{
 
 
-    public StaffMenu(Login user){
-        super();
+    public StaffMenu(Login user, CampList campls){
+        super(campls);
         currentUser = user;
     }
 

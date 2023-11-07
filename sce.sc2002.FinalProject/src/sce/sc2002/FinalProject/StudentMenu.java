@@ -10,8 +10,8 @@ import java.util.*;
 
 public class StudentMenu extends Menu{
 
-    public StudentMenu(Login user){
-        super();
+    public StudentMenu(Login user, CampList campls){
+        super(campls);
         currentUser = user;
     }
 
