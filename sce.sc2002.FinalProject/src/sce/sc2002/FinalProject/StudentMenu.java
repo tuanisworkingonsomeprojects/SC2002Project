@@ -8,12 +8,17 @@ import java.util.*;
 */
 
 public class StudentMenu extends Menu{
+
+    private ArrayList<Student> registeredStudents = new ArrayList<>();
+
     public StudentMenu(Login user){
         super();
         currentUser = user;
     }
 
-
+	/**
+	 * This will print the header of the Camp App.
+	 *----------------------------------------------------------------------------------- */
     private void printHeader() {
 		System.out.println("+-----------------------------------+");
         System.out.println("|           Welcome to              |");
@@ -21,8 +26,9 @@ public class StudentMenu extends Menu{
         System.out.println("+-----------------------------------+");
 	}
 
-
-
+	/**
+	 * This method will display the menu once the user has logged in.
+	 *----------------------------------------------------------------------------------- */
     public void runMenu() {
 		printHeader();
 
@@ -33,6 +39,9 @@ public class StudentMenu extends Menu{
 		}
 	}
 
+	/**
+	 * This will return the choice that the user has selected.
+	 *----------------------------------------------------------------------------------- */
     private int getMenuChoice() {
         Scanner keyboard = new Scanner(System.in);
         int choice = -1;
@@ -50,6 +59,9 @@ public class StudentMenu extends Menu{
         return choice;
     }
 
+	/**
+	 * This is the display of the student's version of menu.
+	 *----------------------------------------------------------------------------------- */
     public void display(){
         System.out.println("Student Attendee Portal: ");
         System.out.println();
@@ -59,6 +71,9 @@ public class StudentMenu extends Menu{
         System.out.println("4. Exit");
     }
 
+    /**
+	 * This method perform the actions that the student has selected
+	 *----------------------------------------------------------------------------------- */
     private void performAction(int choice) {
         switch (choice) {
 
@@ -83,10 +98,18 @@ public class StudentMenu extends Menu{
         }
     }
 
-    public void registerCamp(){
+    /**
+	 * This method register the student into the camp.
+	 *----------------------------------------------------------------------------------- */
+    public void registerCamp(Login currentUser){
+        if(currentUser.getRole().equals("student")){
 
+        }
     }
 
+	/**
+	 * This method will display all available camps for the student to view.
+	 *----------------------------------------------------------------------------------- */
     public void viewAllCamp(){
 
     }
