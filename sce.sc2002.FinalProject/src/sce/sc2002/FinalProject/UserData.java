@@ -111,12 +111,13 @@ public class UserData {
 			
 	}
 	
-	public String getPassword(String userid) {
-		for (int i = 0; i < numberOfUser; i++) {
-			if (userData[i][4].equals(userid)) 
-				return userData[i][3];
+	public String getPassword(String userid, String key) {
+		if (key.equals("asdfljknqwe6238745fg23av3gv246hrejbq4tybetjysdafg5y")){
+			for (int i = 0; i < numberOfUser; i++) {
+				if (userData[i][4].equals(userid)) 
+					return userData[i][3];
+			}
 		}
-		
 		return null;
 	}
 

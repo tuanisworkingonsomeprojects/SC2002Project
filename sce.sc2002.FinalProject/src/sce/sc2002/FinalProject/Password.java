@@ -10,6 +10,7 @@ public class Password {
 	private boolean granted;
 	private String userid;
 	private String role;
+	private final static String secretKey = "asdfljknqwe6238745fg23av3gv246hrejbq4tybetjysdafg5y";
 	
 	
 	public Password() {
@@ -46,22 +47,22 @@ public class Password {
 	
 	
 	protected void validate(String userid, String password) {
-		if (studentData.getPassword(userid) == null && staffData.getPassword(userid) == null) return;
+		if (studentData.getPassword(userid, secretKey) == null && staffData.getPassword(userid, secretKey) == null) return;
 		
-		if (studentData.getPassword(userid) != null && studentData.getPassword(userid).equals(password)) {
+		if (studentData.getPassword(userid, secretKey) != null && studentData.getPassword(userid, secretKey).equals(password)) {
 			role = "student";
 			granted = true;
 			this.userid = userid;
 			userData = studentData;
-			if (studentData.getPassword(userid).equals("password")) changePassword();
+			if (studentData.getPassword(userid, secretKey).equals("password")) changePassword();
 			return;
 		}
-		else if (staffData.getPassword(userid) != null && staffData.getPassword(userid).equals(password)) {
+		else if (staffData.getPassword(userid, secretKey) != null && staffData.getPassword(userid, secretKey).equals(password)) {
 			role = "staff";
 			granted = true;
 			this.userid = userid;
 			userData = studentData;
-			if (staffData.getPassword(userid).equals("password")) changePassword();
+			if (staffData.getPassword(userid, secretKey).equals("password")) changePassword();
 			return;
 		}
 
@@ -96,7 +97,7 @@ public class Password {
 			System.out.print("Confirm new password: ");
 			String confirmPassword = readPassword();
 			
-			if (newPassword.equals(confirmPassword) && !newPassword.equals(userData.getPassword(userid))) {
+			if (newPassword.equals(confirmPassword) && !newPassword.equals(userData.getPassword(userid, secretKey))) {
 				userData.changePassword(userid, newPassword);
 				changed = true;
 			}
