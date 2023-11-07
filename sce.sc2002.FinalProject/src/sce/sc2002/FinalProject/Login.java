@@ -1,8 +1,8 @@
 package sce.sc2002.FinalProject;
 
-import java.io.*;
+
 import java.util.*;
-import java.util.Vector;
+
 
 /**
  When the program started it require the instance of

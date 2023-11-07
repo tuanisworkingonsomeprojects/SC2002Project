@@ -30,6 +30,11 @@ public class Password {
 		return null;
 	}
 
+	public String getFaculty(){
+		if (granted) return userData.getFaculty(userid);
+		return null;
+	}
+
 	public boolean logedIn() {
 		return granted;
 	}

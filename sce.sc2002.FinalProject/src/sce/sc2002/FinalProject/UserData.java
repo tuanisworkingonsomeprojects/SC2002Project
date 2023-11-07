@@ -119,6 +119,15 @@ public class UserData {
 		
 		return null;
 	}
+
+	public String getFaculty(String userid){
+		for (int i = 0; i < numberOfUser; i++) {
+			if (userData[i][4].equals(userid)) 
+				return userData[i][2];
+		}
+		
+		return null;
+	}
 	
 	public void changePassword(String userid, String new_password) {
 
