@@ -2,7 +2,6 @@ package sce.sc2002.FinalProject;
 import java.util.*;
 
 /**
-
  @author Chong Wen Rong, Chelson
  @version 1.0
  @since 11/2/2023
@@ -70,7 +69,6 @@ public class StudentMenu extends Menu{
                 System.out.println("Change password Menu:");
                 currentUser.changePassword();
                 break;
-
             case 2: 
                 System.out.println("Viewing all camps...");  
                 break;
@@ -90,15 +88,7 @@ public class StudentMenu extends Menu{
 
     }
 
-    public void viewAvailableCamp(){
-
-    }
-
-    public void viewRegisteredCamp(){
-
-    }
-    
-    public void chooseCamp(){
+    public void viewAllCamp(){
 
     }
 }
