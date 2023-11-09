@@ -1,6 +1,8 @@
 package sce.sc2002.FinalProject;
 
 public class Student{
+
+    //Not sure if needed
     private String name;
 
     private String id;
