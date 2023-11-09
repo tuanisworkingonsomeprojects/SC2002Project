@@ -103,7 +103,8 @@ public class StudentMenu extends Menu{
 	 *----------------------------------------------------------------------------------- */
     public void registerCamp(Login currentUser){
         if(currentUser.getRole().equals("student")){
-
+            //First Show all camp the student is able to register for
+            //Then submit to register for the camp
         }
     }
 
