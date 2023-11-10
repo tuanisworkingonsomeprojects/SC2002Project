@@ -14,7 +14,7 @@ public class CampInformation {
 	private int    		campCommSlots = 10;
 	private String 		description;
 	private String 		staffIn_Charge; //creator of the camp
-	private boolean 	visibility;
+	private boolean 	visibility = false; // Default to false
 
 	private ArrayList<Student> 	  studentAttendees;
 	private ArrayList<Committee>  committeeList;
@@ -23,7 +23,7 @@ public class CampInformation {
 	private ArrayList<Student>    blacklist;
 	
 	// Initializes the list in the constructors
-	public void campInformation() {
+	public CampInformation() {
 		studentAttendees = new ArrayList<Student>();	// list of 'Student' objects
 		committeeList    = new ArrayList<Committee>();		//list of 'Committee' objects
 		enquiries        = new ArrayList<Enquiry>();			// list of 'Enquiry' objects
@@ -33,9 +33,39 @@ public class CampInformation {
 	
 
 	
-	public int getvisibility() {
+	public int getVisibility() {
 		if(visibility) {return 1;}
 		else return -1;
 	}
+
+	// Method to add a new enquiry
+    public void createEnquiry(Camp camp, Student author, String subject, String description) {
+        Enquiry enquiry = new Enquiry(camp, author, subject, description, null, null, false);
+        enquiries.add(enquiry);
+    }
+
+    // Method to get a list of enquiries
+    public ArrayList<Enquiry> getEnquiries() {
+        return enquiries;
+    }
+
+    // Method to get an enquiry by ID
+    public Enquiry getEnquiryById(int enquiryID) {
+        for (Enquiry enquiry : enquiries) {
+            if (enquiry.getEnquiryID() == enquiryID) {
+                return enquiry;
+            }
+        }
+        return null; // Enquiry not found
+    }
+
+    // Method to delete an enquiry
+    public void deleteEnquiry(int enquiryID) {
+        Enquiry enquiry = getEnquiryById(enquiryID);
+        if (enquiry != null) {
+            enquiries.remove(enquiry);
+        }
+    }
+	
 	
 }
