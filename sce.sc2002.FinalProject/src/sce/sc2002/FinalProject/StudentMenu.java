@@ -12,7 +12,7 @@ public class StudentMenu extends Menu{
     private ArrayList<Student> registeredStudents = new ArrayList<>();
 
     public StudentMenu(Login user){
-        super();
+        super(campList);
         currentUser = user;
     }
 
@@ -112,9 +112,6 @@ public class StudentMenu extends Menu{
 	 * This method will display all available camps for the student to view.
 	 *----------------------------------------------------------------------------------- */
     public void viewAllCamp(Login currentUser){
-        for(Camp camp: campList) {
-			if(currentUser.getRole().equals("student") && camp.visibility)
-				System.out.print("Camp Name: " + camp.getcampName());
-		}
+        campList.viewAllCamp();
     }
 }

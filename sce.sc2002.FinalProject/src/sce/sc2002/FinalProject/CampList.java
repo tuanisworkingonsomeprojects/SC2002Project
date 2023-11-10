@@ -1,6 +1,8 @@
 package sce.sc2002.FinalProject;
 
-public class CampList {
+import javax.swing.text.html.HTMLDocument.Iterator;
+
+public class CampList extends Iterator{
 
     private Login currentUser;
 
