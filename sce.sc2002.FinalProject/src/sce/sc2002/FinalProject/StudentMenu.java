@@ -2,7 +2,6 @@ package sce.sc2002.FinalProject;
 import java.util.*;
 
 /**
-
  @author Chong Wen Rong, Chelson
  @version 1.0
  @since 11/2/2023
@@ -10,12 +9,16 @@ import java.util.*;
 
 public class StudentMenu extends Menu{
 
-    public StudentMenu(Login user, CampList campls){
-        super(campls);
+    private ArrayList<Student> registeredStudents = new ArrayList<>();
+
+    public StudentMenu(Login user){
+        super();
         currentUser = user;
     }
 
-
+	/**
+	 * This will print the header of the Camp App.
+	 *----------------------------------------------------------------------------------- */
     private void printHeader() {
 		System.out.println("+-----------------------------------+");
         System.out.println("|           Welcome to              |");
@@ -23,8 +26,9 @@ public class StudentMenu extends Menu{
         System.out.println("+-----------------------------------+");
 	}
 
-
-
+	/**
+	 * This method will display the menu once the user has logged in.
+	 *----------------------------------------------------------------------------------- */
     public void runMenu() {
 		printHeader();
 
@@ -35,6 +39,9 @@ public class StudentMenu extends Menu{
 		}
 	}
 
+	/**
+	 * This will return the choice that the user has selected.
+	 *----------------------------------------------------------------------------------- */
     private int getMenuChoice() {
         Scanner keyboard = new Scanner(System.in);
         int choice = -1;
@@ -52,16 +59,21 @@ public class StudentMenu extends Menu{
         return choice;
     }
 
+	/**
+	 * This is the display of the student's version of menu.
+	 *----------------------------------------------------------------------------------- */
     public void display(){
         System.out.println("Student Attendee Portal: ");
         System.out.println();
         System.out.println("1. Change password");
         System.out.println("2. View all camp");
-        System.out.println("3. View Regisetered Camps");
-        System.out.println("4. Register for Camp");
-        System.out.println("5. Exit");
+        System.out.println("3. Register for Camp");
+        System.out.println("4. Exit");
     }
 
+    /**
+	 * This method perform the actions that the student has selected
+	 *----------------------------------------------------------------------------------- */
     private void performAction(int choice) {
         switch (choice) {
 
@@ -71,35 +83,14 @@ public class StudentMenu extends Menu{
                 System.out.println("Change password Menu:");
                 currentUser.changePassword();
                 break;
-
             case 2: 
-                System.out.println("Viewing all camps...");
-                //  calls display camp methods
-                // 	Can have option to create, edit or delete the camps
-                
+                System.out.println("Viewing all camps...");  
                 break;
             case 3:
-                System.out.println("Viewing registerd camps...");
-                // calls method to display all create camps
+                System.out.println("Register for camp");
                 break;
             case 4:
-                System.out.println("Register for camp");
-                // calls method to display all enquires to camps created by staff
-                // Can reply to enquires
-                break;
-            case 5:
-                System.out.println("Submit Enquiry");
-                // calls method to display all suggestions by CC to camps created by staff
-                // Can choose to reply to suggestions
-                break;
-            case 6:
-            	System.out.println("Withdraw from camp");
-            	// calls method to generate report
-            	// has option to choose what kind of report to generate
-            	// attendance report; performance report; enquire report
-                break;
-            case 7:
-                System.out.println("Exiting...");
+                 System.out.println("Exiting...");
                 exit = true;
                 break;
             default:
@@ -107,19 +98,23 @@ public class StudentMenu extends Menu{
         }
     }
 
-    public void registerCamp(){
-
+    /**
+	 * This method register the student into the camp.
+	 *----------------------------------------------------------------------------------- */
+    public void registerCamp(Login currentUser){
+        if(currentUser.getRole().equals("student")){
+            //First Show all camp the student is able to register for
+            //Then submit to register for the camp
+        }
     }
 
-    public void viewAvailableCamp(){
-
-    }
-
-    public void viewRegisteredCamp(){
-
-    }
-    
-    public void chooseCamp(){
-
+	/**
+	 * This method will display all available camps for the student to view.
+	 *----------------------------------------------------------------------------------- */
+    public void viewAllCamp(Login currentUser){
+        for(Camp camp: campList) {
+			if(currentUser.getRole().equals("student") && camp.visibility)
+				System.out.print("Camp Name: " + camp.getcampName());
+		}
     }
 }
