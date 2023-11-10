@@ -66,10 +66,10 @@ public class StaffMenu extends Menu{
             } catch (NumberFormatException e) {
                 System.out.println("Invalid selection. Numbers only please.");
             }
-            if (choice < 0 || choice > 4) {
+            if (choice < 0 || choice > 7) {
                 System.out.println("Choice outside of range. Please chose again.");
             }
-        } while (choice < 0 || choice > 4);
+        } while (choice < 0 || choice > 7);
         return choice;
     }
 
@@ -107,6 +107,8 @@ public class StaffMenu extends Menu{
             	// calls method to generate report
             	// has option to choose what kind of report to generate
             	// attendance report; performance report; enquire report
+            case 7:
+                System.out.println("Quit");
             default:
                 System.out.println("Unknown error has occured.");
         }

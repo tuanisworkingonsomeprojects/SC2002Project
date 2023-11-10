@@ -59,7 +59,7 @@ public class StudentMenu extends Menu{
         System.out.println("2. View all camp");
         System.out.println("3. View Regisetered Camps");
         System.out.println("4. Register for Camp");
-        System.out.println("7. Exit");
+        System.out.println("5. Exit");
     }
 
     private void performAction(int choice) {
