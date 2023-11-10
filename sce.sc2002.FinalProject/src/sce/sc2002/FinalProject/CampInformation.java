@@ -23,7 +23,7 @@ public class CampInformation {
 	private ArrayList<Student>    blacklist;
 	
 	// Initializes the list in the constructors
-	public void campInformation() {
+	public CampInformation() {
 		studentAttendees = new ArrayList<Student>();	// list of 'Student' objects
 		committeeList    = new ArrayList<Committee>();		//list of 'Committee' objects
 		enquiries        = new ArrayList<Enquiry>();			// list of 'Enquiry' objects
