@@ -30,6 +30,7 @@ public class CampInformation {
 		suggestions      = new ArrayList<Suggestion>();		//list of 'Suggestion' objects
 		blacklist        = new ArrayList<Student>(); 			// list of 'Student' objects
 	}
+<<<<<<< Updated upstream
 	
 	// Setter methods, please do not delete Tuan :")
 	public void setcampName(String campName) 		{this.campName = campName;}
@@ -50,6 +51,10 @@ public class CampInformation {
 	
 	
 	public int getvisibility() {
+=======
+		
+	public int getVisibility() {
+>>>>>>> Stashed changes
 		if(visibility) {return 1;}
 		else return -1;
 	}
