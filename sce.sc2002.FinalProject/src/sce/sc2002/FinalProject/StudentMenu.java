@@ -11,7 +11,7 @@ public class StudentMenu extends Menu{
 
     private ArrayList<Student> registeredStudents = new ArrayList<>();
 
-    public StudentMenu(Login user){
+    public StudentMenu(Login user, CampList campList){
         super(campList);
         currentUser = user;
     }

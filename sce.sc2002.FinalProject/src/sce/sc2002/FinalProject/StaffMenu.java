@@ -90,6 +90,7 @@ public class StaffMenu extends Menu{
                 break;
             case 3:
                 System.out.println("Viewing all created camps...");
+        
                 // calls method to display all create camps
                 break;
             case 4:
@@ -114,3 +115,12 @@ public class StaffMenu extends Menu{
         }
     }
 }
+
+
+
+
+
+
+// Add create camp choice
+// Camp newCamp =  Camp.createCamp (static method)
+// campList.addCamp(newCamp);

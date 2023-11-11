@@ -10,6 +10,7 @@ public class Password {
 	private boolean granted;
 	private String userid;
 	private String role;
+	private String name;
 	private final static String secretKey = "asdfljknqwe6238745fg23av3gv246hrejbq4tybetjysdafg5y";
 	
 	
@@ -54,6 +55,7 @@ public class Password {
 			granted = true;
 			this.userid = userid;
 			userData = studentData;
+			
 			if (studentData.getPassword(userid, secretKey).equals("password")) changePassword();
 			return;
 		}
