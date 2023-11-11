@@ -13,7 +13,9 @@ public class CampApp {
 			System.out.println();
 		}
 
-		Menu currentSection = returnMenu(loginScreen);
+		CampList campList = new CampList(loginScreen);
+
+		Menu currentSection = returnMenu(loginScreen, campList);
 
 		currentSection.runMenu();
 		
@@ -23,12 +25,12 @@ public class CampApp {
 		
 	}
 
-	public static Menu returnMenu(Login currentUser){
+	public static Menu returnMenu(Login currentUser, CampList campList){
 		if (currentUser.getRole().equals("staff")){
-			return new StaffMenu(currentUser);
+			return new StaffMenu(currentUser, campList);
 		}
 		else {
-			return new StudentMenu(currentUser);
+			return new StudentMenu(currentUser, campList);
 		}
 	}
 

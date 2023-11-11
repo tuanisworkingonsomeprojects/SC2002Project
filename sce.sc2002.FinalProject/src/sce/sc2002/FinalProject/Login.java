@@ -1,8 +1,8 @@
 package sce.sc2002.FinalProject;
 
-import java.io.*;
+
 import java.util.*;
-import java.util.Vector;
+
 
 /**
  When the program started it require the instance of
@@ -13,11 +13,10 @@ import java.util.Vector;
 */
 
 public class Login extends Password{
-	private boolean granted;
+
 	
 	public Login() {
 		super();
-		granted = false;
 	}
 
 	/**
@@ -31,7 +30,7 @@ public class Login extends Password{
 		
 		
 		// Input Phase
-		while(!granted) {
+		while(!logedIn()) {
 			System.out.print("UserID: ");
 			String input_userid = sc.next();
 			
@@ -39,8 +38,8 @@ public class Login extends Password{
 			System.out.print("Password: ");
 			
 			String input_password = readPassword();
-			granted = validate(input_userid, input_password);
-			if (!granted) {
+			validate(input_userid, input_password);
+			if (!logedIn()) {
 				System.out.println("UserID or password is incorrect!\n\n");
 			}
 			else {

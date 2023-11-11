@@ -11,8 +11,8 @@ public class StudentMenu extends Menu{
 
     private ArrayList<Student> registeredStudents = new ArrayList<>();
 
-    public StudentMenu(Login user){
-        super();
+    public StudentMenu(Login user, CampList campList){
+        super(campList);
         currentUser = user;
     }
 
@@ -52,10 +52,10 @@ public class StudentMenu extends Menu{
             } catch (NumberFormatException e) {
                 System.out.println("Invalid selection. Numbers only please.");
             }
-            if (choice < 0 || choice > 7) {
+            if (choice < 0 || choice > 8) {
                 System.out.println("Choice outside of range. Please chose again.");
             }
-        } while (choice < 0 || choice > 7);
+        } while (choice < 0 || choice > 8);
         return choice;
     }
 
@@ -66,9 +66,12 @@ public class StudentMenu extends Menu{
         System.out.println("Student Attendee Portal: ");
         System.out.println();
         System.out.println("1. Change password");
-        System.out.println("2. View all camp");
-        System.out.println("3. Register for Camp");
-        System.out.println("4. Exit");
+        System.out.println("2. View all Camp");
+        System.out.println("3. View Registered Camp");
+        System.out.println("4. Register for Camp");
+        System.out.println("5. Withdraw from Camp");
+        System.out.println("6. Submit Enquiry");
+        System.out.println("7: Exit~");
     }
 
     /**
@@ -84,15 +87,27 @@ public class StudentMenu extends Menu{
                 currentUser.changePassword();
                 break;
             case 2: 
-                System.out.println("Viewing all camps...");  
+                System.out.println("Viewing all camps");  
+                //Function to view all camps
                 break;
             case 3:
-                System.out.println("Register for camp");
+                System.out.println("Viewing all Registered Camps");
+                //Function to view all registered camps
                 break;
             case 4:
-                 System.out.println("Exiting...");
+                 //Function to register for camp
+                 System.out.println("Registered for camp!");
                 exit = true;
                 break;
+            case 5:
+                //Function to withdraw from camp
+                System.out.println("Withdrawed from camp!");
+            case 6:
+                //Function to submit enquiry
+                System.out.println("Enquiry Submitted!");
+            case 7:
+                System.out.println("Exiting program!");
+                exit = true;
             default:
                 System.out.println("Unknown error has occured.");
         }
@@ -112,9 +127,6 @@ public class StudentMenu extends Menu{
 	 * This method will display all available camps for the student to view.
 	 *----------------------------------------------------------------------------------- */
     public void viewAllCamp(Login currentUser){
-        for(Camp camp: campList) {
-			if(currentUser.getRole().equals("student") && camp.visibility)
-				System.out.print("Camp Name: " + camp.getcampName());
-		}
+        campList.viewAllCamp();
     }
 }
