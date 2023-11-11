@@ -13,8 +13,21 @@ public class CampList{
         campList    = new ArrayList<Camp>();
     }
 
+    private Scanner sc = new Scanner(System.in);
     
     public ArrayList<Camp> getCampList(){return campList;}
+
+    private void tempDelay(){
+        System.out.println("Press Enter to go Back!");
+        sc.nextLine();
+
+        // Pseudo clear screen
+        for (int i = 0; i < 100; i++){
+            System.out.println();
+        }
+
+        return;
+    }
 
     public void createCamp(){
         addCamp(Camp.createCamp(currentUser, this));
@@ -33,7 +46,7 @@ public class CampList{
         if (currentUser.getRole().equals("staff")){
             
             System.out.print("Camp's name: ");
-            String delCampName = sc.next();
+            String delCampName = sc.nextLine();
 
             for (int i = 0; i < campList.size(); i++){
                 camp_ith = campList.get(i);
@@ -59,6 +72,8 @@ public class CampList{
         else {
             System.out.println("You don't have enough authority to delete the Camp!");
         }
+
+        tempDelay();
     }
 
     public void chooseCampToEdit(){
@@ -68,7 +83,7 @@ public class CampList{
             Scanner sc = new Scanner(System.in);
             viewCreatedCamp();
             System.out.print("Camp's name': ");
-            String campName = sc.next();
+            String campName = sc.nextLine();
 
             for (int i = 0; i < campList.size(); i++){
 
@@ -87,6 +102,8 @@ public class CampList{
         else {
             System.out.println("You don't have enough authority to edit camp");
         }
+
+        tempDelay();
     }
 
     public void viewCreatedCamp(){
@@ -109,6 +126,8 @@ public class CampList{
         if (index == 1){
             System.out.println("You haven't created any camp!\n\n\n");
         }
+
+        tempDelay();
     }
 
     public void viewAllCamp(){
@@ -136,6 +155,63 @@ public class CampList{
 
         if (index == 1){
             System.out.println("There is no camp to view");
+        }
+
+        tempDelay();
+        
+        
+    }
+
+    // This method that I've implemented will ask the Staff to choose to print the list of
+    // Attendee or the list of Committee already so you don't have to worry about it!
+    public void viewStudentList(){
+
+
+        for (int i = 0; i < 100; i++){
+            System.out.println();
+        }
+
+        if (currentUser.getRole().equals("student")){
+            System.out.println("You don't have enough authority to view the Student list");
+            tempDelay();
+            return;
+        }
+
+        System.out.println("View Student List Window:");
+        viewCreatedCamp();
+
+        System.out.print("Camp's name: ");
+        String campName = sc.nextLine();
+
+        // Scan throught the list of camps to check the matching Camp base on the name provided
+        for (int i = 0; i < campList.size(); i++){
+            Camp currentCamp = campList.get(i);
+
+            if (currentCamp.getCampName().equals(campName)){
+                System.out.println("View Options:");
+                System.out.println("1. Attendee");
+                System.out.println("2. Commitee");
+
+                int choice = sc.nextInt();
+
+                switch (choice) {
+                    case 1:
+                        currentCamp.printAttendeeList(currentUser);
+                        break;
+                
+                    case 2:
+                        currentCamp.printCommitteList(currentUser);
+                        break;
+
+                    default:
+                        System.out.println("Invalid choice");
+                        System.out.println("Press Enter to go Back!");
+                        sc.nextLine();
+
+                        tempDelay();
+                }
+                return;
+            }
         }
     }
 

@@ -75,6 +75,9 @@ public class CampInformation {
 	public Date		getClosingDate()	{return closingDate;}
 	public String   getFaculty()		{return avaialbleTo;}
 
+	public ArrayList<Student> getAttendeeList() 	{return studentAttendees;}
+	public ArrayList<Student> getCommitteeList()	{return committeeList;}
+
 	public Date fromStringToDate(String dateText){
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Date dateOutput = sdf.parse(dateText, new ParsePosition(0));

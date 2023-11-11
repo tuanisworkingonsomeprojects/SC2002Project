@@ -5,10 +5,9 @@ import java.util.*;
 public class Camp{
 	
 	private CampInformation campInfo;
-	private CampList campList;
+
 	
 	public Camp(CampList campList) { //constructor for Camp object
-		this.campList = campList;
 		campInfo = new CampInformation(campList);
 	}
 	
@@ -19,6 +18,8 @@ public class Camp{
 	public Date    getEndDate()			{return campInfo.getEndDate();}
 	public Date	   getClosingDate()		{return campInfo.getClosingDate();}
 	public String  getFaculty()			{return campInfo.getFaculty();}
+	public int	   getCommitteeSlot()	{return campInfo.getCampCommSlot();}
+	public int	   getAttendeeSlot()	{return campInfo.getAttendeeSlot();}
 
 	// A person is a member of a camp if he/she is a committee or attendee of that camp.
 	public boolean isMemberOfCamp(Login currentUser)	{return campInfo.isCommittee(currentUser) || campInfo.isAttendee(currentUser);} 
@@ -26,6 +27,12 @@ public class Camp{
 	public boolean isCommittee	   (Login currentUser)	{return campInfo.isCommittee(currentUser);}
 	public boolean isAttendee	   (Login currentUser)	{return campInfo.isAttendee(currentUser);}
 	public boolean isStaffInCharge (Login currentUser)	{return campInfo.getStaffInCharge().equals(currentUser.getUserid());}
+	public boolean isBlackListed   (Login currentUser)	{return campInfo.isBlackListed(currentUser);}
+	public boolean isAvailable	   (Login currentUser)	{
+		if (!isBlackListed()){
+			
+		}
+	}
 	
 	Scanner sc = new Scanner(System.in);
 
@@ -38,29 +45,29 @@ public class Camp{
 
 	public void createCampManager(Login currentUser) {
 		if(currentUser.getRole().equals("staff")) {
-			System.out.println("Camp name: ");
-			campInfo.setCampName(sc.next());
+			System.out.print("Camp name: ");
+			campInfo.setCampName(sc.nextLine());
 			
 			System.out.print("Start date (dd/MM/yyyy): ");
-			campInfo.setStartDate(sc.next());
+			campInfo.setStartDate(sc.nextLine());
 			
 			System.out.print("End date (dd/MM/yyyy): ");
-			campInfo.setEndDate(sc.next());
+			campInfo.setEndDate(sc.nextLine());
 			
 			System.out.print("Registration closing date (dd/MM/yyyy): ");
-			campInfo.setClosingDate(sc.next());
+			campInfo.setClosingDate(sc.nextLine());
 			
 			System.out.print("School: ");
-			campInfo.setAvailableTo(sc.next());
+			campInfo.setAvailableTo(sc.nextLine());
 			
 			System.out.print("Location: ");
-			campInfo.setLocation(sc.next());
+			campInfo.setLocation(sc.nextLine());
 			
 			System.out.print("Slots: ");
 			campInfo.setAttendeeSlot(sc.nextInt());
 			
 			System.out.print("Description: ");
-			campInfo.setDescription(sc.next());
+			campInfo.setDescription(sc.nextLine());
 			
 			System.out.print("Available?(Y/N) ");
 			campInfo.setVisibility(sc.next().charAt(0));
@@ -190,8 +197,49 @@ public class Camp{
 		return false;
 	}
 
+	public void printAttendeeList(Login currentUser){
+		if (currentUser.getRole().equals("staff")){
+			System.out.println("Student Attendee List:");
 
+			for (int i = 0; i < campInfo.getAttendeeList().size(); i++){
+				Student currentStudent = campInfo.getAttendeeList().get(i);
+				System.out.println(i + ". " + currentStudent.getID());
+			}
+		}
+		else {
+			System.out.println("You don't have enough authority to view this list!");
+		}
 
+		System.out.println("Hit Enter to go back!");
+		sc.nextLine();
+
+		// Pseudo clear screen
+		for (int i = 0; i < 100; i++){
+			System.out.println();
+		}
+	}
+
+	public void printCommitteList(Login currentUser){
+		if (currentUser.getRole().equals("staff")){
+			System.out.println("Student Committee List:");
+
+			for (int i = 0; i < campInfo.getCommitteeList().size(); i++){
+				Student currentStudent = campInfo.getCommitteeList().get(i);
+				System.out.println(i + ". " + currentStudent.getID());
+			}
+		}
+		else {
+			System.out.println("You don't have enough authority to view this list!");
+		}
+
+		System.out.println("Hit Enter to go back!");
+		sc.nextLine();
+
+		// Pseudo clear screen
+		for (int i = 0; i < 100; i++){
+			System.out.println();
+		}
+	}
 }
 
 
