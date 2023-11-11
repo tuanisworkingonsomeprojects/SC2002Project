@@ -30,7 +30,6 @@ public class CampInformation {
 	private ArrayList<Suggestion> suggestions;
 	private ArrayList<Student>    blacklist;
 
-	private ArrayList<String>	  viewerGroup; // e.g [SCSE, NBS, EEE, ...]
 
 	private CampList 				campList;  // The Camp need to know the campList to check for clashing.
 	
@@ -41,7 +40,6 @@ public class CampInformation {
 		enquiries        = new ArrayList<Enquiry>();	 // list of 'Enquiry' objects
 		suggestions      = new ArrayList<Suggestion>();	 // list of 'Suggestion' objects
 		blacklist        = new ArrayList<Student>(); 	 // list of 'Student' objects
-		viewerGroup		 = new ArrayList<String>();      // list of group that can view this camp 
 		this.campList    = campList;
 	}
 	
@@ -75,6 +73,7 @@ public class CampInformation {
 	public Date		getStartDate()		{return startDate;}
 	public Date		getEndDate()		{return endDate;}
 	public Date		getClosingDate()	{return closingDate;}
+	public String   getFaculty()		{return avaialbleTo;}
 
 	public Date fromStringToDate(String dateText){
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

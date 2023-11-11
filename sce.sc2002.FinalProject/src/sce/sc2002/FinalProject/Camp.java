@@ -18,9 +18,14 @@ public class Camp{
 	public Date	   getStartDate()		{return campInfo.getStartDate();}
 	public Date    getEndDate()			{return campInfo.getEndDate();}
 	public Date	   getClosingDate()		{return campInfo.getClosingDate();}
+	public String  getFaculty()			{return campInfo.getFaculty();}
 
 	// A person is a member of a camp if he/she is a committee or attendee of that camp.
 	public boolean isMemberOfCamp(Login currentUser)	{return campInfo.isCommittee(currentUser) || campInfo.isAttendee(currentUser);} 
+
+	public boolean isCommittee	   (Login currentUser)	{return campInfo.isCommittee(currentUser);}
+	public boolean isAttendee	   (Login currentUser)	{return campInfo.isAttendee(currentUser);}
+	public boolean isStaffInCharge (Login currentUser)	{return campInfo.getStaffInCharge().equals(currentUser.getUserid());}
 	
 	Scanner sc = new Scanner(System.in);
 
@@ -73,14 +78,18 @@ public class Camp{
 		int choice = 0;
 		while (choice < 10){
 			if(currentUser.getRole().equals("staff")) {
-				display();
+				displayEditCamp();
 				choice = getMenuChoice();
-				performAction(choice);
+				performActionEditCamp(choice);
+			}
+			else {
+				System.out.println("You don't have enough authority to edit camp!");
+				break;
 			}
 		}
 	}
 
-	public void display() {
+	public void displayEditCamp() {
 		System.out.println("What would you like to edit?");
 		System.out.println();
 		System.out.println("1.	Camp name");
@@ -112,7 +121,7 @@ public class Camp{
         return choice;
     }
 	
-	private void performAction(int choice) {
+	private void performActionEditCamp(int choice) {
         switch (choice) {
 
             // Change password option
@@ -166,6 +175,21 @@ public class Camp{
         }
     }
 	
+	public boolean allowToView(Login currentUser){
+
+		// If it is staff the visibility is always true
+		if (currentUser.getRole().equals("staff")) return true;
+
+		else if (getVisibility()){
+			// When the scope of the camp is whole NTU it also return true
+			if (getFaculty().equals("NTU")) return true;
+
+			// Check if the camp is visible to corresponding student.
+			else if(currentUser.getFaculty().equals(getFaculty())) return true;
+		}
+		return false;
+	}
+
 
 
 }
