@@ -43,15 +43,17 @@ public class StaffMenu extends Menu{
 		System.out.println("Staff Portal: ");
         System.out.println();
 		System.out.println("1. Change password");
-		System.out.println("2. View all camps");        //can choose to create, edit or delete all camps
-		System.out.println("3. View created camps");    //create a camp
-		System.out.println("4. Enquiries");             // will show all enquires to camps staff has created, 
-											            // can choose to reply to which enquire	
-		System.out.println("5. Suggestions");	        // will show all suggestions by CC to camps staff has created, 
-												        // can choose to reply to which suggestion
-		System.out.println("6. Generate report"); 	    // can choose which camp (created by staff) to generate what
-													    // kind of report (attendance report; performance report; 
-													    // enquire report)
+		System.out.println("2. View all camps");              //view all camps
+        System.out.println("3. Create camp");                 //create a camp
+		System.out.println("4. View created camps");          //view all camps created by staffs
+		System.out.println("5. Enquiries");                   // will show all enquires to camps staff has created, 
+                                                                // can choose to reply to which enquire	
+		System.out.println("6. Suggestions");	                // will show all suggestions by CC to camps staff has created, 
+												                // can choose to reply to which suggestion
+		System.out.println("7. Generate report"); 	        // can choose which camp (created by staff) to generate what
+													            // kind of report (attendance report; performance report; 
+													            // enquire report)
+        System.out.println("8. Log out");                     // log out of session
 	}
 	
 
@@ -84,29 +86,34 @@ public class StaffMenu extends Menu{
                 break;
             case 2: 
                 System.out.println("Viewing all camps...");
-                //  calls display camp methods
-                // 	Can have option to create, edit or delete the camps
-                
+                campList.viewAllCamp();
                 break;
-            case 3:
-                System.out.println("Viewing all created camps...");
-                // calls method to display all create camps
+            case 3: 
+                System.out.println("Creating camp...");
+                campList.createCamp();
                 break;
             case 4:
+                System.out.println("Viewing all created camps...");
+                campList.viewCreatedCamp();
+                break;
+            case 5:
                 System.out.println("Viewing enquries...");
                 // calls method to display all enquires to camps created by staff
                 // Can reply to enquires
                 break;
-            case 5:
+            case 6:
                 System.out.println("Viewing suggestions...");
                 // calls method to display all suggestions by CC to camps created by staff
                 // Can choose to reply to suggestions
                 break;
-            case 6:
+            case 7:
             	System.out.println("Which report would you like to generate?");
             	// calls method to generate report
             	// has option to choose what kind of report to generate
             	// attendance report; performance report; enquire report
+            case 8:
+                System.out.println("Logging out...");
+                // calls method to log out
             default:
                 System.out.println("Unknown error has occured.");
         }

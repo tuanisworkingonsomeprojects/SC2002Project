@@ -1,12 +1,12 @@
 package sce.sc2002.FinalProject;
 
-public class Student{
+public class Staff{
 
     //Not sure if needed
     private String ID;
     private String faculty;
     
-    public Student(String ID, String faculty){
+    public Staff(String ID, String faculty){
         this.ID      = id;
         this.faculty = faculty;
     }
