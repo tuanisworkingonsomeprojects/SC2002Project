@@ -29,9 +29,12 @@ public class Camp{
 	public boolean isStaffInCharge (Login currentUser)	{return campInfo.getStaffInCharge().equals(currentUser.getUserid());}
 	public boolean isBlackListed   (Login currentUser)	{return campInfo.isBlackListed(currentUser);}
 	public boolean isAvailable	   (Login currentUser)	{
-		if (!isBlackListed()){
-			
+		if (isBlackListed(currentUser)){
+			return false;
 		}
+		else if (getCommitteeSlot() > 0 || getAttendeeSlot() > 0) return true;
+
+		return false;
 	}
 	
 	Scanner sc = new Scanner(System.in);

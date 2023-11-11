@@ -215,7 +215,13 @@ public class CampList{
         }
     }
 
-    
+    public void viewAvailableCamp(){
+        
+    }
+
+    public void viewSpecificCamp(){
+        
+    }
 
     
 
