@@ -69,10 +69,10 @@ public class StaffMenu extends Menu{
             } catch (NumberFormatException e) {
                 System.out.println("Invalid selection. Numbers only please.");
             }
-            if (choice < 0 || choice > 4) {
+            if (choice < 0 || choice > 8) {
                 System.out.println("Choice outside of range. Please chose again.");
             }
-        } while (choice < 0 || choice > 4);
+        } while (choice < 0 || choice > 8);
         return choice;
     }
 
