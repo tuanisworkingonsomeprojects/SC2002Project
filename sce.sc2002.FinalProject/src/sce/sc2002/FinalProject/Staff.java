@@ -7,7 +7,7 @@ public class Staff{
     private String faculty;
     
     public Staff(String ID, String faculty){
-        this.ID      = id;
+        this.ID      = ID;
         this.faculty = faculty;
     }
 
