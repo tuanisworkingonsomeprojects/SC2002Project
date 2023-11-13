@@ -110,6 +110,9 @@ public class Password {
 		
 	}
 	
+	protected void logOut(){
+		granted = false;
+	}
 	
 	
 }

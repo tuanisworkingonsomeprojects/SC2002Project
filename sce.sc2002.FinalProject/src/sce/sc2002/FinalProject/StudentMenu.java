@@ -163,6 +163,8 @@ public class StudentMenu extends Menu{
             case 14:
                 System.out.println("Logging out");
                 exit = true;
+                currentUser.logOut();
+                break;
 
             case 15:
                 // TODO: remember to write the databack to the CSV file.
