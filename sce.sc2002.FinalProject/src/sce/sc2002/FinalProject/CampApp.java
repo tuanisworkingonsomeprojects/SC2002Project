@@ -21,7 +21,7 @@ public class CampApp {
 
 			Menu currentSection = returnMenu(loginScreen, campList);
 
-			quit = currentSection.runMenu();
+			currentSection.runMenu();
 		}
 
 		

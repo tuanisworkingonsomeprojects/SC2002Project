@@ -20,7 +20,6 @@ public class CampInformation {
 
 	private int    		attendeeSlot = 40;
 	private int    		campCommSlots = 10;
-	private String 		description;
 	private String 		staffInCharge; //creator of the camp
 	private boolean 	visibility = false; // Default to false
 
@@ -43,6 +42,8 @@ public class CampInformation {
 		this.campList    = campList;
 	}
 	
+	private Scanner sc = new Scanner(System.in);
+
 	// Setter methods, please do not delete Tuan :") 
 	public void setCampName(String campName)   		{this.campName      = campName;}
 
@@ -55,7 +56,6 @@ public class CampInformation {
  	public void setLocation(String location)   		{this.location      = location;} 
 	public void setAttendeeSlot(int attendeeSlot)  	{this.attendeeSlot  = attendeeSlot ;}
 	public void setCampCommSlot(int campCommSlots)  {this.campCommSlots = campCommSlots;}
- 	public void setDescription(String description)  {this.description   = description;} 
 	public void setStaffInCharge(Login currentUser) {this.staffInCharge = currentUser.getUserid();} 
  	public void setVisibility(char x) {  
 		if(x == 'Y') {
@@ -74,9 +74,11 @@ public class CampInformation {
 	public Date		getEndDate()		{return endDate;}
 	public Date		getClosingDate()	{return closingDate;}
 	public String   getFaculty()		{return avaialbleTo;}
+	public String   getLocation()		{return location;}
 
 	public ArrayList<Student> getAttendeeList() 	{return studentAttendees;}
 	public ArrayList<Student> getCommitteeList()	{return committeeList;}
+
 
 	public Date fromStringToDate(String dateText){
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -150,6 +152,7 @@ public class CampInformation {
 			else{
 				studentAttendees.add(new Student(currentUser.getUserid(), currentUser.getFaculty()));
 				attendeeSlot--;
+				System.out.println("Camp registration successfully!");
 			}
 		}
 		else {

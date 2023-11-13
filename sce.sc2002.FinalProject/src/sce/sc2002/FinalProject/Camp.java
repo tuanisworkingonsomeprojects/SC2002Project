@@ -5,7 +5,7 @@ import java.util.*;
 public class Camp{
 	
 	private CampInformation campInfo;
-
+	private Scanner sc = new Scanner(System.in);
 	
 	public Camp(CampList campList) { //constructor for Camp object
 		campInfo = new CampInformation(campList);
@@ -20,6 +20,9 @@ public class Camp{
 	public String  getFaculty()			{return campInfo.getFaculty();}
 	public int	   getCommitteeSlot()	{return campInfo.getCampCommSlot();}
 	public int	   getAttendeeSlot()	{return campInfo.getAttendeeSlot();}
+	public String  getLocation()		{return campInfo.getLocation();}
+	public ArrayList<Student> getAttendeeList() {return campInfo.getAttendeeList();}
+	public ArrayList<Student> getCommitteeList() {return campInfo.getCommitteeList();}
 
 	// A person is a member of a camp if he/she is a committee or attendee of that camp.
 	public boolean isMemberOfCamp(Login currentUser)	{return campInfo.isCommittee(currentUser) || campInfo.isAttendee(currentUser);} 
@@ -28,16 +31,13 @@ public class Camp{
 	public boolean isAttendee	   (Login currentUser)	{return campInfo.isAttendee(currentUser);}
 	public boolean isStaffInCharge (Login currentUser)	{return campInfo.getStaffInCharge().equals(currentUser.getUserid());}
 	public boolean isBlackListed   (Login currentUser)	{return campInfo.isBlackListed(currentUser);}
-	public boolean isAvailable	   (Login currentUser)	{
-		if (isBlackListed(currentUser)){
-			return false;
-		}
-		else if (getCommitteeSlot() > 0 || getAttendeeSlot() > 0) return true;
+	public boolean isAvailable	   ()	{
+		if (getCommitteeSlot() > 0 || getAttendeeSlot() > 0) return true;
 
 		return false;
 	}
 	
-	Scanner sc = new Scanner(System.in);
+
 
 
 	public static Camp createCamp(Login currentUser, CampList campList){
@@ -68,9 +68,6 @@ public class Camp{
 			
 			System.out.print("Slots: ");
 			campInfo.setAttendeeSlot(sc.nextInt());
-			
-			System.out.print("Description: ");
-			campInfo.setDescription(sc.nextLine());
 			
 			System.out.print("Available?(Y/N) ");
 			campInfo.setVisibility(sc.next().charAt(0));
@@ -164,14 +161,10 @@ public class Camp{
             	campInfo.setAttendeeSlot(sc.nextInt());
             	break;
             case 8:
-            	System.out.println("New description: ");
-            	campInfo.setDescription(sc.next());
-            	break;
-            case 9:
             	System.out.println("Availability? (Y/N): ");
             	campInfo.setVisibility(sc.next().charAt(0));
             	break;
-			case 10:
+			case 9:
 				System.out.println("Exiting...");
 
 				for (int i = 0; i < 100; i++){
@@ -243,6 +236,33 @@ public class Camp{
 			System.out.println();
 		}
 	}
+
+
+	public void registerCamp(Login currentUser){
+		System.out.println("Choose your role in Camp:");
+		System.out.println("1. Camp Attendee");
+		System.out.println("2. Camp Committee");
+		System.out.print("Your choice: ");
+		int choice = sc.nextInt();
+
+		switch (choice) {
+			case 1:
+				campInfo.attendeeRegister(currentUser);
+				break;
+			case 2:
+				campInfo.committeeRegister(currentUser);
+				break;
+			default:
+				System.out.println("Inappropriate choice! Going back...");
+				break;
+		}
+	}
+
+	public void withdawFromCamp(Login currentUser){
+		campInfo.attendeeWithdrawal(currentUser);
+	}
+
+
 }
 
 
