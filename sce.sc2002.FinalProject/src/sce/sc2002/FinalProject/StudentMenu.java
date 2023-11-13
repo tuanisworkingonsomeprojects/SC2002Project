@@ -39,7 +39,6 @@ public class StudentMenu extends Menu{
 			display();
 			int choice = getMenuChoice();
 			performAction(choice);
-
 		}
 	}
 
@@ -118,16 +117,25 @@ public class StudentMenu extends Menu{
                 break;
             
             case 8:
-                if (campList.isCampCommittee()) performCommitteeAction(choice);
-                else exit = true;
+                if (campList.isCampCommittee()) performCommitteeAction(choice); 
+
+                else {
+                    currentUser.logOut();
+                    // TODO: remember to write the data back to the CSV file
+                    exit = true;
+                }
+                break;
 
             default:
                 if (campList.isCampCommittee()) performCommitteeAction(choice);
+                currentUser.logOut();
                 // TODO: remember to write the data back to the CSV file
                 System.exit(0);
+                break;
         }
     }
 
+    
     private void performCommitteeAction(int choice){
         switch(choice){
             case 8:

@@ -7,9 +7,12 @@ public class CampApp {
 		
 		boolean quit = false;
 
+		loginScreen.display();
+		CampList campList = new CampList(loginScreen);
+
 		while(!quit){
 
-			loginScreen.display();
+			
 
 
 			//Pseudo clear screen
@@ -17,11 +20,12 @@ public class CampApp {
 				System.out.println();
 			}
 
-			CampList campList = new CampList(loginScreen);
+			
 
 			Menu currentSection = returnMenu(loginScreen, campList);
 
 			currentSection.runMenu();
+			loginScreen.display();
 		}
 
 		

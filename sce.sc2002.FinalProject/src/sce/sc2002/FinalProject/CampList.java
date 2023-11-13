@@ -28,9 +28,12 @@ public class CampList{
             Camp camp_ith = campList.get(i);
 
             if (camp_ith.isCommittee(currentUser)){
+                // TODO: delete this test
+                System.out.println("This is a commitee");
                 return true;
             }
         }
+
         return false;
     }
 
@@ -264,6 +267,8 @@ public class CampList{
 
         for (int i = 0; i < campList.size(); i++){
             Camp camp_ith = campList.get(i);
+
+
 
             if (camp_ith.isAvailable()){
                 System.out.print(index + ". " + camp_ith.getCampName());
