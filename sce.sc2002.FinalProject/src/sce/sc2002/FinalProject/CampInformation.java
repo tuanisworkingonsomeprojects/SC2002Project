@@ -230,11 +230,34 @@ public class CampInformation {
 		return false;
 	}
 
-	public void addEnquiry(Enquiry enquiry) {
+	// Method to add a new enquiry
+    public void createEnquiry(Camp camp, Student author, String subject, String description) {
+        Enquiry enquiry = new Enquiry(camp, author, subject, description, null, null, false);
         enquiries.add(enquiry);
     }
 
-	
+    // Method to get a list of enquiries
+    public ArrayList<Enquiry> getEnquiries() {
+        return enquiries;
+    }
+
+    // Method to get an enquiry by ID
+    public Enquiry getEnquiryById(int enquiryID) {
+        for (Enquiry enquiry : enquiries) {
+            if (enquiry.getEnquiryID() == enquiryID) {
+                return enquiry;
+            }
+        }
+        return null; // Enquiry not found
+    }
+
+    // Method to delete an enquiry
+    public void deleteEnquiry(int enquiryID) {
+        Enquiry enquiry = getEnquiryById(enquiryID);
+        if (enquiry != null) {
+            enquiries.remove(enquiry);
+        }
+    }
 	
 	
 }
