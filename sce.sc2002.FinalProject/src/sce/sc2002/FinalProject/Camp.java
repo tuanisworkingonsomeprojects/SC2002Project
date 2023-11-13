@@ -243,6 +243,9 @@ public class Camp{
 			System.out.println();
 		}
 	}
+
+    public void addEnquiry(Enquiry enquiry) {
+    }
 }
 
 

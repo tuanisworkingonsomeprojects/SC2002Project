@@ -42,7 +42,7 @@ public class TestDraft {
 		
 		
 		UserData userdata = new UserData("student");
-		userdata.changePassword("KOH1", "password");
+		userdata.changePassword("KOH1", "password", null);
 		
 		
 		

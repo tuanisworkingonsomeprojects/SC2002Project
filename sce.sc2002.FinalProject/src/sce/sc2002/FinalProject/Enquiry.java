@@ -1,32 +1,55 @@
 package sce.sc2002.FinalProject;
-import java.util.*;
 
+import java.util.Date;
+
+/*
+    Represents an enquiry related to a camp in the Camp Application and Management System (CAMs).
+ */
 public class Enquiry {
-    static int enquiryCount = 1;
+    private static int enquiryCount = 1;
 
+    private int enquiryID;
     private String subject;
-    private Date timestamp;
     private String description;
     private String reply;
-    private int enquiryID;
     private boolean resolved;
+    private Date timestamp;
     private Student author;
     private Staff replyAuthor;
     private Camp camp;
     private Student responsibleCommitteeMember;
 
-    public Enquiry(Camp camp, Student author, String subject, String description, Staff replyAuthor, String reply, boolean status) {
+    public Enquiry(Camp camp, Student author, String subject, String description, Staff replyAuthor, String reply, boolean status) 
+    {
+        if (camp == null || author == null) 
+        {
+            throw new IllegalArgumentException("Camp and Author cannot be null");
+        }
         this.enquiryID = enquiryCount++;
         this.camp = camp;
         this.author = author;
         this.subject = subject;
         this.description = description;
-        this.resolved = false; // Enquiries start as unresolved
-        this.replyAuthor = replyAuthor; // Initialize reply author as null
-        this.reply = null; // Initialize reply as null
+        this.replyAuthor = replyAuthor;
+        this.reply = reply;
         this.resolved = status;
-        this.timestamp = new Date(); // Set the timestamp when the enquiry is created
+        this.timestamp = new Date();
     }
+
+    @Override
+    public String toString() 
+    {
+        return "Enquiry ID: " + enquiryID +
+            "\nSubject: " + subject +
+            "\nDescription: " + description +
+            "\nResolved: " + resolved +
+            "\nTimestamp: " + timestamp +
+            "\nAuthor: " + author +
+            "\nReply Author: " + replyAuthor +
+            "\nCamp: " + camp +
+            "\nCommittee Member: " + responsibleCommitteeMember;
+    }
+
 
     public String getDescription() {
         return description;
@@ -74,20 +97,26 @@ public class Enquiry {
         resolved = true;
     }
 
-    public void editEnquiry(String newDescription) {
+    public void editDescription(String newDescription) {
         this.description = newDescription;
     }
 
-    public void assignToCommitteeMember(Student student, Camp camp) {
-        if (student.isCampCommittee() && (student.getCommitteeCamp() == null || student.getCommitteeCamp() == camp)) {
+    public void assignToCommitteeMember(Student student, Camp camp) 
+    {
+        if (student == null || camp == null) 
+        {
+            throw new IllegalArgumentException("Student and Camp cannot be null");
+        }
+
+        if (student.isCampCommittee() && (student.getCommitteeCamp() == null || student.getCommitteeCamp() == camp)) 
+        {
             student.setCommitteeCamp(camp);
             this.responsibleCommitteeMember = student;
         }
     }
-    
 
     public boolean hasReply() {
-        return reply != null;
+        return reply != null && !reply.isEmpty();
     }
-
 }
+
