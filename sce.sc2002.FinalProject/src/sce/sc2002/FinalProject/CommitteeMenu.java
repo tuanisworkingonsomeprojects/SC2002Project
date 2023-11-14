@@ -1,17 +1,10 @@
 package sce.sc2002.FinalProject;
 import java.util.*;
 
-/**
- @author Chong Wen Rong, Chelson
- @version 1.0
- @since 11/2/2023
-*/
+public class CommitteeMenu extends Menu{
 
-public class StudentMenu extends Menu{
 
-    private ArrayList<Student> registeredStudents = new ArrayList<>();
-
-    public StudentMenu(Login user, CampList campList){
+    public CommitteeMenu(Login user, CampList campList){
         super(campList);
         currentUser = user;
     }
@@ -32,11 +25,10 @@ public class StudentMenu extends Menu{
     public void runMenu() {
 		printHeader();
 
-        boolean quit;
-
         // TODO: remember to update the exit variable appropriately
 		while(!exit) {
 			display();
+            System.out.println("Your choice: ");
 			int choice = getMenuChoice();
 			performAction(choice);
 		}
@@ -63,25 +55,18 @@ public class StudentMenu extends Menu{
         System.out.println("3. Register for Camp");
         System.out.println("4. View Registed Camp");
         System.out.println("5. Withdraw from Camp");
-        System.out.println("6. Submit Enquiry");
-        System.out.println("7. View Reply to Enquiry");
+        System.out.println("6. View camp's detail");
+        System.out.println("7. Submit suggestion");
+        System.out.println("8. Edit suggestion");
+        System.out.println("9. Delete Suggestion");
+        System.out.println("10. View camp's enquiry");
+        System.out.println("11. Generate camp's report");
+        System.out.println("12. Log out");
+        System.out.println("13. Exit");
 
-        if (campList.isCampCommittee()){
-            System.out.println("8. View camp's detail");
-            System.out.println("9. Submit suggestion");
-            System.out.println("10. Edit suggestion");
-            System.out.println("11. Delete Suggestion");
-            System.out.println("12. View camp's enquiry");
-            System.out.println("13. Generate camp's report");
-            System.out.println("14. Log out");
-            System.out.println("15. Exit");
-        }
-        else {
-            System.out.println("8. Log out");
-            System.out.println("9. Exit");
-        }
-        
     }
+        
+    
 
 
     private void performAction(int choice) {
@@ -109,73 +94,46 @@ public class StudentMenu extends Menu{
                 System.out.println("Withdrawing from camp...");
                 campList.withdawFromCamp();
                 break;
-            case 6:
-                // TODO: add the Enquiy option.
-                break;
-            case 7:
-                // TODO: add view reply the enquiry.
-                break;
             
-            case 8:
-                if (campList.isCampCommittee()) performCommitteeAction(choice); 
-
-                else {
-                    currentUser.logOut();
-                    // TODO: remember to write the data back to the CSV file
-                    exit = true;
-                }
-                break;
-
-            default:
-                if (campList.isCampCommittee()) performCommitteeAction(choice);
-                currentUser.logOut();
-                // TODO: remember to write the data back to the CSV file
-                System.exit(0);
-                break;
-        }
-    }
-
-    
-    private void performCommitteeAction(int choice){
-        switch(choice){
-            case 8:
+            case 6:
                 System.out.println("Viewing Camp Details...");
                 campList.viewCampDetail();
                 break;
             
-            case 9:
+            case 7:
                 System.out.println("Submitting Suggestion...");
                 // TODO: submitting suggestion option
                 break;
 
-            case 10:
+            case 8:
                 System.out.println("Editing Suggestion...");
                 // TODO: editing suggestion option
                 break;
             
-            case 11:
+            case 9:
                 System.out.println("Deleting Suggestion...");
                 // TODO: deleting suggestion option
                 break;
             
-            case 12:
+            case 10:
                 System.out.println("Viewing Camp enquiry...");
                 // TODO: view camp enquiry option
                 break;
             
-            case 13:
+            case 11:
                 System.out.println("Generating Camp report...");
                 // TODO: generate camp report option
                 break;
 
-            case 14:
+            case 12:
                 System.out.println("Logging out");
                 exit = true;
                 currentUser.logOut();
                 break;
 
-            case 15:
+            case 13:
                 // TODO: remember to write the databack to the CSV file.
+                currentUser.logOut();
                 System.exit(0);
                 break;
 
@@ -184,5 +142,5 @@ public class StudentMenu extends Menu{
         }
     }
 
-
+    
 }

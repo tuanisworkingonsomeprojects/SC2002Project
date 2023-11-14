@@ -12,15 +12,10 @@ public class CampApp {
 
 		while(!quit){
 
-			
-
-
 			//Pseudo clear screen
 			for (int i = 0; i < 100; i++){
 				System.out.println();
 			}
-
-			
 
 			Menu currentSection = returnMenu(loginScreen, campList);
 
@@ -39,8 +34,11 @@ public class CampApp {
 		if (currentUser.getRole().equals("staff")){
 			return new StaffMenu(currentUser, campList);
 		}
+		else if (campList.isCampCommittee()){
+			return new CommitteeMenu(currentUser, campList);
+		}
 		else {
-			return new StudentMenu(currentUser, campList);
+			return new AttendeeMenu(currentUser, campList);
 		}
 	}
 
