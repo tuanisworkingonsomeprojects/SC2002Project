@@ -231,10 +231,10 @@ public class CampInformation {
 	}
 
 	// Method to add a new enquiry
-    public void createEnquiry(Camp camp, Student author, String subject, String description) {
+    /*public void createEnquiry(Camp camp, Student author, String subject, String description) {
         Enquiry enquiry = new Enquiry(camp, author, subject, description, null, null, false);
         enquiries.add(enquiry);
-    }
+    }*/
 
     // Method to get a list of enquiries
     public ArrayList<Enquiry> getEnquiries() {
