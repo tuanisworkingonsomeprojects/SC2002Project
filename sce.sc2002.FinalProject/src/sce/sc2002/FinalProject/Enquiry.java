@@ -1,52 +1,32 @@
 package sce.sc2002.FinalProject;
+import java.util.*;
 
-import java.util.Date;
-import java.util.concurrent.atomic.AtomicInteger;
-
-/*
-    Represents an enquiry related to a camp in the Camp Application and Management System (CAMs).
- */
 public class Enquiry {
-    private static final AtomicInteger enquiryCount = new AtomicInteger(1);
+    static int enquiryCount = 1;
 
-    private int enquiryID;
     private String subject;
+    private Date timestamp;
     private String description;
     private String reply;
+    private int enquiryID;
     private boolean resolved;
-    private Date timestamp;
     private Student author;
     private Staff replyAuthor;
     private Camp camp;
     private Student responsibleCommitteeMember;
 
-    public Enquiry(Camp camp, Student author, String subject, String description) {
-        validateNonNull(camp, "Camp cannot be null");
-        validateNonNull(author, "Author cannot be null");
-
-        this.enquiryID = enquiryCount.getAndIncrement();
+    public Enquiry(Camp camp, Student author, String subject, String description, Staff replyAuthor, String reply, boolean status) {
+        this.enquiryID = enquiryCount++;
         this.camp = camp;
         this.author = author;
         this.subject = subject;
         this.description = description;
-        this.timestamp = new Date();  // Set only once during construction
-        this.resolved = false;  // Default to unresolved
+        this.resolved = false; // Enquiries start as unresolved
+        this.replyAuthor = replyAuthor; // Initialize reply author as null
+        this.reply = null; // Initialize reply as null
+        this.resolved = status;
+        this.timestamp = new Date(); // Set the timestamp when the enquiry is created
     }
-
-    @Override
-    public String toString() 
-    {
-        return "Enquiry ID: " + enquiryID +
-            "\nSubject: " + subject +
-            "\nDescription: " + description +
-            "\nResolved: " + resolved +
-            "\nTimestamp: " + timestamp +
-            "\nAuthor: " + author +
-            "\nReply Author: " + replyAuthor +
-            "\nCamp: " + camp +
-            "\nCommittee Member: " + responsibleCommitteeMember;
-    }
-
 
     public String getDescription() {
         return description;
@@ -77,75 +57,37 @@ public class Enquiry {
     }
 
     public void setDescription(String description) {
-        if (!resolved) {
-            this.description = description;
-        } else {
-            throw new IllegalStateException("Cannot change description of resolved enquiry.");
-        }
+        this.description = description;
     }
-    
-    public void setReply(String reply) {
-        if (!resolved) {
-            this.reply = reply;
-            // Optionally, if the reply is being set for the first time, automatically mark the enquiry as resolved
-            if (!hasReply()) {
-                resolveEnquiry();
-            }
-        } else {
-            throw new IllegalStateException("Cannot change reply of resolved enquiry.");
-        }
-    }
-    
 
-    public int getEnquiryAgeInDays() 
-    {
+    public void setReply(String reply) {
+        this.reply = reply;
+    }
+
+    public int getEnquiryAgeInDays() {
         Date now = new Date();
         long diff = now.getTime() - timestamp.getTime();
         return (int) (diff / (24 * 60 * 60 * 1000)); // Convert milliseconds to days
     }
 
-    public void markAsResolved() 
-    {
+    public void markAsResolved() {
         resolved = true;
     }
 
-    // Protected to ensure enquiry is not edited after being resolved
-    protected void editDescription(String newDescription) 
-    {
-        if (!resolved) {
-            this.description = newDescription;
-        } else {
-            throw new IllegalStateException("Cannot edit resolved enquiry.");
-        }
+    public void editEnquiry(String newDescription) {
+        this.description = newDescription;
     }
 
-    public synchronized void assignToCommitteeMember(Student student) 
-    {
-        validateNonNull(student, "Student cannot be null");
-        if (student.isCampCommittee() && !this.resolved) {
+    public void assignToCommitteeMember(Student student, Camp camp) {
+        if (student.isCampCommittee() && (student.getCommitteeCamp() == null || student.getCommitteeCamp() == camp)) {
+            student.setCommitteeCamp(camp);
             this.responsibleCommitteeMember = student;
-        } else {
-            throw new IllegalStateException("Cannot assign an enquiry that is already resolved or student is not a committee member.");
         }
     }
+    
 
-    // Utility method for null checking
-    private void validateNonNull(Object obj, String message) 
-    {
-        if (obj == null) 
-        {
-            throw new IllegalArgumentException(message);
-        }
+    public boolean hasReply() {
+        return reply != null;
     }
 
-    protected void resolveEnquiry() 
-    {
-        this.resolved = true;
-    }
-
-    public boolean hasReply() 
-    {
-        return reply != null && !reply.isEmpty();
-    }
 }
-
