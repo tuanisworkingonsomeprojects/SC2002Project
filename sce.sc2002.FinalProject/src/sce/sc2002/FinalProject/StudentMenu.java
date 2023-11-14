@@ -2,7 +2,6 @@ package sce.sc2002.FinalProject;
 import java.util.*;
 
 /**
-
  @author Chong Wen Rong, Chelson
  @version 1.0
  @since 11/2/2023
@@ -10,12 +9,16 @@ import java.util.*;
 
 public class StudentMenu extends Menu{
 
-    public StudentMenu(Login user){
-        super();
+    private ArrayList<Student> registeredStudents = new ArrayList<>();
+
+    public StudentMenu(Login user, CampList campList){
+        super(campList);
         currentUser = user;
     }
 
-
+	/**
+	 * This will print the header of the Camp App.
+	 *----------------------------------------------------------------------------------- */
     private void printHeader() {
 		System.out.println("+-----------------------------------+");
         System.out.println("|           Welcome to              |");
@@ -23,11 +26,15 @@ public class StudentMenu extends Menu{
         System.out.println("+-----------------------------------+");
 	}
 
-
-
+	/**
+	 * This method will display the menu once the user has logged in.
+	 *----------------------------------------------------------------------------------- */
     public void runMenu() {
 		printHeader();
 
+        boolean quit;
+
+        // TODO: remember to update the exit variable appropriately
 		while(!exit) {
 			display();
 			int choice = getMenuChoice();
@@ -35,32 +42,47 @@ public class StudentMenu extends Menu{
 		}
 	}
 
+	/**
+	 * This will return the choice that the user has selected.
+	 *----------------------------------------------------------------------------------- */
     private int getMenuChoice() {
         Scanner keyboard = new Scanner(System.in);
-        int choice = -1;
-        do {
-            System.out.print("Enter your choice: ");
-            try {
-                choice = Integer.parseInt(keyboard.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid selection. Numbers only please.");
-            }
-            if (choice < 0 || choice > 7) {
-                System.out.println("Choice outside of range. Please chose again.");
-            }
-        } while (choice < 0 || choice > 7);
+        int choice = keyboard.nextInt();
         return choice;
     }
 
+	/**
+	 * This is the display of the student's version of menu.
+	 *----------------------------------------------------------------------------------- */
     public void display(){
         System.out.println("Student Attendee Portal: ");
         System.out.println();
-        System.out.println("1. Change password");
-        System.out.println("2. View all camp");
-        System.out.println("3. View Regisetered Camps");
-        System.out.println("4. Register for Camp");
-        System.out.println("7. Exit");
+        System.out.println("1. Change Password");
+        System.out.println("2. View all Camp");
+        System.out.println("3. View available Camp");
+        System.out.println("3. Register for Camp");
+        System.out.println("4. View Registed Camp");
+        System.out.println("5. Withdraw from Camp");
+        System.out.println("6. Submit Enquiry");
+        System.out.println("7. View Reply to Enquiry");
+
+        if (campList.isCampCommittee()){
+            System.out.println("8. View camp's detail");
+            System.out.println("9. Submit suggestion");
+            System.out.println("10. Edit suggestion");
+            System.out.println("11. Delete Suggestion");
+            System.out.println("12. View camp's enquiry");
+            System.out.println("13. Generate camp's report");
+            System.out.println("14. Log out");
+            System.out.println("15. Exit");
+        }
+        else {
+            System.out.println("8. Log out");
+            System.out.println("9. Exit");
+        }
+        
     }
+
 
     private void performAction(int choice) {
         switch (choice) {
@@ -71,55 +93,96 @@ public class StudentMenu extends Menu{
                 System.out.println("Change password Menu:");
                 currentUser.changePassword();
                 break;
-
             case 2: 
                 System.out.println("Viewing all camps...");
-                //  calls display camp methods
-                // 	Can have option to create, edit or delete the camps
-                
+                campList.viewAllCamp();
                 break;
             case 3:
-                System.out.println("Viewing registerd camps...");
-                // calls method to display all create camps
+                System.out.println("Viewing avaible camp...");
+                campList.viewAvailableCamp();
                 break;
             case 4:
-                System.out.println("Register for camp");
-                // calls method to display all enquires to camps created by staff
-                // Can reply to enquires
+                System.out.println("Viewing register camp...");
+                campList.viewRegisteredCamp();
                 break;
             case 5:
-                System.out.println("Submit Enquiry");
-                // calls method to display all suggestions by CC to camps created by staff
-                // Can choose to reply to suggestions
+                System.out.println("Withdrawing from camp...");
+                campList.withdawFromCamp();
                 break;
             case 6:
-            	System.out.println("Withdraw from camp");
-            	// calls method to generate report
-            	// has option to choose what kind of report to generate
-            	// attendance report; performance report; enquire report
+                // TODO: add the Enquiy option.
                 break;
             case 7:
-                System.out.println("Exiting...");
-                exit = true;
+                // TODO: add view reply the enquiry.
                 break;
+            
+            case 8:
+                if (campList.isCampCommittee()) performCommitteeAction(choice); 
+
+                else {
+                    currentUser.logOut();
+                    // TODO: remember to write the data back to the CSV file
+                    exit = true;
+                }
+                break;
+
             default:
-                System.out.println("Unknown error has occured.");
+                if (campList.isCampCommittee()) performCommitteeAction(choice);
+                currentUser.logOut();
+                // TODO: remember to write the data back to the CSV file
+                System.exit(0);
+                break;
         }
     }
 
-    public void registerCamp(){
-
-    }
-
-    public void viewAvailableCamp(){
-
-    }
-
-    public void viewRegisteredCamp(){
-
-    }
     
-    public void chooseCamp(){
+    private void performCommitteeAction(int choice){
+        switch(choice){
+            case 8:
+                System.out.println("Viewing Camp Details...");
+                campList.viewCampDetail();
+                break;
+            
+            case 9:
+                System.out.println("Submitting Suggestion...");
+                // TODO: submitting suggestion option
+                break;
 
+            case 10:
+                System.out.println("Editing Suggestion...");
+                // TODO: editing suggestion option
+                break;
+            
+            case 11:
+                System.out.println("Deleting Suggestion...");
+                // TODO: deleting suggestion option
+                break;
+            
+            case 12:
+                System.out.println("Viewing Camp enquiry...");
+                // TODO: view camp enquiry option
+                break;
+            
+            case 13:
+                System.out.println("Generating Camp report...");
+                // TODO: generate camp report option
+                break;
+
+            case 14:
+                System.out.println("Logging out");
+                exit = true;
+                currentUser.logOut();
+                break;
+
+            case 15:
+                // TODO: remember to write the databack to the CSV file.
+                System.exit(0);
+                break;
+
+            default:
+                break;
+        }
     }
+
+
 }

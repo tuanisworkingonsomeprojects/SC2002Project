@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class TestDraft {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		// TODO Auto-generated method stub
 		Scanner sc;
 		try {
         sc = new Scanner(new File(System.getProperty("user.dir") + "/src/sce/sc2002/FinalProject/UserAndPassword/studentList.csv"));

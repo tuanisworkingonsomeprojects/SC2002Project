@@ -15,9 +15,8 @@ import java.util.*;
 public class StaffMenu extends Menu{
 
 
-
-    public StaffMenu(Login user, CampList campls){
-        super(campls);
+    public StaffMenu(Login user, CampList campList){
+        super(campList);
         currentUser = user;
     }
 
@@ -61,19 +60,19 @@ public class StaffMenu extends Menu{
 	
     private int getMenuChoice() {
         Scanner keyboard = new Scanner(System.in);
-        int choice = -1;
-        do {
-            System.out.print("Enter your choice: ");
-            try {
-                choice = Integer.parseInt(keyboard.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid selection. Numbers only please.");
-            }
-            if (choice < 0 || choice > 8) {
-                System.out.println("Choice outside of range. Please chose again.");
-            }
-        } while (choice < 0 || choice > 8);
-        return choice;
+        // int choice = -1;
+        // do {
+        //     System.out.print("Enter your choice: ");
+        //     try {
+        //         choice = Integer.parseInt(keyboard.nextLine());
+        //     } catch (NumberFormatException e) {
+        //         System.out.println("Invalid selection. Numbers only please.");
+        //     }
+        //     if (choice < 0 || choice > 4) {
+        //         System.out.println("Choice outside of range. Please chose again.");
+        //     }
+        // } while (choice < 0 || choice > 4);
+        return keyboard.nextInt();
     }
 
     private void performAction(int choice) {
@@ -114,6 +113,9 @@ public class StaffMenu extends Menu{
             	// attendance report; performance report; enquire report
             case 8:
                 System.out.println("Logging out...");
+                currentUser.logOut();
+                exit = true;
+                break;
                 // calls method to log out
             default:
                 System.out.println("Unknown error has occured.");
