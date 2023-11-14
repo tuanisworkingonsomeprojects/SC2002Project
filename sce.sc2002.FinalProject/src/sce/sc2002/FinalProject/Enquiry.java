@@ -119,7 +119,9 @@ public class Enquiry {
         }
     }
 
-    public synchronized void assignToCommitteeMember(Student student) 
+
+    // TODO: ask Nahid about this method later!
+    /*public synchronized void assignToCommitteeMember(Student student) 
     {
         validateNonNull(student, "Student cannot be null");
         if (student.isCampCommittee() && !this.resolved) {
@@ -127,7 +129,7 @@ public class Enquiry {
         } else {
             throw new IllegalStateException("Cannot assign an enquiry that is already resolved or student is not a committee member.");
         }
-    }
+    } */
 
     // Utility method for null checking
     private void validateNonNull(Object obj, String message) 

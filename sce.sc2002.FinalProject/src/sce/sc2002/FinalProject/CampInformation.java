@@ -111,6 +111,7 @@ public class CampInformation {
 			else{
 				committeeList.add(new Student(currentUser.getUserid(), currentUser.getFaculty()));
 				campCommSlots--;
+				attendeeSlot--;
 			}
 		}
 		else {
