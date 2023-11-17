@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
     Represents an enquiry related to a camp in the Camp Application and Management System (CAMs).
  */
 public class Enquiry {
-    private static final AtomicInteger enquiryCount = new AtomicInteger(1);
+
 
     private int enquiryID;
     private String subject;
@@ -24,7 +24,7 @@ public class Enquiry {
         validateNonNull(camp, "Camp cannot be null");
         validateNonNull(author, "Author cannot be null");
 
-        this.enquiryID = enquiryCount.getAndIncrement();
+        this.enquiryID = enquiryID++;
         this.camp = camp;
         this.author = author;
         this.subject = subject;
@@ -97,13 +97,6 @@ public class Enquiry {
     }
     
 
-    public int getEnquiryAgeInDays() 
-    {
-        Date now = new Date();
-        long diff = now.getTime() - timestamp.getTime();
-        return (int) (diff / (24 * 60 * 60 * 1000)); // Convert milliseconds to days
-    }
-
     public void markAsResolved() 
     {
         resolved = true;
@@ -118,18 +111,6 @@ public class Enquiry {
             throw new IllegalStateException("Cannot edit resolved enquiry.");
         }
     }
-
-
-    // TODO: ask Nahid about this method later!
-    /*public synchronized void assignToCommitteeMember(Student student) 
-    {
-        validateNonNull(student, "Student cannot be null");
-        if (student.isCampCommittee() && !this.resolved) {
-            this.responsibleCommitteeMember = student;
-        } else {
-            throw new IllegalStateException("Cannot assign an enquiry that is already resolved or student is not a committee member.");
-        }
-    } */
 
     // Utility method for null checking
     private void validateNonNull(Object obj, String message) 

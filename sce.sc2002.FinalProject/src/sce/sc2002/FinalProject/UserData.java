@@ -152,6 +152,7 @@ public class UserData {
 				}
 
 				writer.write(stringbuilder.toString());
+				System.out.println(accessPath);
 				System.out.println("done!");
 			} 
 			catch (FileNotFoundException exception) {

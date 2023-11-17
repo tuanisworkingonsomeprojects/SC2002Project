@@ -121,7 +121,6 @@ public class EnquiryMenu {
         }
     }
 
-    
     private void viewUnansweredEnquiries() {
         List<Enquiry> unresolvedEnquiries = enquiryManager.getUnresolvedEnquiries();
         if (unresolvedEnquiries.isEmpty()) {
@@ -133,4 +132,5 @@ public class EnquiryMenu {
             }
         }
     }
+
 }

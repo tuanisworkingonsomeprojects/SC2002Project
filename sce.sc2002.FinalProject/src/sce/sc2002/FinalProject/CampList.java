@@ -22,14 +22,13 @@ public class CampList{
     
     public ArrayList<Camp> getCampList(){return campList;}
 
+    // System method
 
     public boolean isCampCommittee(){
         for (int i = 0; i < campList.size(); i++){
             Camp camp_ith = campList.get(i);
 
             if (camp_ith.isCommittee(currentUser)){
-                // TODO: delete this test
-                System.out.println("This is a commitee");
                 return true;
             }
         }
@@ -77,16 +76,48 @@ public class CampList{
         return;
     }
 
+    private void pseudoClearScreen(){
+        for (int i = 0; i < 100; i++){
+            System.out.println();
+        }
+    }
+
+
+    // Method for staff
+
     public void createCamp(){
         addCamp(Camp.createCamp(currentUser, this));
     }
 
     private void addCamp(Camp camp){
         System.out.println("Adding Camp to the list...");
-        campList.add(camp);
+
+        // If the list have nothing just add the first camp to the list
+        if (campList.size() == 0){
+            campList.add(camp);
+            return;
+        }
+
+        else {
+
+            // If the camp name is smaller than the current ith camp just insert it to the ith position.
+            for (int i = 0; i < campList.size(); i++){
+                Camp camp_ith = campList.get(i);
+
+                if (camp.getCampName().compareTo(camp_ith.getCampName()) < 0){
+                    campList.add(i, camp);
+                    return;
+                }
+            }
+
+            // If it reach the end of the list just append it in the end of the list.
+            campList.add(camp);
+        }
     }
 
     public void deleteCamp(){
+        pseudoClearScreen();
+
         System.out.println("Deleting Camp Screen: ");
         Scanner sc = new Scanner(System.in);
         Camp camp_ith;
@@ -125,6 +156,7 @@ public class CampList{
     }
 
     public void chooseCampToEdit(){
+        pseudoClearScreen();
         System.out.println("Editing Camp Screen:");
 
         if (currentUser.getRole().equals("staff")){
@@ -154,7 +186,46 @@ public class CampList{
         tempDelay();
     }
 
+
+
+    public void viewCamp(){
+        pseudoClearScreen();
+        System.out.println("Camps view filter: ");
+        System.out.println("1. View all camps");
+        if (currentUser.getRole().equals("staff")){
+            System.out.println("2. View created camps");
+        }
+        else {
+            System.out.println("2. View registered camp");
+        }
+        System.out.println("3. View available camps");
+        
+
+
+
+    }
+
+    public void handleCampFilter(int choice){
+        
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public void viewCreatedCamp(){
+        pseudoClearScreen();
         int index = 1;
 
         if (currentUser.getRole().equals("staff")){
@@ -179,6 +250,9 @@ public class CampList{
     }
 
     public void viewAllCamp(){
+        pseudoClearScreen();
+
+
         int index = 1;
         for (int i = 0; i < campList.size(); i++){
             Camp camp_ith = campList.get(i);
@@ -212,16 +286,12 @@ public class CampList{
 
     // This method that I've implemented will ask the Staff to choose to print the list of
     // Attendee or the list of Committee already so you don't have to worry about it!
+
     public void viewStudentList(){
 
+        pseudoClearScreen();
         for (int i = 0; i < 100; i++){
             System.out.println();
-        }
-
-        if (currentUser.getRole().equals("student")){
-            System.out.println("You don't have enough authority to view the Student list");
-            tempDelay();
-            return;
         }
 
         System.out.println("View Student List Window:");
@@ -263,6 +333,8 @@ public class CampList{
     }
 
     public void viewAvailableCamp(){
+        pseudoClearScreen();
+
         int index = 1;
 
         for (int i = 0; i < campList.size(); i++){
@@ -288,6 +360,9 @@ public class CampList{
     }
 
     
+
+
+
     public void viewRegisteredCamp(){
         System.out.println("View Registered Camp:");
         int index = 1;
@@ -314,16 +389,14 @@ public class CampList{
     public void viewCampDetail(){
         if (isCampCommittee()){
             System.out.println("View camp detail screen:");
-            viewCampCommittee();
-            System.out.print("Camp's name: ");
-            String campName = sc.nextLine();
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
 
             for (int i = 0; i < campList.size(); i++){
                 Camp camp_ith = campList.get(i);
-                if (camp_ith.getCampName().equals(campName)){
+                if (camp_ith.isCommittee(currentUser)){
 
+                    // Pseudo clear screen
                     for (int j = 0; j < 100; j++){
                         System.out.println();
                     }
@@ -361,32 +434,55 @@ public class CampList{
 
     // This method allow to view all the camps of which a student is a committee.
     public void viewCampCommittee(){
-        System.out.println("You are currently Camp Committee of these camps:");
-
-        int index = 1;
+        System.out.println("You are currently Camp Committee of this camps:");
 
         for (int i = 0; i < campList.size(); i++){
             Camp camp_ith = campList.get(i);
 
             if (camp_ith.isCommittee(currentUser)){
-                System.out.println(index + ". " + camp_ith.getCampName());
-                index++;
+                System.out.println(camp_ith.getCampName());
+                tempDelay();
+                return;
             }
         }
 
-        if (index == 1){
-            System.out.println("You are currently not a commitee of any camp!");
-            tempDelay();
-        }
+
+        System.out.println("You are currently not a commitee of any camp!");
+        tempDelay();
+
     }
 
     public void registerCamp(){
         System.out.println("Camp Registration");
 
         if (currentUser.getRole().equals("student")){
-            viewAvailableCamp();
-            System.out.print("Camp's name: ");
-            String campName = sc.nextLine();
+
+            // View the available camp
+            int index = 1;
+
+            for (int i = 0; i < campList.size(); i++){
+                Camp camp_ith = campList.get(i);
+
+
+
+                if (camp_ith.isAvailable()){
+                    System.out.print(index + ". " + camp_ith.getCampName());
+                    if (camp_ith.isBlackListed(currentUser)){
+                        System.out.println("[blacklisted]");
+                    }
+                    else {
+                        System.out.println();
+                    }
+                    index++;
+                }
+            }
+
+            if (index == 1) System.out.println("There is no available camp.");
+                System.out.print("Camp's name: ");
+                String campName = sc.nextLine();
+
+            
+            // Find the matching camp to register the Attendee
             
             for (int i = 0; i < campList.size(); i++){
                 Camp camp_ith = campList.get(i);

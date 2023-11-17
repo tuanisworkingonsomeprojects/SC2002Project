@@ -28,7 +28,7 @@ public class CommitteeMenu extends Menu{
         // TODO: remember to update the exit variable appropriately
 		while(!exit) {
 			display();
-            System.out.println("Your choice: ");
+            System.out.print("Your choice: ");
 			int choice = getMenuChoice();
 			performAction(choice);
 		}
@@ -47,7 +47,7 @@ public class CommitteeMenu extends Menu{
 	 * This is the display of the student's version of menu.
 	 *----------------------------------------------------------------------------------- */
     public void display(){
-        System.out.println("Student Attendee Portal: ");
+        System.out.println("Student Committee Portal: ");
         System.out.println();
         System.out.println("1. Change Password");
         System.out.println("2. View all Camp");
@@ -63,7 +63,7 @@ public class CommitteeMenu extends Menu{
         System.out.println("11. Generate camp's report");
         System.out.println("12. Log out");
         System.out.println("13. Exit");
-
+        // TODO: the camp committee can create enquiry for other camps.
     }
         
     

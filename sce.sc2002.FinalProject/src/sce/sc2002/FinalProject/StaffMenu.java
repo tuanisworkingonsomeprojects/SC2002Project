@@ -43,17 +43,15 @@ public class StaffMenu extends Menu{
 		System.out.println("Staff Portal: ");
         System.out.println();
 		System.out.println("1. Change password");
-		System.out.println("2. View all camps");              //view all camps
-        System.out.println("3. Create camp");                 //create a camp
-		System.out.println("4. View created camps");          //view all camps created by staffs
-		System.out.println("5. Enquiries");                   // will show all enquires to camps staff has created, 
-                                                                // can choose to reply to which enquire	
-		System.out.println("6. Suggestions");	                // will show all suggestions by CC to camps staff has created, 
-												                // can choose to reply to which suggestion
-		System.out.println("7. Generate report"); 	        // can choose which camp (created by staff) to generate what
-													            // kind of report (attendance report; performance report; 
-													            // enquire report)
-        System.out.println("8. Log out");                     // log out of session
+		System.out.println("2. View all camps");              
+        System.out.println("3. Create camp");                 
+		System.out.println("4. View created camps");          
+		System.out.println("5. View Enquiries");   // TODO: He can view enquiries from the camp HE CREATED
+        System.out.println("6. Reply Enquiries");                                                                                 
+		System.out.println("7. Suggestions");	                												             
+		System.out.println("8. Generate report"); 	        													            
+        System.out.println("9. Log out"); 
+        System.out.println("10. exit");                    
 	}
 	
 

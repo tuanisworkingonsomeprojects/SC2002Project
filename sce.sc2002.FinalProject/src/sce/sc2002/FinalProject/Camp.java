@@ -68,6 +68,9 @@ public class Camp{
 			
 			System.out.print("Slots: ");
 			campInfo.setAttendeeSlot(sc.nextInt());
+
+			System.out.print("Camp Detail: ");
+			campInfo.setDetail(sc.nextLine());
 			
 			System.out.print("Available?(Y/N) ");
 			campInfo.setVisibility(sc.next().charAt(0));
@@ -133,38 +136,44 @@ public class Camp{
 
             // Change password option
             case 1:
-                System.out.println("New camp name: ");
+                System.out.print("New camp name: ");
                 campInfo.setCampName(sc.next());
                 break;
             case 2: 
-            	System.out.println("New start date (dd/MM/yyyy): ");
+            	System.out.print("New start date (dd/MM/yyyy): ");
             	campInfo.setStartDate(sc.next());
                 break;
             case 3:
-            	System.out.println("New end date (dd/MM/yyyy): ");
+            	System.out.print("New end date (dd/MM/yyyy): ");
             	campInfo.setEndDate(sc.next());
                 break;
             case 4:
-            	System.out.println("New Registration closign date (dd/MM/yyyy): ");
+            	System.out.print("New Registration closign date (dd/MM/yyyy): ");
             	campInfo.setClosingDate(sc.next());
                 break;
             case 5:
-            	System.out.println("New School: ");
+            	System.out.print("New School: ");
             	campInfo.setAvailableTo(sc.next());
                 break;
             case 6:
-            	System.out.println("New location: ");
+            	System.out.print("New location: ");
             	campInfo.setLocation(sc.next());
             	break;
             case 7:
-            	System.out.println("New slots: ");
+            	System.out.print("New slots: ");
             	campInfo.setAttendeeSlot(sc.nextInt());
             	break;
-            case 8:
+
+			case 8:
+				System.out.print("New Detail: ");
+				campInfo.setDetail(sc.nextLine());
+				break;
+
+            case 9:
             	System.out.println("Availability? (Y/N): ");
             	campInfo.setVisibility(sc.next().charAt(0));
             	break;
-			case 9:
+			case 10:
 				System.out.println("Exiting...");
 
 				for (int i = 0; i < 100; i++){

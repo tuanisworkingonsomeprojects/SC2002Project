@@ -22,6 +22,7 @@ public class CampInformation {
 	private int    		campCommSlots = 10;
 	private String 		staffInCharge; //creator of the camp
 	private boolean 	visibility = false; // Default to false
+	private String		detail;
 
 	private ArrayList<Student> 	  studentAttendees;
 	private ArrayList<Student>    committeeList;
@@ -57,6 +58,7 @@ public class CampInformation {
 	public void setAttendeeSlot(int attendeeSlot)  	{this.attendeeSlot  = attendeeSlot ;}
 	public void setCampCommSlot(int campCommSlots)  {this.campCommSlots = campCommSlots;}
 	public void setStaffInCharge(Login currentUser) {this.staffInCharge = currentUser.getUserid();} 
+	public void setDetail(String newDetail)			{this.detail		= newDetail;}
  	public void setVisibility(char x) {  
 		if(x == 'Y') {
     		visibility = true;  }
@@ -88,7 +90,15 @@ public class CampInformation {
 
 	public void committeeRegister(Login currentUser){
 
+		// The student can only a camp Committee of one camp only.
+		if (campList.isCampCommittee()) {
+			System.out.println("You can be a committee of one camp only!");
+			return;
+		}
+
+
 		// 1. Check if there is avalable slot
+		
 		if (campCommSlots > 0){
 
 			// 2. Check if the current user is an Attendee of this camp

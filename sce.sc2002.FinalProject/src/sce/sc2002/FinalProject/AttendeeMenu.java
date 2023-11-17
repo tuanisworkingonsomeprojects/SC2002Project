@@ -66,9 +66,10 @@ public class AttendeeMenu extends Menu{
         System.out.println("5. View Registed Camp");
         System.out.println("6. Withdraw from Camp");
         System.out.println("7. Submit Enquiry");
-        System.out.println("8. View Reply to Enquiry");
-        System.out.println("9. Log out");
-        System.out.println("10. Exit");
+        System.out.println("8. Edit Enquiry"); // TODO: implement this.
+        System.out.println("9. View Reply to Enquiry");
+        System.out.println("10. Log out");
+        System.out.println("11. Exit");
     }
 
 
@@ -95,7 +96,7 @@ public class AttendeeMenu extends Menu{
                 break;
             
             case 5:
-                System.out.println("Viewing register camp...");
+                System.out.println("Viewing registered camp...");
                 campList.viewRegisteredCamp();
                 break;
             case 6:
@@ -103,19 +104,22 @@ public class AttendeeMenu extends Menu{
                 campList.withdawFromCamp();
                 break;
             case 7:
+                System.out.println("Submit Enquiry...");
                 // TODO: add the Enquiy option.
                 break;
             case 8:
-                // TODO: add view reply the enquiry.
+                System.out.print("Edit enquiry...");
+                // TODO: add edit the enquiry.
                 break;
-            
             case 9:
+                System.out.println("Viewing reply to enquiry...");
+                // TODO: add option
+            
+            case 10:
                 currentUser.logOut();
                 // TODO: remember to write the data back to the CSV file
                 exit = true;
-                
                 break;
-
             default:
                 currentUser.logOut();
                 // TODO: remember to write the data back to the CSV file

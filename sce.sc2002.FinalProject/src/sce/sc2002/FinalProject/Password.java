@@ -63,7 +63,7 @@ public class Password {
 			role = "staff";
 			granted = true;
 			this.userid = userid;
-			userData = studentData;
+			userData = staffData;
 			if (staffData.getPassword(userid, secretKey).equals("password")) changePassword();
 			return;
 		}
