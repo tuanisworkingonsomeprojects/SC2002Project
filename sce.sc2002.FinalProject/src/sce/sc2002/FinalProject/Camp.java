@@ -38,8 +38,6 @@ public class Camp{
 	}
 	
 
-
-
 	public static Camp createCamp(Login currentUser, CampList campList){
 		Camp newCamp = new Camp(campList);
 		newCamp.createCampManager(currentUser);
@@ -271,6 +269,145 @@ public class Camp{
 		campInfo.attendeeWithdrawal(currentUser);
 	}
 
+	public void createEnquiry(Login currentUser){
+
+		if (isCommittee(currentUser)){
+			System.out.println("Camp committee cannot create Enquiry for this camp");
+			return;
+		}
+
+		for (int i = 0; i < getAttendeeList().size(); i++){
+			Student student_ith = getAttendeeList().get(i);
+
+			if (student_ith.getID().equals(currentUser.getUserid())){
+				System.out.print("Subject / Title: ");
+				String subject = sc.nextLine();
+				System.out.println("Your Enquiry (in one line): ");
+				String description = sc.nextLine();
+
+
+
+				Enquiry enquiry = new Enquiry(this, student_ith, subject, description);
+
+				campInfo.addEnquiry(enquiry);
+				return;
+			}
+		}
+
+
+	}
+
+	public void viewEnquiry(Login currentUser){
+
+		if (campInfo.getEnquiries().size() == 0){
+			System.out.println("You don't have any Enquiries for this camp");
+			return;
+		}
+
+		
+
+		for (int i = 0; i < campInfo.getEnquiries().size(); i++){
+			Enquiry enquiry_ith = campInfo.getEnquiries().get(i);
+
+			// Check if the enquiry is belong to the currentUser
+			if (enquiry_ith.getAuthor().getID().equals(currentUser.getUserid())){
+				System.out.println("ID: " + enquiry_ith.getEnquiryID() + ". " + enquiry_ith.getSubject());
+			}
+		}
+
+		
+	}
+
+	public void editEnquiry(Login currentUser){
+		if (campInfo.getEnquiries().size() == 0){
+			System.out.println("You don't have any Enquiries for this camp");
+			return;
+		}
+
+		viewEnquiry(currentUser);
+
+		System.out.print("Enquiry ID: ");
+
+		int enquiryID = sc.nextInt();
+		sc.nextLine();
+
+		for (int i = 0; i < campInfo.getEnquiries().size(); i++){
+			Enquiry enquiry_ith = campInfo.getEnquiries().get(i);
+
+			if (enquiry_ith.getAuthor().getID().equals(currentUser.getUserid())){
+				if (enquiryID == enquiry_ith.getEnquiryID()){
+					System.out.println("1. Edit Subject / Title");
+					System.out.println("2. Edit description");
+					
+					System.out.print("Your choice: ");
+					int choice = sc.nextInt();
+					sc.nextLine();
+
+					switch (choice) {
+						case 1:
+							System.out.print("Subject / Title: ");
+							String title = sc.nextLine();
+							enquiry_ith.setSubject(title);;
+							break;
+					
+						case 2:
+							System.out.println("Description: ");
+							String description = sc.nextLine();
+							enquiry_ith.setDescription(description);
+							break;
+
+						default:
+							System.out.println("Unknow Error has occured");
+							break;
+					}
+
+					return;
+				}
+			}
+		}
+		
+	}
+
+	public void deleteEnquiry(Login currentUser){
+		
+		if (campInfo.getEnquiries().size() == 0){
+			System.out.println("You don't have any Enquiries for this camp");
+			return;
+		}
+
+		viewEnquiry(currentUser);
+
+		System.out.print("Enquiry ID: ");
+
+		int enquiryID = sc.nextInt();
+		sc.nextLine();
+
+		for (int i = 0; i < campInfo.getEnquiries().size(); i++){
+			Enquiry enquiry_ith = campInfo.getEnquiries().get(i);
+
+			if (enquiry_ith.getAuthor().getID().equals(currentUser.getUserid())){
+				if (enquiryID == enquiry_ith.getEnquiryID()){
+					if (enquiry_ith.getResolved()){
+						System.out.println("You cannot delete the answered enquiry");
+						return;
+					}
+
+					System.out.print("Confirm deletion (Y / N):");
+					String choice = sc.nextLine();
+
+					if (choice == "Y"){
+						campInfo.getEnquiries().remove(enquiryID);
+						return;
+					}
+					else {
+						return;
+					}
+				}
+			}
+		}
+
+		System.out.println("There is no camp with such ID or of your enquiry");
+	}
 
 }
 

@@ -80,16 +80,16 @@ public class CommitteeMenu extends Menu{
                 break;
             case 2: 
                 System.out.println("Viewing all camps...");
-                campList.viewAllCamp();
+                campList.viewCamp();
                 break;
-            case 3:
-                System.out.println("Viewing avaible camp...");
-                campList.viewAvailableCamp();
-                break;
-            case 4:
-                System.out.println("Viewing register camp...");
-                campList.viewRegisteredCamp();
-                break;
+            // case 3:
+            //     System.out.println("Viewing avaible camp...");
+            //     campList.viewAvailableCamp();
+            //     break;
+            // case 4:
+            //     System.out.println("Viewing register camp...");
+            //     campList.viewRegisteredCamp();
+            //     break;
             case 5:
                 System.out.println("Withdrawing from camp...");
                 campList.withdawFromCamp();

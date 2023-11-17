@@ -40,37 +40,41 @@ public class StaffMenu extends Menu{
 	}
 
 	public void display() {
-		System.out.println("Staff Portal: ");
+        String[] options = {"Change Password",
+                            "View Camps",
+                            "Create Camps",
+                            "View Enquiries",           // TODO: He can view enquiries from the camp HE CREATED
+                            "Reply Enquiries",
+                            "View Suggestions",
+                            "Approve Suggestions",
+                            "Generate Reports",
+                            "Log out",
+                            "Exit"};
+
+
+		System.out.println("Staff Main Portal: ");
         System.out.println();
-		System.out.println("1. Change password");
-		System.out.println("2. View camps");              
-        System.out.println("3. Create camp");                 
-		//System.out.println("4. View created camps");          
-		System.out.println("5. View Enquiries");   // TODO: He can view enquiries from the camp HE CREATED
-        System.out.println("6. Reply Enquiries");                                                                                 
-		System.out.println("7. Suggestions");	                												             
-		System.out.println("8. Generate report"); 	        													            
-        System.out.println("9. Log out"); 
-        System.out.println("10. exit");                    
+
+
+        for (int i = 0; i < options.length; i++){
+            System.out.println((i + 1) + ". " + options[i]);
+        }
+            
 	}
 	
-
 	
     private int getMenuChoice() {
         Scanner keyboard = new Scanner(System.in);
-        // int choice = -1;
-        // do {
-        //     System.out.print("Enter your choice: ");
-        //     try {
-        //         choice = Integer.parseInt(keyboard.nextLine());
-        //     } catch (NumberFormatException e) {
-        //         System.out.println("Invalid selection. Numbers only please.");
-        //     }
-        //     if (choice < 0 || choice > 4) {
-        //         System.out.println("Choice outside of range. Please chose again.");
-        //     }
-        // } while (choice < 0 || choice > 4);
-        return keyboard.nextInt();
+        int choice = -1;
+        do {
+            System.out.print("Enter your choice: ");
+            try {
+                choice = Integer.parseInt(keyboard.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid selection. Numbers only please.");
+            }
+        } while (choice < 0);
+        return choice;
     }
 
     private void performAction(int choice) {
@@ -82,33 +86,38 @@ public class StaffMenu extends Menu{
                 System.out.println("Change password Menu:");
                 currentUser.changePassword();
                 break;
+
             case 2: 
-                System.out.println("Viewing Camps");
+                System.out.println("Viewing Camps...");
                 campList.viewCamp();
                 break;
+
             case 3: 
                 System.out.println("Creating camp...");
                 campList.createCamp();
                 break;
-            // case 4:
-            //     System.out.println("Viewing all created camps...");
-            //     campList.viewCreatedCamp();
-            //     break;
-            case 5:
+
+            case 4:
                 System.out.println("Viewing enquries...");
                 // TODO: calls method to display all enquires to camps created by staff
                 // Can reply to enquires
                 break;
 
-            case 6:
+            case 5:
                 System.out.println("Replying Enquiry...");
                 // TODO: calls method to Reply the enquiry
                 break;
             
-            case 7:
+            case 6:
                 System.out.println("Viewing suggestions...");
                 // TODO: calls method to display all suggestions by CC to camps created by staff
                 // Can choose to reply to suggestions
+                break;
+
+            case 7:
+                System.out.println("Approving suggestion");
+
+                // TODO: calls method to approve the suggestion
                 break;
             case 8:
             	System.out.println("Which report would you like to generate?");
@@ -125,6 +134,7 @@ public class StaffMenu extends Menu{
                 break;
             
             case 10:
+                for (int i = 0; i < 100; i++) System.out.println();
                 System.out.println("Exiting...");
                 currentUser.logOut();
                 System.exit(0);

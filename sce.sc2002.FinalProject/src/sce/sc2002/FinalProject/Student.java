@@ -13,9 +13,4 @@ public class Student{
 
     public String getID()       {return id;}
     public String getFaculty()  {return faculty;}
-
-
-
-
-    
 }

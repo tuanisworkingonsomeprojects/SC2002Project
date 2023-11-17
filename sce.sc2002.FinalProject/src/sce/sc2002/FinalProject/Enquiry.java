@@ -8,13 +8,14 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Enquiry {
 
+    private static int counter = 0;
 
     private int enquiryID;
     private String subject;
     private String description;
     private String reply;
     private boolean resolved;
-    private Date timestamp;
+
     private Student author;
     private Staff replyAuthor;
     private Camp camp;
@@ -24,12 +25,11 @@ public class Enquiry {
         validateNonNull(camp, "Camp cannot be null");
         validateNonNull(author, "Author cannot be null");
 
-        this.enquiryID = enquiryID++;
+        this.enquiryID = counter++;
         this.camp = camp;
         this.author = author;
         this.subject = subject;
         this.description = description;
-        this.timestamp = new Date();  // Set only once during construction
         this.resolved = false;  // Default to unresolved
     }
 
@@ -40,13 +40,11 @@ public class Enquiry {
             "\nSubject: " + subject +
             "\nDescription: " + description +
             "\nResolved: " + resolved +
-            "\nTimestamp: " + timestamp +
             "\nAuthor: " + author +
             "\nReply Author: " + replyAuthor +
             "\nCamp: " + camp +
             "\nCommittee Member: " + responsibleCommitteeMember;
     }
-
 
     public String getDescription() {
         return description;
@@ -74,6 +72,14 @@ public class Enquiry {
 
     public boolean getResolved() {
         return resolved;
+    }
+
+    public String getSubject(){
+        return subject;
+    }
+
+    public void setSubject(String title){
+        subject = title;
     }
 
     public void setDescription(String description) {

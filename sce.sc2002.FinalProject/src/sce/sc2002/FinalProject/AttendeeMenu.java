@@ -83,22 +83,22 @@ public class AttendeeMenu extends Menu{
                 currentUser.changePassword();
                 break;
             case 2: 
-                System.out.println("Viewing all camps...");
-                campList.viewAllCamp();
+                System.out.println("Viewing camps...");
+                campList.viewCamp();
                 break;
-            case 3:
-                System.out.println("Viewing avaible camp...");
-                campList.viewAvailableCamp();
-                break;
+            // case 3:
+            //     System.out.println("Viewing avaible camp...");
+            //     campList.viewAvailableCamp();
+            //     break;
             case 4:
                 System.out.println("Registering Camp");
                 campList.registerCamp();
                 break;
             
-            case 5:
-                System.out.println("Viewing registered camp...");
-                campList.viewRegisteredCamp();
-                break;
+            // case 5:
+            //     System.out.println("Viewing registered camp...");
+            //     campList.viewRegisteredCamp();
+            //     break;
             case 6:
                 System.out.println("Withdrawing from camp...");
                 campList.withdawFromCamp();

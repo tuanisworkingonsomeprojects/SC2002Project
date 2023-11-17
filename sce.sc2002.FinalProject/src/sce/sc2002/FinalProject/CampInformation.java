@@ -119,7 +119,7 @@ public class CampInformation {
 
 			// 5. If not, the user if good to register as a camp commitee
 			else{
-				committeeList.add(new Student(currentUser.getUserid(), currentUser.getFaculty()));
+				committeeList.add(new Committee(currentUser.getUserid(), currentUser.getFaculty()));
 				campCommSlots--;
 				attendeeSlot--;
 			}
@@ -252,6 +252,11 @@ public class CampInformation {
     public ArrayList<Enquiry> getEnquiries() {
         return enquiries;
     }
+
+	public void addEnquiry(Enquiry enquiry){
+		enquiries.add(enquiry);
+	}
+
 
     // Method to get an enquiry by ID
     public Enquiry getEnquiryById(int enquiryID) {

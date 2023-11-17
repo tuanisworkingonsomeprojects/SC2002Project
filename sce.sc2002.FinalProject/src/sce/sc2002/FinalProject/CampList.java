@@ -129,6 +129,14 @@ public class CampList{
                 camp_ith = campList.get(i);
 
                 if (camp_ith.getCampName().equals(delCampName)){
+
+                    if (camp_ith.getAttendeeList().size() > 0 || camp_ith.getCommitteeList().size() > 0){
+                        System.out.println("This camp cannot be deleted since it already have attendees/commitees members.");
+                        
+                        tempDelay();
+                        return;
+                    }
+
                     System.out.print("Confirm delete (Y/N):");
                     String choice = sc.next();
 
@@ -304,6 +312,7 @@ public class CampList{
         }
 
         if (index == 1) System.out.println("You haven't registered any camp!");
+        sc.nextLine();
         tempDelay();
     }
     // This method that I've implemented will ask the Staff to choose to print the list of
@@ -352,7 +361,7 @@ public class CampList{
             }
         }
 
-        if (index == 1) System.out.println("There have not been no camp yet");
+        if (index == 1) System.out.println("No camp has been created in the system.");
     }
 
     public void viewCampWithLocation(){
@@ -380,17 +389,11 @@ public class CampList{
                 if (camp_ith.isAttendee(currentUser))   System.out.println(" [Attendee]");
                 if (camp_ith.isCommittee(currentUser))  System.out.println(" [Committee]");
                 if (camp_ith.isStaffInCharge(currentUser))  System.out.println(" [In charge]");
+                else System.out.println();
             }
         }
         tempDelay();
-        
-
     }
-
-
-
-
-
 
     public void viewStudentList(){
 
@@ -436,15 +439,6 @@ public class CampList{
             }
         }
     }
-
-
-
-    
-
-
-
-
-
 
     // This method allow camp committee to view detail of a camp
     public void viewCampDetail(){
@@ -580,5 +574,23 @@ public class CampList{
         tempDelay();
     }
 
+    public void createEnquiry(){
+        pseudoClearScreen();
 
+        System.out.println("Create Enquiry Screen:");
+
+        System.out.println("Camp's name: ");
+        String campName = sc.nextLine();
+
+        for (int i = 0; i < campList.size(); i++){
+            Camp camp_ith = campList.get(i);
+
+            if (camp_ith.getCampName().equals(campName)){
+                camp_ith.createEnquiry(currentUser);;
+            }
+        }
+
+    }
+
+    
 }
