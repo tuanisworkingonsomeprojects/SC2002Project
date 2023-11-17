@@ -69,9 +69,7 @@ public class CampList{
         sc.nextLine();
 
         // Pseudo clear screen
-        for (int i = 0; i < 100; i++){
-            System.out.println();
-        }
+        pseudoClearScreen();
 
         return;
     }
@@ -187,6 +185,28 @@ public class CampList{
     }
 
 
+    // This method will be called by viewCamp()
+    private void handleCampFilter(int choice){
+        switch(choice){
+            case 1:
+                viewAllCamp();
+                break;
+            
+            case 2:
+                if (currentUser.getRole().equals("staff"))  viewCreatedCamp();
+                else viewRegisteredCamp();
+                break;
+
+            case 3:
+                viewAvailableCamp();
+                break;
+
+            case 4:
+                viewCampWithLocation();
+                break;
+        }
+
+    }
 
     public void viewCamp(){
         pseudoClearScreen();
@@ -199,57 +219,14 @@ public class CampList{
             System.out.println("2. View registered camp");
         }
         System.out.println("3. View available camps");
+        System.out.println("4. View camp with location");
         
-
-
-
-    }
-
-    public void handleCampFilter(int choice){
-        
-
+        System.out.print("Your choice: ");
+        handleCampFilter(sc.nextInt());
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public void viewCreatedCamp(){
-        pseudoClearScreen();
-        int index = 1;
-
-        if (currentUser.getRole().equals("staff")){
-            for (int i = 0; i < campList.size(); i++){
-
-                // Check for matching UserID
-                if (campList.get(i).isStaffInCharge(currentUser)){
-                    System.out.println(index + ". " + campList.get(i).getCampName());
-                    index++;
-                }
-            }
-        }
-        else {
-            System.out.println("You don't have enough authority to view created camp");
-        }
-
-        if (index == 1){
-            System.out.println("You haven't created any camp!\n\n\n");
-        }
-
-        tempDelay();
-    }
-
-    public void viewAllCamp(){
+    private void viewAllCamp(){
         pseudoClearScreen();
 
 
@@ -278,14 +255,142 @@ public class CampList{
         if (index == 1){
             System.out.println("There is no camp to view");
         }
-
+        sc.nextLine();
         tempDelay();
-        
-        
     }
 
+    private void viewCreatedCamp(){
+        pseudoClearScreen();
+        int index = 1;
+
+        if (currentUser.getRole().equals("staff")){
+            for (int i = 0; i < campList.size(); i++){
+
+                // Check for matching UserID
+                if (campList.get(i).isStaffInCharge(currentUser)){
+                    System.out.println(index + ". " + campList.get(i).getCampName());
+                    index++;
+                }
+            }
+        }
+        else {
+            System.out.println("You don't have enough authority to view created camp");
+        }
+
+        if (index == 1){
+            System.out.println("You haven't created any camp!\n\n\n");
+        }
+        sc.nextLine();
+        tempDelay();
+    }
+
+    private void viewRegisteredCamp(){
+        pseudoClearScreen();
+
+        System.out.println("View Registered Camp:");
+        int index = 1;
+
+        for (int i = 0; i < campList.size(); i++){
+            Camp camp_ith = campList.get(i);
+
+            if (camp_ith.isMemberOfCamp(currentUser)){
+                System.out.print(index + ". " + camp_ith.getCampName());
+
+                if (camp_ith.isAttendee(currentUser)) System.out.println("[Attendee]");
+                if (camp_ith.isCommittee(currentUser)) System.out.println("[Committee]");
+                index++;
+
+            }
+        }
+
+        if (index == 1) System.out.println("You haven't registered any camp!");
+        tempDelay();
+    }
     // This method that I've implemented will ask the Staff to choose to print the list of
     // Attendee or the list of Committee already so you don't have to worry about it!
+
+    private void viewAvailableCamp(){
+        pseudoClearScreen();
+
+        int index = 1;
+
+        for (int i = 0; i < campList.size(); i++){
+            Camp camp_ith = campList.get(i);
+
+
+
+            if (camp_ith.isAvailable()){
+                System.out.print(index + ". " + camp_ith.getCampName());
+                if (camp_ith.isBlackListed(currentUser)){
+                    System.out.println("[blacklisted]");
+                }
+                else {
+                    System.out.println();
+                }
+                index++;
+            }
+        }
+
+        if (index == 1) System.out.println("There is no available camp.");
+
+        sc.nextLine();
+        tempDelay();
+    }
+
+    // This method is called by viewCampWithLocation()
+    private void printLocation(){
+        int index = 1;
+        
+        System.out.println("Camp Locations:");
+
+        for (int i = 0; i < campList.size(); i++){
+            Camp camp_ith = campList.get(i);
+
+            if (camp_ith.allowToView(currentUser)){
+                System.out.println(index + ". " + camp_ith.getLocation());
+                index++;
+            }
+        }
+
+        if (index == 1) System.out.println("There have not been no camp yet");
+    }
+
+    public void viewCampWithLocation(){
+        pseudoClearScreen();
+        int index = 1;
+
+
+        sc.nextLine(); // Clear the enter before in the input
+        System.out.println("View Camp with Location filter:");
+        printLocation();
+
+        if (campList.size() == 0) {
+            tempDelay();
+            return;
+        }
+
+        System.out.print("Location: ");
+        String location = sc.nextLine();
+
+        for (int i = 0; i < campList.size(); i++){
+            Camp camp_ith = campList.get(i);
+
+            if (camp_ith.getLocation().equals(location) && camp_ith.allowToView(currentUser)){
+                System.out.print(index + ". " + camp_ith.getCampName());
+                if (camp_ith.isAttendee(currentUser))   System.out.println(" [Attendee]");
+                if (camp_ith.isCommittee(currentUser))  System.out.println(" [Committee]");
+                if (camp_ith.isStaffInCharge(currentUser))  System.out.println(" [In charge]");
+            }
+        }
+        tempDelay();
+        
+
+    }
+
+
+
+
+
 
     public void viewStudentList(){
 
@@ -332,57 +437,13 @@ public class CampList{
         }
     }
 
-    public void viewAvailableCamp(){
-        pseudoClearScreen();
 
-        int index = 1;
-
-        for (int i = 0; i < campList.size(); i++){
-            Camp camp_ith = campList.get(i);
-
-
-
-            if (camp_ith.isAvailable()){
-                System.out.print(index + ". " + camp_ith.getCampName());
-                if (camp_ith.isBlackListed(currentUser)){
-                    System.out.println("[blacklisted]");
-                }
-                else {
-                    System.out.println();
-                }
-                index++;
-            }
-        }
-
-        if (index == 1) System.out.println("There is no available camp.");
-
-        tempDelay();
-    }
 
     
 
 
 
-    public void viewRegisteredCamp(){
-        System.out.println("View Registered Camp:");
-        int index = 1;
 
-        for (int i = 0; i < campList.size(); i++){
-            Camp camp_ith = campList.get(i);
-
-            if (camp_ith.isMemberOfCamp(currentUser)){
-                System.out.print(index + ". " + camp_ith.getCampName());
-
-                if (camp_ith.isAttendee(currentUser)) System.out.println("[Attendee]");
-                if (camp_ith.isCommittee(currentUser)) System.out.println("[Committee]");
-                index++;
-
-            }
-        }
-
-        if (index == 1) System.out.println("You haven't registered any camp!");
-        tempDelay();
-    }
 
 
     // This method allow camp committee to view detail of a camp

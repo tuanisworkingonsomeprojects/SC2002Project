@@ -43,9 +43,9 @@ public class StaffMenu extends Menu{
 		System.out.println("Staff Portal: ");
         System.out.println();
 		System.out.println("1. Change password");
-		System.out.println("2. View all camps");              
+		System.out.println("2. View camps");              
         System.out.println("3. Create camp");                 
-		System.out.println("4. View created camps");          
+		//System.out.println("4. View created camps");          
 		System.out.println("5. View Enquiries");   // TODO: He can view enquiries from the camp HE CREATED
         System.out.println("6. Reply Enquiries");                                                                                 
 		System.out.println("7. Suggestions");	                												             
@@ -83,38 +83,52 @@ public class StaffMenu extends Menu{
                 currentUser.changePassword();
                 break;
             case 2: 
-                System.out.println("Viewing all camps...");
-                campList.viewAllCamp();
+                System.out.println("Viewing Camps");
+                campList.viewCamp();
                 break;
             case 3: 
                 System.out.println("Creating camp...");
                 campList.createCamp();
                 break;
-            case 4:
-                System.out.println("Viewing all created camps...");
-                campList.viewCreatedCamp();
-                break;
+            // case 4:
+            //     System.out.println("Viewing all created camps...");
+            //     campList.viewCreatedCamp();
+            //     break;
             case 5:
                 System.out.println("Viewing enquries...");
-                // calls method to display all enquires to camps created by staff
+                // TODO: calls method to display all enquires to camps created by staff
                 // Can reply to enquires
                 break;
+
             case 6:
+                System.out.println("Replying Enquiry...");
+                // TODO: calls method to Reply the enquiry
+                break;
+            
+            case 7:
                 System.out.println("Viewing suggestions...");
-                // calls method to display all suggestions by CC to camps created by staff
+                // TODO: calls method to display all suggestions by CC to camps created by staff
                 // Can choose to reply to suggestions
                 break;
-            case 7:
+            case 8:
             	System.out.println("Which report would you like to generate?");
-            	// calls method to generate report
+            	// TODO: calls method to generate report
             	// has option to choose what kind of report to generate
             	// attendance report; performance report; enquire report
-            case 8:
+                break;
+
+            
+            case 9:
                 System.out.println("Logging out...");
                 currentUser.logOut();
                 exit = true;
                 break;
-                // calls method to log out
+            
+            case 10:
+                System.out.println("Exiting...");
+                currentUser.logOut();
+                System.exit(0);
+                break;
             default:
                 System.out.println("Unknown error has occured.");
         }
