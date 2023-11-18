@@ -437,6 +437,7 @@ public class CampList{
                 // Check for matching UserID
                 if(campList.get(i).isStaffInCharge(currentUser)){
                     System.out.println(index + ". " + campList.get(i).getCampName());
+                    // have to add getCampDescription(Camp campName) method
                     System.out.println("Camp Description: " + campList.get(i).getCampDescription());
                     System.out.println("Student Name");
 
@@ -482,6 +483,7 @@ public class CampList{
                     System.out.println("Student Name");
                     for(int j = 0; j < campList.get(i).getCommitteeSlot();j++){
                         Student currentStudent = campList.get(i).getCommitteeList().get(j);
+                        // have to add getCommitteeReport() method 
                         System.out.println(currentStudent.getID() + /*getCommitteeReport*/);
                     }
                 }
@@ -501,6 +503,7 @@ public class CampList{
                     System.out.println("Enquiry" + "   " + "Student" + "   " + "Resolved");
                     for(int j = 0;j < tempCamp.getAttendeeSlot();j++){
                         Student currentStudent = tempCamp.getAttendeeList().get(j);
+                        // have to add getEnquiries() to camp.java
                         System.out.println(tempCamp.getEnquiries().getDescription() 
                                             + tempCamp.getEnquiries().getAuthor()
                                             + tempCamp.getEnquiries().getResolved());
