@@ -1,6 +1,9 @@
 package sce.sc2002.FinalProject;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.*;
 import java.text.SimpleDateFormat;
@@ -423,5 +426,89 @@ public class CampList{
         tempDelay();
     }
 
+    // Staff will input campName as well as whether 
+    // he wants to filter by attendee or committee (StudentRole)
+    public void generateStudentReport(String campName, String StudentRole){
+        int index = 1;
+        
+        if(currentUser.getRole().equals("staff")){
+            for(int i = 0;i < campList.size(); i++){
 
-}
+                // Check for matching UserID
+                if(campList.get(i).isStaffInCharge(currentUser)){
+                    System.out.println(index + ". " + campList.get(i).getCampName());
+                    System.out.println("Camp Description: " + campList.get(i).getCampDescription());
+                    System.out.println("Student Name");
+
+                    switch(StudentRole){
+                        // only prints attendee
+                        case "attendee":
+                            for(int j = 0;j < campList.get(i).getAttendeeSlot();j++){
+                                Student currentStudent = campList.get(i).getAttendeeList().get(j);
+                                System.out.println(currentStudent.getID() + "[Attendee]");
+                            }
+                        // only prints commitee
+                        case "committee":
+                            for(int j = 0;j < campList.get(i).getCommitteeSlot();j++){
+                                Student currStudent = campList.get(i).getCommitteeList().get(j);
+                                System.out.println(currStudent.getID() + "[Committee]");
+                            }
+                        // prints both attendee and committee
+                        default:
+                            for(int j = 0;j < campList.get(i).getAttendeeSlot();j++){
+                                    Student currentStudent = campList.get(i).getAttendeeList().get(j);
+                                    System.out.println(currentStudent.getID() + "[Attendee]");
+                                }
+                            for(int k = 0;k < campList.get(i).getCommitteeSlot();k++){
+                                    Student currStudent = campList.get(i).getCommitteeList().get(k);
+                                    System.out.println(currStudent.getID() + "[Committee]");
+                                }
+                        }
+                    }
+                    index++;
+                }
+            }
+        else{
+            System.out.println("You are not authorized!");
+        }
+    }
+
+
+    public void generateCommitteeReport(String campName){
+        if(currentUser.getRole().equals("staff")){
+            for(int i = 0;i < campList.size();i++){
+                if(campList.get(i).isStaffInCharge(currentUser) && campList.get(i).getCampName() == campName){
+                    System.out.println("Camp: " + campList.get(i).getCampName());
+                    System.out.println("Student Name");
+                    for(int j = 0; j < campList.get(i).getCommitteeSlot();j++){
+                        Student currentStudent = campList.get(i).getCommitteeList().get(j);
+                        System.out.println(currentStudent.getID() + /*getCommitteeReport*/);
+                    }
+                }
+            }
+        }
+        else{
+            System.out.println("You are not authorized!");
+        }
+    }
+    public void generateEnquiryReport(String campName){
+        if(currentUser.getRole().equals("staff")){
+            for(int i = 0; i <campList.size(); i++){
+
+                Camp tempCamp = campList.get(i);
+                if(tempCamp.isStaffInCharge(currentUser) && tempCamp.getCampName() == campName){
+                    System.out.println("Camp: " + tempCamp.getCampName());
+                    System.out.println("Enquiry" + "   " + "Student" + "   " + "Resolved");
+                    for(int j = 0;j < tempCamp.getAttendeeSlot();j++){
+                        Student currentStudent = tempCamp.getAttendeeList().get(j);
+                        System.out.println(tempCamp.getEnquiries().getDescription() 
+                                            + tempCamp.getEnquiries().getAuthor()
+                                            + tempCamp.getEnquiries().getResolved());
+                                            
+                    }
+                }
+            }
+        }
+    }
+
+    
