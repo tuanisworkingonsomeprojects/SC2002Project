@@ -101,7 +101,6 @@ public class Enquiry {
             throw new IllegalStateException("Cannot change reply of resolved enquiry.");
         }
     }
-    
 
     public void markAsResolved() 
     {

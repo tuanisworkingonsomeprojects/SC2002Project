@@ -555,6 +555,9 @@ public class CampList{
         tempDelay();
     }
     
+
+
+    // Enquiry section
     public void withdawFromCamp(){
         if (currentUser.getRole().equals("student")){
             viewRegisteredCamp();
@@ -586,10 +589,117 @@ public class CampList{
             Camp camp_ith = campList.get(i);
 
             if (camp_ith.getCampName().equals(campName)){
-                camp_ith.createEnquiry(currentUser);;
+                camp_ith.createEnquiry(currentUser);
+                tempDelay();
+                return;
             }
         }
 
+        System.out.println("There is no camp with such name");
+        tempDelay();
+    }
+
+    public void viewEnquiry(){
+        pseudoClearScreen();
+
+        System.out.println("View Enquiry Screen");
+
+        System.out.println("Camp's name: ");
+        String campName = sc.nextLine();
+
+        for (int i = 0; i < campList.size(); i++){
+            Camp camp_ith = campList.get(i);
+
+            if (camp_ith.getCampName().equals(campName)){
+                camp_ith.viewEnquiry(currentUser);
+                tempDelay();
+                return;
+            }
+        }
+
+        System.out.println("There is no camp with such name");
+        tempDelay();
+    }
+
+    public void editEnquiry(){
+        pseudoClearScreen();
+
+        System.out.println("Edit Enquiry Screem");
+
+        System.out.println("Camp's name: ");
+        String campName = sc.nextLine();
+
+        for (int i = 0; i < campList.size(); i++){
+            Camp camp_ith = campList.get(i);
+
+            if (camp_ith.getCampName().equals(campName)){
+                camp_ith.editEnquiry(currentUser);
+                tempDelay();
+                return;
+            }
+        }
+
+        System.out.println("There is no camp with such name");
+        tempDelay();
+    }
+
+    public void deletetEnquiry(){
+        pseudoClearScreen();
+
+        System.out.println("Delete Enquiry Screem");
+
+        System.out.println("Camp's name: ");
+        String campName = sc.nextLine();
+
+        for (int i = 0; i < campList.size(); i++){
+            Camp camp_ith = campList.get(i);
+
+            if (camp_ith.getCampName().equals(campName)){
+                camp_ith.deleteEnquiry(currentUser);
+                tempDelay();
+                return;
+            }
+        }
+
+        System.out.println("There is no camp with such name");
+        tempDelay();
+    }
+
+    public void replyEnquiry(){
+        pseudoClearScreen();
+        String campName = "INIT CAMPNAME";
+
+        if (currentUser.getRole().equals("staff")){
+            System.out.println("Reply Enquiry Screem");
+
+            System.out.println("Camp's name: ");
+            campName = sc.nextLine();
+        }
+        else {
+            for (int i = 0; i < campList.size(); i++){
+                Camp camp_ith = campList.get(i);
+                if (camp_ith.isCommittee(currentUser))
+                    campName = camp_ith.getCampName();
+            }
+        }
+        
+        for (int i = 0; i < campList.size(); i++){
+            Camp camp_ith = campList.get(i);
+
+            if (camp_ith.getCampName().equals(campName)){
+                if (camp_ith.isStaffInCharge(currentUser) || camp_ith.isCommittee(currentUser)){
+                    camp_ith.replyEnquiry(currentUser);
+                    tempDelay();
+                    return;
+                }
+                else {
+                    System.out.println("You done have authority to reply this enquiry");
+                }
+            }
+        }
+
+        System.out.println("There is no camp with such name");
+        tempDelay();
     }
 
     

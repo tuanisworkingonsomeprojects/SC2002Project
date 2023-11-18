@@ -63,6 +63,9 @@ public class CommitteeMenu extends Menu{
         System.out.println("11. Generate camp's report");
         System.out.println("12. Log out");
         System.out.println("13. Exit");
+        // TODO: committee can also reply enquiry
+
+
         // TODO: the camp committee can create enquiry for other camps.
     }
         
