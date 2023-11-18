@@ -41,12 +41,13 @@ public class StaffMenu extends Menu{
 
 	public void display() {
         String[] options = {"Change Password",
-                            "View Camps",
                             "Create Camps",
+                            "View Camps",
+                            "Delete Camp",
                             "View Enquiries",           // TODO: He can view enquiries from the camp HE CREATED
                             "Reply Enquiries",
                             "View Suggestions",
-                            "Approve Suggestions",
+                            "Consider Suggestions",
                             "Generate Reports",
                             "Log out",
                             "Exit"};
@@ -88,38 +89,39 @@ public class StaffMenu extends Menu{
                 break;
 
             case 2: 
-                System.out.println("Viewing Camps...");
-                campList.viewCamp();
-                break;
-
-            case 3: 
                 System.out.println("Creating camp...");
                 campList.createCamp();
                 break;
 
-            case 4:
-                System.out.println("Viewing enquries...");
-                // TODO: calls method to display all enquires to camps created by staff
-                // Can reply to enquires
+            case 3: 
+                System.out.println("Viewing Camps...");
+                campList.viewCamp();
                 break;
+
+            case 4:
+                System.out.println("Deleting Camp...");
+                campList.deleteCamp();
 
             case 5:
+                System.out.println("Viewing enquries...");
+                campList.viewEnquiry();
+                break;
+
+            case 6:
                 System.out.println("Replying Enquiry...");
-                // TODO: calls method to Reply the enquiry
+                campList.replyEnquiry();
                 break;
             
-            case 6:
-                System.out.println("Viewing suggestions...");
-                // TODO: calls method to display all suggestions by CC to camps created by staff
-                // Can choose to reply to suggestions
-                break;
-
             case 7:
-                System.out.println("Approving suggestion");
-
-                // TODO: calls method to approve the suggestion
+                System.out.println("Viewing suggestions...");
+                campList.viewSuggestion();
                 break;
+
             case 8:
+                System.out.println("Considering suggestion...");
+                campList.replySuggestion();
+                break;
+            case 9:
             	System.out.println("Which report would you like to generate?");
             	// TODO: calls method to generate report
             	// has option to choose what kind of report to generate
@@ -127,13 +129,13 @@ public class StaffMenu extends Menu{
                 break;
 
             
-            case 9:
+            case 10:
                 System.out.println("Logging out...");
                 currentUser.logOut();
                 exit = true;
                 break;
             
-            case 10:
+            case 11:
                 for (int i = 0; i < 100; i++) System.out.println();
                 System.out.println("Exiting...");
                 currentUser.logOut();

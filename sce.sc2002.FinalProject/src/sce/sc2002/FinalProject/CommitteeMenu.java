@@ -25,7 +25,7 @@ public class CommitteeMenu extends Menu{
     public void runMenu() {
 		printHeader();
 
-        // TODO: remember to update the exit variable appropriately
+        
 		while(!exit) {
 			display();
             System.out.print("Your choice: ");
@@ -49,24 +49,27 @@ public class CommitteeMenu extends Menu{
     public void display(){
         System.out.println("Student Committee Portal: ");
         System.out.println();
-        System.out.println("1. Change Password");
-        System.out.println("2. View all Camp");
-        System.out.println("3. View available Camp");
-        System.out.println("3. Register for Camp");
-        System.out.println("4. View Registed Camp");
-        System.out.println("5. Withdraw from Camp");
-        System.out.println("6. View camp's detail");
-        System.out.println("7. Submit suggestion");
-        System.out.println("8. Edit suggestion");
-        System.out.println("9. Delete Suggestion");
-        System.out.println("10. View camp's enquiry");
-        System.out.println("11. Generate camp's report");
-        System.out.println("12. Log out");
-        System.out.println("13. Exit");
-        // TODO: committee can also reply enquiry
 
+        String[] options = {"Change Password",
+                            "View Camps",
+                            "Register for Camp",
+                            "Withdraw from Camp",
+                            "Submit Suggestion",
+                            "View Suggestions",
+                            "Edit Suggestion",
+                            "Delete Suggestion",
+                            "Create Enquiry",
+                            "View Enquiries",
+                            "Delete Enquiry",
+                            "Reply Enquiry",
+                            "Generate Camp's report",
+                            "Log out",
+                            "Exit"};
 
-        // TODO: the camp committee can create enquiry for other camps.
+        for (int i = 0; i < options.length; i ++){
+            System.out.println((i + 1) + options[i]);
+        }
+
     }
         
     
@@ -85,56 +88,67 @@ public class CommitteeMenu extends Menu{
                 System.out.println("Viewing all camps...");
                 campList.viewCamp();
                 break;
-            // case 3:
-            //     System.out.println("Viewing avaible camp...");
-            //     campList.viewAvailableCamp();
-            //     break;
-            // case 4:
-            //     System.out.println("Viewing register camp...");
-            //     campList.viewRegisteredCamp();
-            //     break;
-            case 5:
+            case 3:
+                System.out.println("Registering camp...");
+                campList.registerCamp();
+                break;
+            case 4:
                 System.out.println("Withdrawing from camp...");
                 campList.withdawFromCamp();
                 break;
+            case 5:
+                System.out.println("Submitting Suggestion...");
+                campList.createSuggestion();
+                break;
             
             case 6:
-                System.out.println("Viewing Camp Details...");
-                campList.viewCampDetail();
+                System.out.println("Viewing Suggestion...");
+                campList.viewSuggestion();
                 break;
             
             case 7:
-                System.out.println("Submitting Suggestion...");
-                // TODO: submitting suggestion option
+                System.out.println("Editing Suggestion...");
+                campList.editSuggestion();
                 break;
 
             case 8:
-                System.out.println("Editing Suggestion...");
-                // TODO: editing suggestion option
+                System.out.println("Deleting Suggestion...");
+                campList.editSuggestion();
                 break;
             
             case 9:
-                System.out.println("Deleting Suggestion...");
-                // TODO: deleting suggestion option
+                System.out.println("Creating Enquiry");
+                campList.createEnquiry();
                 break;
             
             case 10:
                 System.out.println("Viewing Camp enquiry...");
-                // TODO: view camp enquiry option
+                campList.viewEnquiry();
                 break;
             
             case 11:
-                System.out.println("Generating Camp report...");
-                // TODO: generate camp report option
+                System.out.println("Deleting Camp report...");
+                campList.deletetEnquiry();
                 break;
 
             case 12:
+                System.out.println("Replying Enquiry...");
+                campList.replyEnquiry();
+                break;
+
+            case 13:
+                System.out.println("Generate Camp report");
+                // TODO: generate the report
+
+
+            case 14:
                 System.out.println("Logging out");
+                // TODO: remember to write the databack to the CSV file.
                 exit = true;
                 currentUser.logOut();
                 break;
 
-            case 13:
+            case 15:
                 // TODO: remember to write the databack to the CSV file.
                 currentUser.logOut();
                 System.exit(0);

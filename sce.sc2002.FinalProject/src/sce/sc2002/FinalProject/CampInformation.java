@@ -241,20 +241,20 @@ public class CampInformation {
 		return false;
 	}
 
-	// Method to add a new enquiry
-	// TODO: fix this later!
-    /*public void createEnquiry(Camp camp, Student author, String subject, String description) {
-        Enquiry enquiry = new Enquiry(camp, author, subject, description, null, null, false);
-        enquiries.add(enquiry);
-    }*/
-
-    // Method to get a list of enquiries
     public ArrayList<Enquiry> getEnquiries() {
         return enquiries;
     }
 
 	public void addEnquiry(Enquiry enquiry){
 		enquiries.add(enquiry);
+	}
+
+	public ArrayList<Suggestion> getSuggestions(){
+		return suggestions;
+	}
+
+	public void addSuggesstion(Suggestion newSuggestion){
+		suggestions.add(newSuggestion);
 	}
 
 

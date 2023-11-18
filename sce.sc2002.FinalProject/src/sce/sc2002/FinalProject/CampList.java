@@ -212,6 +212,14 @@ public class CampList{
             case 4:
                 viewCampWithLocation();
                 break;
+
+            case 5:
+                if (isCampCommittee() || currentUser.getRole().equals("staff")) viewCampDetail();
+                else System.out.println("Unknow Error occured");
+                break;
+            default:
+                System.out.println("Unknow Error occured");
+                break;
         }
 
     }
@@ -228,6 +236,9 @@ public class CampList{
         }
         System.out.println("3. View available camps");
         System.out.println("4. View camp with location");
+
+        if (isCampCommittee() || currentUser.getRole().equals("staff"))
+        System.out.println("5. View camp detail");
         
         System.out.print("Your choice: ");
         handleCampFilter(sc.nextInt());
@@ -442,14 +453,22 @@ public class CampList{
 
     // This method allow camp committee to view detail of a camp
     public void viewCampDetail(){
-        if (isCampCommittee()){
-            System.out.println("View camp detail screen:");
+        System.out.println("View camp detail screen:");
+        
+        String campName = "INIT CAMPNAME";
+        if (currentUser.getRole().equals("staff")){
+            campName = sc.nextLine();
+        }
+
+
+        if (isCampCommittee() || currentUser.getRole().equals("staff")){
+            
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
 
             for (int i = 0; i < campList.size(); i++){
                 Camp camp_ith = campList.get(i);
-                if (camp_ith.isCommittee(currentUser)){
+                if (camp_ith.isCommittee(currentUser) || camp_ith.isStaffInCharge(currentUser)){
 
                     // Pseudo clear screen
                     for (int j = 0; j < 100; j++){
@@ -481,7 +500,7 @@ public class CampList{
             }
         }
         else {
-            System.out.println("You are not a camp Committee of any camp!");
+            System.out.println("You are not a camp Committee or staff in charge of any camp!");
 
         }
         tempDelay();
@@ -555,9 +574,6 @@ public class CampList{
         tempDelay();
     }
     
-
-
-    // Enquiry section
     public void withdawFromCamp(){
         if (currentUser.getRole().equals("student")){
             viewRegisteredCamp();
@@ -577,6 +593,7 @@ public class CampList{
         tempDelay();
     }
 
+    // Enquiry section
     public void createEnquiry(){
         pseudoClearScreen();
 
@@ -703,4 +720,104 @@ public class CampList{
     }
 
     
+    // Suggestion section
+    public void createSuggestion(){
+        pseudoClearScreen();
+
+        System.out.println("Create Suggestion Screen");
+
+        for (int i = 0; i < campList.size(); i++){
+            Camp camp_ith = campList.get(i);
+
+            if (camp_ith.isCommittee(currentUser)){
+                camp_ith.createSuggestion(currentUser);
+                tempDelay();
+                return;
+            }
+        }
+    }
+
+    public void viewSuggestion(){
+        pseudoClearScreen();
+
+        System.out.println("View Suggestion Screen");
+
+        String campName = "INITIAL CAMPNAME";
+        if (!isCampCommittee()){
+            System.out.print("Camp's name: ");
+            campName = sc.nextLine();
+        }
+
+        for (int i = 0; i < campList.size(); i++){
+            Camp camp_ith = campList.get(i);
+            if (camp_ith.isCommittee(currentUser)){
+                camp_ith.viewSuggestion(currentUser);
+                tempDelay();
+                return;
+            }
+            else {
+                if (camp_ith.getCampName().equals(campName) && camp_ith.isStaffInCharge(currentUser)){
+                    camp_ith.viewSuggestion(currentUser);   
+                    tempDelay();
+                    return;
+                }
+            }
+        }
+
+        tempDelay();
+    }
+
+    public void editSuggestion(){
+        pseudoClearScreen();
+
+        System.out.println("Edit Suggestion Screen");
+
+        for (int i = 0; i < campList.size(); i++){
+            Camp camp_ith = campList.get(i);
+
+            if (camp_ith.isCommittee(currentUser)){
+                camp_ith.editSuggestion(currentUser);
+                tempDelay();
+                return;
+            }
+        }
+
+    }
+
+    public void deleteSuggestion(){
+        pseudoClearScreen();
+
+        System.out.println("Delete Suggestion Screen");
+
+        for (int i = 0; i < campList.size(); i++){
+            Camp camp_ith = campList.get(i);
+
+            if (camp_ith.isCommittee(currentUser)){
+                camp_ith.deleteSuggestion(currentUser);
+            }
+        }
+    }
+
+    public void replySuggestion(){
+        pseudoClearScreen();
+
+        System.out.println("Reply Suggestion Screen:");
+
+        System.out.print("Camp's Name: ");
+        String campName = sc.nextLine();
+
+        for (int i = 0; i < campList.size(); i++){
+            Camp camp_ith = campList.get(i);
+
+            if (camp_ith.getCampName().equals(campName) && camp_ith.isStaffInCharge(currentUser)){
+                camp_ith.replySuggestion(currentUser);   
+                tempDelay();
+                return;
+            }
+        }
+    }
+
+
+
+
 }

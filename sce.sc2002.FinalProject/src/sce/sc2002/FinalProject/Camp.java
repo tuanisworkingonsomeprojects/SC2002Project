@@ -86,6 +86,7 @@ public class Camp{
 		int choice = 0;
 		while (choice < 10){
 			if(currentUser.getRole().equals("staff")) {
+
 				displayEditCamp();
 				choice = getMenuChoice();
 				performActionEditCamp(choice);
@@ -122,10 +123,10 @@ public class Camp{
             } catch (NumberFormatException e) {
                 System.out.println("Invalid selection. Numbers only please.");
             }
-            if (choice < 0 || choice > 9) {
+            if (choice < 0) {
                 System.out.println("Choice outside of range. Please chose again.");
             }
-        } while (choice < 0 || choice > 9);
+        } while (choice < 0);
         return choice;
     }
 	
@@ -168,6 +169,10 @@ public class Camp{
 				break;
 
             case 9:
+				if (campInfo.getAttendeeList().size() > 0 || campInfo.getCommitteeList().size() > 0){
+					System.out.println("You cannot change a vailability on registered camp!");
+					break;
+				}
             	System.out.println("Availability? (Y/N): ");
             	campInfo.setVisibility(sc.next().charAt(0));
             	break;
@@ -244,7 +249,6 @@ public class Camp{
 		}
 	}
 
-
 	public void registerCamp(Login currentUser){
 		System.out.println("Choose your role in Camp:");
 		System.out.println("1. Camp Attendee");
@@ -268,6 +272,10 @@ public class Camp{
 	public void withdawFromCamp(Login currentUser){
 		campInfo.attendeeWithdrawal(currentUser);
 	}
+
+
+
+
 
 	public void createEnquiry(Login currentUser){
 
@@ -296,7 +304,6 @@ public class Camp{
 
 
 	}
-
 
 	public void viewEnquiry(Login currentUser){
 		System.out.println("What do you want to view:");
@@ -337,7 +344,7 @@ public class Camp{
 				}
 				test_idx++;
 			}
-			else {
+			else if (isStaffInCharge(currentUser) || isCommittee(currentUser)){
 				System.out.println("ID: " + enquiry_ith.getEnquiryID() + ". " + enquiry_ith.getSubject());
 				test_idx++;
 			}
@@ -347,12 +354,10 @@ public class Camp{
 
 	}
 
-
-	
 	public void viewEnquiryDetail(Login currentUser){
 		int test_idx = 0;
 
-		System.out.print("Please enter your enquiry ID: ");
+		System.out.print("Enquiry ID: ");
 		int enquriyID = sc.nextInt();
 		sc.nextLine();
 		
@@ -370,7 +375,7 @@ public class Camp{
 					}
 					test_idx++;
 				}
-				else {
+				else if (isStaffInCharge(currentUser) || isCommittee(currentUser)){
 					System.out.println("ID: " + enquiry_ith.getEnquiryID() + ". " + enquiry_ith.getSubject());
 					System.out.println("Description: " + enquiry_ith.getDescription());
 					test_idx++;
@@ -402,7 +407,7 @@ public class Camp{
 						return;
 					}
 
-
+					System.out.println("Edit Options:");
 					System.out.println("1. Edit Subject / Title");
 					System.out.println("2. Edit description");
 					
@@ -505,6 +510,204 @@ public class Camp{
 		System.out.println("No matching ID found!");
 	}
 
+
+
+
+
+
+
+
+	public void createSuggestion(Login currentUser){
+
+		for (int i = 0; i < campInfo.getCommitteeList().size(); i++){
+			Committee student_ith = (Committee) campInfo.getCommitteeList().get(i);
+
+			if (student_ith.getID().equals(currentUser.getUserid())){
+				System.out.print("Your suggestion (one line): ");
+				String description = sc.nextLine();
+
+				Suggestion newSuggestion = new Suggestion(student_ith, description);
+				campInfo.addSuggesstion(newSuggestion);
+				return;
+			}
+		}
+
+	}
+
+	public void viewSuggestion(Login currentUser){
+		System.out.println("Suggestion view options:");
+		System.out.println("1. View all Suggestions");
+		System.out.println("2. View Suggestion Detail");
+		System.out.print("Your choice: ");
+		int choice = sc.nextInt();
+		sc.nextLine();
+
+		switch (choice) {
+			case 1:
+				viewAllEnquiry(currentUser);
+				break;
+			case 2:
+				viewSuggestionDetail(currentUser);
+				break;
+
+			default:
+				break;
+		}
+	}
+
+	public void viewAllSuggestion(Login currentUser){
+		int index = 1;
+
+		for (int i = 0; i < campInfo.getSuggestions().size(); i++){
+			Suggestion suggestion_ith = campInfo.getSuggestions().get(i);
+
+			if (currentUser.getRole().equals("student")){
+				if (suggestion_ith.getAuthor().getID().equals(currentUser.getUserid())){
+					System.out.println("ID: " + suggestion_ith.getSuggestionID() + ", status: [" + suggestion_ith.getStatus().toString() + "]");
+					index++;
+				}
+			}
+			else {
+				System.out.println("ID: " + suggestion_ith.getSuggestionID() + ", status: [" + suggestion_ith.getStatus().toString() + "]");
+				index++;
+			}
+		}
+
+		if (index == 1){
+			System.out.println("There is no enquiry in this camp");
+		}
+	}
+
+	public void viewSuggestionDetail(Login currentUser){
+		viewAllSuggestion(currentUser);
+		System.out.print("Suggesstion ID: ");
+		int suggestionID = sc.nextInt();
+		sc.nextLine();
+
+		for (int i = 0; i < campInfo.getSuggestions().size(); i++){
+			Suggestion suggestion_ith = campInfo.getSuggestions().get(i);
+
+			if (suggestion_ith.getSuggestionID() == suggestionID){
+				if (currentUser.getRole().equals("student")){
+					if (suggestion_ith.getAuthor().getID().equals(currentUser.getUserid())){
+						System.out.println("ID: " + suggestion_ith.getSuggestionID() + ", status: [" + suggestion_ith.getStatus().toString() + "]");
+						System.out.println("Detail: " + suggestion_ith.getDescription());
+						return;
+					}
+				}
+				else {
+					System.out.println("ID: " + suggestion_ith.getSuggestionID() + ", status: [" + suggestion_ith.getStatus().toString() + "]");
+					System.out.println("Detail: " + suggestion_ith.getDescription());
+					return;
+				}
+			}
+		}
+
+		System.out.println("There is no suggestion ID matched the provided one");
+
+	}
+
+	public void editSuggestion(Login currentUser){
+		viewAllSuggestion(currentUser);
+		System.out.print("Suggesstion ID: ");
+		int suggestionID = sc.nextInt();
+		sc.nextLine();
+
+		for (int i = 0; i < campInfo.getSuggestions().size(); i++){
+			Suggestion suggestion_ith = campInfo.getSuggestions().get(i);
+
+			if (suggestion_ith.getSuggestionID() == suggestionID){
+				if (suggestion_ith.getResolved()){
+					System.out.println("You cannot edit resolved suggestion");
+					return;
+				}
+
+				if (currentUser.getRole().equals("student")){
+					if (suggestion_ith.getAuthor().getID().equals(currentUser.getUserid())){
+						System.out.println("ID: " + suggestion_ith.getSuggestionID() + ", status: [" + suggestion_ith.getStatus().toString() + "]");
+						System.out.println("Detail: " + suggestion_ith.getDescription());
+
+						System.out.println("Detail: ");
+						String detail = sc.nextLine();
+
+						suggestion_ith.setDescription(detail);
+
+						return;
+					}
+				}
+			}
+		}
+
+		System.out.println("There is no matching suggestion for this camp");
+	}
+
+	public void deleteSuggestion(Login currentUser){
+		viewAllSuggestion(currentUser);
+		System.out.print("Suggesstion ID: ");
+		int suggestionID = sc.nextInt();
+		sc.nextLine();
+
+		for (int i = 0; i < campInfo.getSuggestions().size(); i++){
+			Suggestion suggestion_ith = campInfo.getSuggestions().get(i);
+
+			if (suggestion_ith.getSuggestionID() == suggestionID){
+				if (suggestion_ith.getResolved()){
+					System.out.println("You cannot delete resolved suggestion");
+					return;
+				}
+
+				if (currentUser.getRole().equals("student")){
+					if (suggestion_ith.getAuthor().getID().equals(currentUser.getUserid())){
+						System.out.println("ID: " + suggestion_ith.getSuggestionID() + ", status: [" + suggestion_ith.getStatus().toString() + "]");
+						System.out.println("Detail: " + suggestion_ith.getDescription());
+
+						System.out.println("");
+						campInfo.getSuggestions().remove(i);
+
+						return;
+					}
+				}
+			}
+		}
+
+		System.out.println("There is no matching suggestion for this camp");
+	}
+
+	public void replySuggestion(Login currentUser){
+		viewAllEnquiry(currentUser);
+
+		System.out.print("Suggestion ID: ");
+
+		int suggestionID = sc.nextInt();
+		sc.nextLine();
+
+		for (int i = 0; i < campInfo.getEnquiries().size(); i++){
+			Suggestion suggestion_ith = campInfo.getSuggestions().get(i);
+
+			if (suggestion_ith.getAuthor().getID().equals(currentUser.getUserid())){
+				if (suggestionID == suggestion_ith.getSuggestionID()){
+					if (suggestion_ith.getResolved()){
+						System.out.println("You cannot delete the resolved suggestion");
+						return;
+					}
+
+					System.out.print("Confirm deletion (Y / N):");
+					String choice = sc.nextLine();
+
+					if (choice == "Y"){
+						campInfo.getSuggestions().remove(suggestionID);
+						return;
+					}
+					else {
+						return;
+					}
+				}
+			}
+		}
+
+		System.out.println("There is no matching suggestion for this camp");
+		
+	}
 
 
 }
