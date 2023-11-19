@@ -10,6 +10,40 @@ public class Camp{
 	public Camp(CampList campList) { //constructor for Camp object
 		campInfo = new CampInformation(campList);
 	}
+
+	public Camp(CampList	campList,
+				String		campName,
+				String		startDate,
+				String		endDate,
+				String		closingDate,
+				String		faculty,
+				String		location,
+				int			attendeeSlot,
+				int			committeeSlot,
+				String		detail,
+				boolean     visibility,
+				String		staffInCharge)
+	{
+		campInfo = new CampInformation(campList);
+		campInfo.setCampName(campName);
+		campInfo.setStartDate(startDate);
+		campInfo.setEndDate(endDate);
+		campInfo.setClosingDate(closingDate);
+		campInfo.setAvailableTo(faculty);
+		campInfo.setLocation(location);
+		campInfo.setAttendeeSlot(attendeeSlot);
+		campInfo.setCampCommSlot(committeeSlot);
+		campInfo.setDetail(detail);
+		campInfo.setVisibility(visibility);
+		campInfo.setStaffInCharge(staffInCharge);
+
+	}
+
+
+	public void addCommittee(Committee new_committee) {campInfo.getCommitteeList().add(new_committee);}
+	public void addAttendee(Student new_attendee)     {campInfo.getAttendeeList().add(new_attendee);}
+	public void addBlacklist(Student new_blacklist)   {campInfo.getBlackList().add(new_blacklist);}
+
 	
 	public String  getCampName()		{return campInfo.getCampName();}
 	public String  getStaffInCharge()	{return campInfo.getStaffInCharge();}
@@ -20,9 +54,12 @@ public class Camp{
 	public String  getFaculty()			{return campInfo.getFaculty();}
 	public int	   getCommitteeSlot()	{return campInfo.getCampCommSlot();}
 	public int	   getAttendeeSlot()	{return campInfo.getAttendeeSlot();}
+	public String  getDetail()			{return campInfo.getDetail();}
 	public String  getLocation()		{return campInfo.getLocation();}
 	public ArrayList<Student> getAttendeeList() {return campInfo.getAttendeeList();}
-	public ArrayList<Student> getCommitteeList() {return campInfo.getCommitteeList();}
+	public ArrayList<Student> getCommitteeList(){return campInfo.getCommitteeList();}
+	public ArrayList<Student> getBlackList()	{return campInfo.getBlackList();}
+	public ArrayList<Enquiry> getEnquiries()	{return campInfo.getEnquiries();}
 
 	// A person is a member of a camp if he/she is a committee or attendee of that camp.
 	public boolean isMemberOfCamp(Login currentUser)	{return campInfo.isCommittee(currentUser) || campInfo.isAttendee(currentUser);} 
@@ -66,6 +103,7 @@ public class Camp{
 			
 			System.out.print("Slots: ");
 			campInfo.setAttendeeSlot(sc.nextInt());
+			sc.nextLine(); 
 
 			System.out.print("Camp Detail: ");
 			campInfo.setDetail(sc.nextLine());
@@ -317,7 +355,7 @@ public class Camp{
 
 		System.out.print("Your choice: ");
 		int choice = sc.nextInt();
-		sc.next();
+		sc.nextLine();
 
 		switch (choice){
 			case 1:

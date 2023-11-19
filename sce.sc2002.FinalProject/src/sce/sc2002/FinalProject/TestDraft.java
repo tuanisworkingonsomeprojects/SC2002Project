@@ -6,19 +6,19 @@ import java.util.Scanner;
 public class TestDraft {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		Scanner sc;
-		try {
-        sc = new Scanner(new File(System.getProperty("user.dir") + "/src/sce/sc2002/FinalProject/UserAndPassword/studentList.csv"));
+		// Scanner sc;
+		// try {
+        // sc = new Scanner(new File(System.getProperty("user.dir") + "/src/sce/sc2002/FinalProject/UserAndPassword/studentList.csv"));
 
-		sc.useDelimiter(",");   //sets the delimiter pattern  
-        }
+		// sc.useDelimiter(",");   //sets the delimiter pattern  
+        // }
 
-        catch (final Exception e){
-            sc = new Scanner(new File(System.getProperty("user.dir") + "/sce.sc2002.FinalProject/src/sce/sc2002/FinalProject/UserAndPassword/studentList.csv"));
-            System.out.println("\n\n\n" + System.getProperty("user.dir"));
-            		sc.useDelimiter(",");   //sets the delimiter pattern  
+        // catch (final Exception e){
+        //     sc = new Scanner(new File(System.getProperty("user.dir") + "/sce.sc2002.FinalProject/src/sce/sc2002/FinalProject/UserAndPassword/studentList.csv"));
+        //     System.out.println("\n\n\n" + System.getProperty("user.dir"));
+        //     		sc.useDelimiter(",");   //sets the delimiter pattern  
 
-        }
+        // }
         
 	
 	
@@ -40,10 +40,13 @@ public class TestDraft {
 
 		
 		
-		UserData userdata = new UserData("student");
-		userdata.changePassword("KOH1", "password");
+		// UserData userdata = new UserData("student");
+		// userdata.changePassword("KOH1", "password");
 		
-		
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter integer: ");
+		//String input = sc.nextLine();
+		System.out.println("Out: " + Integer.parseInt(sc.nextLine()));
 		
 	}
 }

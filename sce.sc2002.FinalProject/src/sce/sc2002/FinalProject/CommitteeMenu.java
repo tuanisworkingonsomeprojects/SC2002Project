@@ -67,7 +67,7 @@ public class CommitteeMenu extends Menu{
                             "Exit"};
 
         for (int i = 0; i < options.length; i ++){
-            System.out.println((i + 1) + options[i]);
+            System.out.println((i + 1) + ". " + options[i]);
         }
 
     }
@@ -146,11 +146,13 @@ public class CommitteeMenu extends Menu{
                 // TODO: remember to write the databack to the CSV file.
                 exit = true;
                 currentUser.logOut();
+                campList.exportData();
                 break;
 
             case 15:
                 // TODO: remember to write the databack to the CSV file.
                 currentUser.logOut();
+                campList.exportData();
                 System.exit(0);
                 break;
 

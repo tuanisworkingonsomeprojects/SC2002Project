@@ -50,6 +50,7 @@ public class AttendeeMenu extends Menu{
     private int getMenuChoice() {
         Scanner keyboard = new Scanner(System.in);
         int choice = keyboard.nextInt();
+        keyboard.nextLine();
         return choice;
     }
 

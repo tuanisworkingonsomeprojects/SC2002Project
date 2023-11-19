@@ -58,11 +58,17 @@ public class CampInformation {
 	public void setAttendeeSlot(int attendeeSlot)  	{this.attendeeSlot  = attendeeSlot ;}
 	public void setCampCommSlot(int campCommSlots)  {this.campCommSlots = campCommSlots;}
 	public void setStaffInCharge(Login currentUser) {this.staffInCharge = currentUser.getUserid();} 
+	public void setStaffInCharge(String staffInCharge) {this.staffInCharge = staffInCharge;}
+
 	public void setDetail(String newDetail)			{this.detail		= newDetail;}
  	public void setVisibility(char x) {  
 		if(x == 'Y') {
     		visibility = true;  }
   		else {visibility = false;} 
+	}
+	
+	public void setVisibility(boolean new_visibility){
+		visibility = new_visibility;
 	}
 
 
@@ -77,9 +83,11 @@ public class CampInformation {
 	public Date		getClosingDate()	{return closingDate;}
 	public String   getFaculty()		{return avaialbleTo;}
 	public String   getLocation()		{return location;}
+	public String	getDetail()			{return detail;}
 
 	public ArrayList<Student> getAttendeeList() 	{return studentAttendees;}
 	public ArrayList<Student> getCommitteeList()	{return committeeList;}
+	public ArrayList<Student> getBlackList()		{return blacklist;}
 
 
 	public Date fromStringToDate(String dateText){

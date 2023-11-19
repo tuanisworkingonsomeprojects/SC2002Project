@@ -9,6 +9,11 @@ public class Committee extends Student{
         point = 0;
     }
 
+    public Committee(String id, String faculty, int point){
+        super(id, faculty);
+        this.point = point;
+    }
+
     public int getPoint(){return point;}
 
     public void addPoint(){point++;}

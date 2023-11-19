@@ -13,10 +13,252 @@ public class CampList{
     private Login currentUser;
     private ArrayList<Camp> campList;
 
+    private Scanner textFile;
+    private String dataPath;
+    
+
     public CampList(Login user){
         currentUser = user;
         campList    = new ArrayList<Camp>();
     }
+
+
+    public void exportData(){
+         StringBuilder stringBuilder = new StringBuilder();
+
+        // First Line will always be the number of camp in the list
+        stringBuilder.append(campList.size() + "\n");
+
+        // TODO: remember to delete this
+        System.out.println("Num of Camp: " + campList.size());
+
+        for (int i = 0; i < campList.size(); i++){
+            Camp camp_ith = campList.get(i);
+
+            // 2 is camp's name
+            stringBuilder.append(camp_ith.getCampName() + "\n");
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+            // 3 line is the start date
+            stringBuilder.append(sdf.format(camp_ith.getStartDate()) + "\n");
+
+            // 4 line is the end date
+            stringBuilder.append(sdf.format(camp_ith.getEndDate()) + "\n");
+
+            // 5 line is the registration date
+            stringBuilder.append(sdf.format(camp_ith.getClosingDate()) + "\n");
+
+            // 6 line is the School
+            stringBuilder.append(camp_ith.getFaculty() + "\n");
+
+            // 7 line is Location
+            stringBuilder.append(camp_ith.getLocation() + "\n");
+
+            // 8 line is number of Slot
+            stringBuilder.append(camp_ith.getAttendeeSlot() + "\n");
+
+            // 9 line is number of slot
+            stringBuilder.append(camp_ith.getCommitteeSlot() + "\n");
+
+            // 10 line is camp detail
+            stringBuilder.append(camp_ith.getDetail() + "\n");
+
+            // 11 line is visibility
+            stringBuilder.append(camp_ith.getVisibility() + "\n");
+
+            // 12 line is staff in charge
+            stringBuilder.append(camp_ith.getStaffInCharge() + "\n");
+
+            // 13 line is number of Camp commitees
+            stringBuilder.append(camp_ith.getCommitteeList().size() + "\n");
+
+            for (int j = 0; j < camp_ith.getCommitteeList().size(); j++){
+                Committee committee_jth = (Committee) camp_ith.getCommitteeList().get(j);
+
+                // 13.1 is committee ID
+                stringBuilder.append(committee_jth.getID() + "\n");
+
+                // 13.2 is committee faculty
+                stringBuilder.append(committee_jth.getFaculty() + "\n");
+
+                // 13.3 is committee point
+                stringBuilder.append(committee_jth.getPoint() + "\n");
+            }
+
+            // 14 line is number of Camp attendees
+            stringBuilder.append(camp_ith.getAttendeeList().size() + "\n");
+
+            for (int j = 0; j < camp_ith.getAttendeeList().size(); j++){
+                Student student_jth = camp_ith.getAttendeeList().get(j);
+
+                // 14.1 is attendee ID
+                stringBuilder.append(student_jth.getID() + "\n");
+
+                // 14.2 is attendee faculty
+                stringBuilder.append(student_jth.getFaculty() + "\n");
+
+            }
+
+            // 15 line is number of BlackList students
+            stringBuilder.append(camp_ith.getBlackList().size());
+
+            for (int j = 0; j < camp_ith.getBlackList().size(); j++){
+                Student student_jth = camp_ith.getBlackList().get(i);
+                
+                // 15.1 is blacklist student ID
+                stringBuilder.append(student_jth.getID());
+
+                // 15.2 is blacklist student faculty
+                stringBuilder.append(student_jth.getFaculty());
+
+            }
+
+            // 16 line is number of Enquiry
+            stringBuilder.append(camp_ith.getEnquiries().size());
+
+            for (int j = 0; j < camp_ith.getEnquiries().size(); j++){
+                Enquiry enquiry_jth = camp_ith.getEnquiries().get(i);
+
+                // TODO: remember to add more to this part!
+            }
+
+
+
+        }
+
+        
+
+
+
+        String data = stringBuilder.toString();
+        StringToText.stringToText(data, dataPath);
+    }
+
+    public void loadData(){
+        
+        
+        try {
+            textFile = new Scanner(new File(System.getProperty("user.dir") + "/src/sce/sc2002/FinalProject/CampListData/CampListData.txt"));
+            dataPath = System.getProperty("user.dir") + "/src/sce/sc2002/FinalProject/CampListData/CampListData.txt";
+        }
+        catch (final Exception e) {
+            try {
+                textFile = new Scanner(new File(System.getProperty("user.dir") + "/sce.sc2002.FinalProject/src/sce/sc2002/FinalProject/CampListData/CampListData.txt"));
+                dataPath = System.getProperty("user.dir") + "/sce.sc2002.FinalProject/src/sce/sc2002/FinalProject/CampListData/CampListData.txt";
+            } catch (FileNotFoundException e1) {
+                e1.printStackTrace();
+            }
+        }
+
+        int numOfCamp = Integer.parseInt(textFile.nextLine());
+
+        if (numOfCamp == 0){
+            return;
+        }
+
+        // TODO: remember to delete this
+        System.out.println("Num of camp: " + numOfCamp);
+
+        for (int i = 0; i < numOfCamp; i++){
+            String camp_ith_name = textFile.nextLine();
+
+            // TODO: remember to delete this
+            System.out.println("Camp's name: " + camp_ith_name);
+
+            String camp_ith_startDate = textFile.nextLine();
+            String camp_ith_endDate   = textFile.nextLine();
+            String camp_ith_closingDate = textFile.nextLine();
+
+            // TODO: remember to delete this
+            System.out.println("start end close: " + camp_ith_startDate + " " + camp_ith_endDate + " " + camp_ith_closingDate);
+
+
+            String camp_ith_faculty   = textFile.nextLine();
+            // TODO: remember to delete this
+            System.out.println("Faculty: " + camp_ith_faculty);
+
+            String camp_ith_location  = textFile.nextLine();
+            // TODO: remember to delete this
+            System.out.println("Location: " + camp_ith_location);
+
+            int    camp_ith_attendeeSlot  = Integer.parseInt(textFile.nextLine());
+            int    camp_ith_committeeSlot = Integer.parseInt(textFile.nextLine());
+            // Remember to delete this
+            System.out.println("Attendee, Commitee: " + camp_ith_attendeeSlot + ", " + camp_ith_committeeSlot);
+
+            String camp_ith_detail    = textFile.nextLine();
+            // Remember to delete this
+            System.out.println("Camp Detail: " + camp_ith_detail);
+
+            boolean camp_ith_available = Boolean.parseBoolean(textFile.nextLine());
+            // Remember to delete this
+            System.out.println("Visibility: " + camp_ith_available);
+
+            String camp_ith_staffInCharge = textFile.nextLine();
+            // Remember to delete this
+            System.out.println("Staff in charge: " + camp_ith_staffInCharge);
+
+            Camp camp_ith = new Camp(this,
+                                    camp_ith_name,
+                                    camp_ith_startDate,
+                                    camp_ith_endDate,
+                                    camp_ith_closingDate,
+                                    camp_ith_faculty,
+                                    camp_ith_location,
+                                    camp_ith_attendeeSlot,
+                                    camp_ith_committeeSlot,
+                                    camp_ith_detail,
+                                    camp_ith_available,
+                                    camp_ith_staffInCharge);
+            addCamp(camp_ith);
+            
+            
+            int noOfCommittee = Integer.parseInt(textFile.nextLine());
+
+            for (int j = 0; j < noOfCommittee; j++){
+                String committee_jth_ID = textFile.nextLine();
+                String committee_jth_faculty = textFile.nextLine();
+                int committee_jth_point = Integer.parseInt(textFile.nextLine());
+                camp_ith.addCommittee(new Committee(committee_jth_ID, committee_jth_faculty, committee_jth_point));
+
+                // TODO: remember to delete this:
+                System.out.println("Size: " + camp_ith.getCommitteeList().size());
+            }
+
+            int noOfAttendee = Integer.parseInt(textFile.nextLine());
+
+            for (int j = 0; j < noOfAttendee; j++){
+                String attendee_jth_ID = textFile.nextLine();
+                String attendee_jth_faculty = textFile.nextLine();
+
+                camp_ith.addAttendee(new Student(attendee_jth_ID, attendee_jth_faculty));
+            }
+
+            int noOfBlacklist = Integer.parseInt(textFile.nextLine());
+
+            for (int j = 0; j < noOfBlacklist; j++){
+                String blacklist_jth_ID = textFile.nextLine();
+                String blacklist_jth_faculty = textFile.nextLine();
+
+                camp_ith.addBlacklist(new Student(blacklist_jth_ID, blacklist_jth_faculty));
+            }
+
+            
+
+        }
+    }
+
+    
+
+
+
+
+
+
+
+
+
 
     private Scanner sc = new Scanner(System.in);
     
@@ -35,34 +277,6 @@ public class CampList{
 
         return false;
     }
-
-    private Scanner getDataFromCSV(String role) {
-		Scanner sc = null;
-		
-		// TODO: change the path and add new folder to store the campList data.
-        // TODO: create each file for each camp with the name of the csv file is the name of the camp
-        // The first line is the data that are not stored in the ArrayList type
-        // The seconde line is the member of the first ArrayList members and the format later will be like this!
-        try {
-            sc = new Scanner(new File(System.getProperty("user.dir") + "/src/sce/sc2002/FinalProject/UserAndPassword/studentList.csv"));
-            accessPath = System.getProperty("user.dir") + "/src/sce/sc2002/FinalProject/UserAndPassword/studentList.csv";
-        }
-        catch (final Exception e) {
-            try {
-                sc = new Scanner(new File(System.getProperty("user.dir") + "/sce.sc2002.FinalProject/src/sce/sc2002/FinalProject/UserAndPassword/studentList.csv"));
-                accessPath = System.getProperty("user.dir") + "/sce.sc2002.FinalProject/src/sce/sc2002/FinalProject/UserAndPassword/studentList.csv";
-            } catch (FileNotFoundException e1) {
-                e1.printStackTrace();
-            }
-        }
-        
-        sc.useDelimiter(",");
-
-		
-		
-		
-		return sc;
-	}
 
     private void tempDelay(){
         System.out.println("Press Enter to go Back!");
@@ -84,7 +298,9 @@ public class CampList{
     // Method for staff
 
     public void createCamp(){
+        pseudoClearScreen();
         addCamp(Camp.createCamp(currentUser, this));
+        tempDelay();
     }
 
     private void addCamp(Camp camp){
@@ -242,6 +458,7 @@ public class CampList{
         
         System.out.print("Your choice: ");
         handleCampFilter(sc.nextInt());
+        tempDelay();
     }
 
 
@@ -275,7 +492,6 @@ public class CampList{
             System.out.println("There is no camp to view");
         }
         sc.nextLine();
-        tempDelay();
     }
 
     private void viewCreatedCamp(){
@@ -300,7 +516,6 @@ public class CampList{
             System.out.println("You haven't created any camp!\n\n\n");
         }
         sc.nextLine();
-        tempDelay();
     }
 
     private void viewRegisteredCamp(){
@@ -324,7 +539,6 @@ public class CampList{
 
         if (index == 1) System.out.println("You haven't registered any camp!");
         sc.nextLine();
-        tempDelay();
     }
     // This method that I've implemented will ask the Staff to choose to print the list of
     // Attendee or the list of Committee already so you don't have to worry about it!
@@ -354,7 +568,6 @@ public class CampList{
         if (index == 1) System.out.println("There is no available camp.");
 
         sc.nextLine();
-        tempDelay();
     }
 
     // This method is called by viewCampWithLocation()
@@ -385,7 +598,6 @@ public class CampList{
         printLocation();
 
         if (campList.size() == 0) {
-            tempDelay();
             return;
         }
 
@@ -403,7 +615,6 @@ public class CampList{
                 else System.out.println();
             }
         }
-        tempDelay();
     }
 
     public void viewStudentList(){
@@ -621,7 +832,7 @@ public class CampList{
 
         System.out.println("View Enquiry Screen");
 
-        System.out.println("Camp's name: ");
+        System.out.print("Camp's name: ");
         String campName = sc.nextLine();
 
         for (int i = 0; i < campList.size(); i++){
@@ -643,7 +854,7 @@ public class CampList{
 
         System.out.println("Edit Enquiry Screem");
 
-        System.out.println("Camp's name: ");
+        System.out.print("Camp's name: ");
         String campName = sc.nextLine();
 
         for (int i = 0; i < campList.size(); i++){
@@ -665,7 +876,7 @@ public class CampList{
 
         System.out.println("Delete Enquiry Screem");
 
-        System.out.println("Camp's name: ");
+        System.out.print("Camp's name: ");
         String campName = sc.nextLine();
 
         for (int i = 0; i < campList.size(); i++){

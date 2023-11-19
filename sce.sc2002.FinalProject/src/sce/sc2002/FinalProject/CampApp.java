@@ -9,6 +9,7 @@ public class CampApp {
 
 		loginScreen.display();
 		CampList campList = new CampList(loginScreen);
+		campList.loadData();
 
 		while(!quit){
 

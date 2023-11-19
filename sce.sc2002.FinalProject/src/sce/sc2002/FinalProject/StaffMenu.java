@@ -44,6 +44,7 @@ public class StaffMenu extends Menu{
                             "Create Camps",
                             "View Camps",
                             "Delete Camp",
+                            "View Student List",
                             "View Enquiries",           // TODO: He can view enquiries from the camp HE CREATED
                             "Reply Enquiries",
                             "View Suggestions",
@@ -101,27 +102,33 @@ public class StaffMenu extends Menu{
             case 4:
                 System.out.println("Deleting Camp...");
                 campList.deleteCamp();
+                break;
 
             case 5:
+                System.out.println("Viewing student list...");
+                campList.viewStudentList();
+                break;
+
+            case 6:
                 System.out.println("Viewing enquries...");
                 campList.viewEnquiry();
                 break;
 
-            case 6:
+            case 7:
                 System.out.println("Replying Enquiry...");
                 campList.replyEnquiry();
                 break;
             
-            case 7:
+            case 8:
                 System.out.println("Viewing suggestions...");
                 campList.viewSuggestion();
                 break;
 
-            case 8:
+            case 9:
                 System.out.println("Considering suggestion...");
                 campList.replySuggestion();
                 break;
-            case 9:
+            case 10:
             	System.out.println("Which report would you like to generate?");
             	// TODO: calls method to generate report
             	// has option to choose what kind of report to generate
@@ -129,16 +136,18 @@ public class StaffMenu extends Menu{
                 break;
 
             
-            case 10:
+            case 11:
                 System.out.println("Logging out...");
                 currentUser.logOut();
+                campList.exportData();
                 exit = true;
                 break;
             
-            case 11:
+            case 12:
                 for (int i = 0; i < 100; i++) System.out.println();
                 System.out.println("Exiting...");
                 currentUser.logOut();
+                campList.exportData();
                 System.exit(0);
                 break;
             default:
