@@ -20,7 +20,7 @@ public class StaffMenu extends Menu{
         currentUser = user;
     }
 
-
+    Scanner sc = new Scanner(System.in);
 	
 	public void runMenu() {
 		printHeader();
@@ -40,7 +40,25 @@ public class StaffMenu extends Menu{
 	}
 
 	public void display() {
+<<<<<<< Updated upstream
 		System.out.println("Staff Portal: ");
+=======
+        String[] options = {"Change Password",
+                            "Create Camps",
+                            "View Camps",
+                            "Delete Camp",
+                            "View Enquiries",           // TODO: He can view enquiries from the camp HE CREATED
+                            "Reply Enquiries",
+                            "View Suggestions",
+                            "Consider Suggestions",
+                            "Write Committee Performance Report",
+                            "Generate Reports",
+                            "Log out",
+                            "Exit"};
+
+
+		System.out.println("Staff Main Portal: ");
+>>>>>>> Stashed changes
         System.out.println();
 		System.out.println("1. Change password");
 		System.out.println("2. View all camps");              //view all camps
@@ -59,6 +77,7 @@ public class StaffMenu extends Menu{
 
 	
     private int getMenuChoice() {
+<<<<<<< Updated upstream
         Scanner keyboard = new Scanner(System.in);
         // int choice = -1;
         // do {
@@ -73,6 +92,18 @@ public class StaffMenu extends Menu{
         //     }
         // } while (choice < 0 || choice > 4);
         return keyboard.nextInt();
+=======
+        int choice = -1;
+        do {
+            System.out.print("Enter your choice: ");
+            try {
+                choice = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid selection. Numbers only please.");
+            }
+        } while (choice < 0);
+        return choice;
+>>>>>>> Stashed changes
     }
 
     private void performAction(int choice) {
@@ -106,17 +137,70 @@ public class StaffMenu extends Menu{
                 // calls method to display all suggestions by CC to camps created by staff
                 // Can choose to reply to suggestions
                 break;
+<<<<<<< Updated upstream
             case 7:
             	System.out.println("Which report would you like to generate?");
             	// calls method to generate report
             	// has option to choose what kind of report to generate
             	// attendance report; performance report; enquire report
             case 8:
+=======
+
+            case 8:
+                System.out.println("Considering suggestion...");
+                campList.replySuggestion();
+                break;
+            case 9:
+                System.out.println("Writing Committee Report...");
+                campList.writeReport();
+                break;
+            case 10:
+                System.out.println("Which report would you like to generate?");
+                String[] reportoptions = {  "Attendance report",
+                                            "Committee Performance report",
+                                            "Enquiry report"};
+                
+                System.out.println();
+
+                for(int j = 0; j < reportoptions.length; j++){
+                    System.out.println((j+1) + ". " + reportoptions[j]);
+                }
+                
+                int reportchoice = sc.nextInt();
+                System.out.println("Camp Name: ");
+                String tempCampName = sc.next();
+                switch(reportchoice){
+                    case 1:
+                        System.out.println("Generating Attendence report...");
+                        campList.generateStudentReport(tempCampName);
+                    case 2:
+                        System.out.println("Generating Committee Performance report...");
+                        campList.generateCommitteeReport(tempCampName);
+                    case 3:
+                        System.out.println("Generating enquiry report: ");
+                        campList.generateEnquiryReport(tempCampName);
+                    default: 
+                }
+
+                break;
+
+            case 11:
+>>>>>>> Stashed changes
                 System.out.println("Logging out...");
                 currentUser.logOut();
                 exit = true;
                 break;
+<<<<<<< Updated upstream
                 // calls method to log out
+=======
+            
+            case 12:
+                for (int i = 0; i < 100; i++) System.out.println();
+                System.out.println("Exiting...");
+                currentUser.logOut();
+                System.exit(0);
+                break;
+>>>>>>> Stashed changes
             default:
                 System.out.println("Unknown error has occured.");
         }

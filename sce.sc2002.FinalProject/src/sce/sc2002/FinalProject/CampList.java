@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 import java.text.SimpleDateFormat;
 
@@ -515,3 +517,159 @@ public class CampList{
     }
 
     
+<<<<<<< Updated upstream
+=======
+
+
+    
+    // Suggestion section
+    public void createSuggestion(){
+        pseudoClearScreen();
+
+        System.out.println("Create Suggestion Screen");
+
+        for (int i = 0; i < campList.size(); i++){
+            Camp camp_ith = campList.get(i);
+
+            if (camp_ith.isCommittee(currentUser)){
+                camp_ith.createSuggestion(currentUser);
+                tempDelay();
+                return;
+            }
+        }
+    }
+
+    public void viewSuggestion(){
+        pseudoClearScreen();
+
+        System.out.println("View Suggestion Screen");
+
+        String campName = "INITIAL CAMPNAME";
+        if (!isCampCommittee()){
+            System.out.print("Camp's name: ");
+            campName = sc.nextLine();
+        }
+
+        for (int i = 0; i < campList.size(); i++){
+            Camp camp_ith = campList.get(i);
+            if (camp_ith.isCommittee(currentUser)){
+                camp_ith.viewSuggestion(currentUser);
+                tempDelay();
+                return;
+            }
+            else {
+                if (camp_ith.getCampName().equals(campName) && camp_ith.isStaffInCharge(currentUser)){
+                    camp_ith.viewSuggestion(currentUser);   
+                    tempDelay();
+                    return;
+                }
+            }
+        }
+
+        tempDelay();
+    }
+
+    public void editSuggestion(){
+        pseudoClearScreen();
+
+        System.out.println("Edit Suggestion Screen");
+
+        for (int i = 0; i < campList.size(); i++){
+            Camp camp_ith = campList.get(i);
+
+            if (camp_ith.isCommittee(currentUser)){
+                camp_ith.editSuggestion(currentUser);
+                tempDelay();
+                return;
+            }
+        }
+
+    }
+
+    public void deleteSuggestion(){
+        pseudoClearScreen();
+
+        System.out.println("Delete Suggestion Screen");
+
+        for (int i = 0; i < campList.size(); i++){
+            Camp camp_ith = campList.get(i);
+
+            if (camp_ith.isCommittee(currentUser)){
+                camp_ith.deleteSuggestion(currentUser);
+            }
+        }
+    }
+
+    public void replySuggestion(){
+        pseudoClearScreen();
+
+        System.out.println("Reply Suggestion Screen:");
+
+        System.out.print("Camp's Name: ");
+        String campName = sc.nextLine();
+
+        for (int i = 0; i < campList.size(); i++){
+            Camp camp_ith = campList.get(i);
+
+            if (camp_ith.getCampName().equals(campName) && camp_ith.isStaffInCharge(currentUser)){
+                camp_ith.replySuggestion(currentUser);   
+                tempDelay();
+                return;
+            }
+        }
+    }
+
+    public void writeReport(){
+        System.out.println("Which camp would you like to view? ");
+        viewCreatedCamp();
+        System.out.println("Camp Name: ");
+        String tempcampName = sc.nextLine();
+        System.out.println("Student Name: ");
+        String tempStuName = sc.nextLine();
+        for (int i = 0; i < campList.size(); i++){
+            Camp currentCamp = campList.get(i);
+
+            if (currentCamp.getCampName().equals(tempcampName)){
+                for(int j = 0 ;j < currentCamp.getCommitteeList().size(); j++){
+                    if(currentCamp.getCommitteeList().get(j).getID().equals(tempStuName)){
+                        System.out.println("Report (type 'exit' to stop): ");
+
+                        try {
+                            // Create a BufferedWriter to write to a text file
+                            // name will be Performance
+                            // will be same directory as wherever your program is in
+                            BufferedWriter writer = new BufferedWriter(new FileWriter("Performance.txt"));
+
+                            // Read user input until they type 'exit'
+                            while (true) {
+                                String input = sc.nextLine();
+
+                                if (input.equalsIgnoreCase("exit")) {
+                                    break;
+                                }
+
+                                // Write the user input to the file
+                                writer.write(input);
+                                writer.newLine(); // Add a newline for each input
+                            }
+
+                            // Close the writer
+                            writer.close();
+                            System.out.println("Committee Performance report successfully written!");
+
+                        } catch (IOException e) {
+                            System.err.println("Error writing to file: " + e.getMessage());
+                        }
+
+                    }
+                }
+            }
+
+            else{
+                System.out.println("You did not create this camp!");
+            }
+        }
+    }
+
+}
+>>>>>>> Stashed changes
