@@ -250,6 +250,11 @@ public class Camp{
 	}
 
 	public void registerCamp(Login currentUser){
+		if (isCommittee(currentUser) || isAttendee(currentUser)){
+			System.out.println("You have registered for this camp!");
+			return;
+		}
+
 		System.out.println("Choose your role in Camp:");
 		System.out.println("1. Camp Attendee");
 		System.out.println("2. Camp Committee");
@@ -337,15 +342,23 @@ public class Camp{
 		for (int i = 0; i < campInfo.getEnquiries().size(); i++){
 			Enquiry enquiry_ith = campInfo.getEnquiries().get(i);
 
-			if (isAttendee(currentUser)){
-				// Check if the enquiry is belong to the currentUser
-				if (enquiry_ith.getAuthor().getID().equals(currentUser.getUserid())){
-					System.out.println("ID: " + enquiry_ith.getEnquiryID() + ". " + enquiry_ith.getSubject());
-				}
+			
+
+			if (isStaffInCharge(currentUser) || isCommittee(currentUser)){
+				System.out.print("ID: " + enquiry_ith.getEnquiryID() + ". " + enquiry_ith.getSubject());
+				if (enquiry_ith.getResolved()) System.out.println(" [solved]");
+				else System.out.println();
 				test_idx++;
 			}
-			else if (isStaffInCharge(currentUser) || isCommittee(currentUser)){
-				System.out.println("ID: " + enquiry_ith.getEnquiryID() + ". " + enquiry_ith.getSubject());
+
+			else {
+				// Check if the enquiry is belong to the currentUser
+				if (enquiry_ith.getAuthor().getID().equals(currentUser.getUserid())){
+					System.out.print("ID: " + enquiry_ith.getEnquiryID() + ". " + enquiry_ith.getSubject());
+
+					if (enquiry_ith.getResolved()) System.out.println(" [solved]");
+					else System.out.println();
+				}
 				test_idx++;
 			}
 		}
@@ -355,7 +368,6 @@ public class Camp{
 	}
 
 	public void viewEnquiryDetail(Login currentUser){
-		int test_idx = 0;
 
 		System.out.print("Enquiry ID: ");
 		int enquriyID = sc.nextInt();
@@ -366,26 +378,30 @@ public class Camp{
 			Enquiry enquiry_ith = campInfo.getEnquiries().get(i);
 
 			if (enquiry_ith.getEnquiryID() == enquriyID){
-				if (isAttendee(currentUser)){
-					// Check if the enquiry is belong to the currentUser
+
+				if (isStaffInCharge(currentUser) || isCommittee(currentUser)){
+					System.out.println("ID: " + enquiry_ith.getEnquiryID() + ". " + enquiry_ith.getSubject());
+					System.out.println("Description: " + enquiry_ith.getDescription());
+					if (enquiry_ith.getResolved()){
+						System.out.println("Reply: " + enquiry_ith.getReply());
+					}
+					return;
+				}
+				else {	
 					if (enquiry_ith.getAuthor().getID().equals(currentUser.getUserid())){
 						System.out.println("ID: " + enquiry_ith.getEnquiryID() + ". " + enquiry_ith.getSubject());
 						System.out.println("Description: " + enquiry_ith.getDescription());
-						break;
+						if (enquiry_ith.getResolved()){
+							System.out.println("Reply: " + enquiry_ith.getReply());
+						}
+						return;
 					}
-					test_idx++;
-				}
-				else if (isStaffInCharge(currentUser) || isCommittee(currentUser)){
-					System.out.println("ID: " + enquiry_ith.getEnquiryID() + ". " + enquiry_ith.getSubject());
-					System.out.println("Description: " + enquiry_ith.getDescription());
-					test_idx++;
-					break;
 				}
 			}
 			
 		}
 
-		if (test_idx == 0) System.out.println("There is no viewable enquiry in this camp");
+		System.out.println("There is no viewable enquiry in this camp");
 	}
 
 	public void editEnquiry(Login currentUser){

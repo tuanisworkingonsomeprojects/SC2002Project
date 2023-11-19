@@ -59,17 +59,21 @@ public class AttendeeMenu extends Menu{
     public void display(){
         System.out.println("Student Attendee Portal: ");
         System.out.println();
-        System.out.println("1. Change Password");
-        System.out.println("2. View all Camp");
-        //System.out.println("3. View available Camp");
-        System.out.println("4. Register for Camp");
-        //System.out.println("5. View Registed Camp");
-        System.out.println("6. Withdraw from Camp");
-        System.out.println("7. Submit Enquiry");
-        System.out.println("8. Edit Enquiry"); // TODO: implement this.
-        System.out.println("9. View Reply to Enquiry");
-        System.out.println("10. Log out");
-        System.out.println("11. Exit");
+
+        String[] choices = {"Change Password",
+                            "View Camp",
+                            "Register for Camp",
+                            "Withdraw from Camp",
+                            "Submit Enquiry",
+                            "View Enquiry",
+                            "Edit Enquiry",
+                            "Delete Enquiry",
+                            "Log Out",
+                            "Exit"};
+
+        for (int i = 0; i < choices.length; i++){
+            System.out.println((i + 1) + ". " + choices[i]);
+        }
     }
 
 
@@ -86,45 +90,48 @@ public class AttendeeMenu extends Menu{
                 System.out.println("Viewing camps...");
                 campList.viewCamp();
                 break;
-            // case 3:
-            //     System.out.println("Viewing avaible camp...");
-            //     campList.viewAvailableCamp();
-            //     break;
-            case 4:
-                System.out.println("Registering Camp");
+            case 3:
+                System.out.println("Registering Camp...");
                 campList.registerCamp();
                 break;
             
-            // case 5:
-            //     System.out.println("Viewing registered camp...");
-            //     campList.viewRegisteredCamp();
-            //     break;
-            case 6:
-                System.out.println("Withdrawing from camp...");
+            case 4:
+                System.out.println("Withdrawing Camp...");
                 campList.withdawFromCamp();
                 break;
-            case 7:
+
+            case 5:
                 System.out.println("Submit Enquiry...");
-                // TODO: add the Enquiy option.
+                campList.createEnquiry();
+                break;
+
+            case 6:
+                System.out.println("Viewing Enquiry...");
+                campList.viewEnquiry();
+                break;
+            case 7:
+                System.out.println("Editing Enquiry...");
+                campList.editEnquiry();
                 break;
             case 8:
-                System.out.print("Edit enquiry...");
-                // TODO: add edit the enquiry.
+                System.out.print("Deleting enquiry...");
+                campList.deletetEnquiry();
                 break;
-            case 9:
-                System.out.println("Viewing reply to enquiry...");
-                // TODO: add option
             
-            case 10:
+            case 9:
                 currentUser.logOut();
                 // TODO: remember to write the data back to the CSV file
                 exit = true;
                 break;
-            default:
+
+            case 10:
                 currentUser.logOut();
                 // TODO: remember to write the data back to the CSV file
                 System.exit(0);
                 break;
+
+            default:
+                System.out.println("Unknown error has occur");
         }
     }
 

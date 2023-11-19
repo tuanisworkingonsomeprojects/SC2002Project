@@ -720,6 +720,9 @@ public class CampList{
     }
 
     
+
+
+    
     // Suggestion section
     public void createSuggestion(){
         pseudoClearScreen();
