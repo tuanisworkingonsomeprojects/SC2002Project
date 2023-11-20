@@ -24,10 +24,12 @@ public class CampList{
     }
 
     private boolean haveCamp(){
+
         for (int i = 0; i < campList.size(); i++){
             Camp camp_ith = campList.get(i);
             if (camp_ith.isStaffInCharge(currentUser)) return true;
         }
+
         return false;
     }
 
@@ -431,7 +433,7 @@ public class CampList{
         System.out.println("Deleting Camp Screen: ");
 
         // If the current User does not have any camp so he / She cannot delete the camp
-        if (haveCamp()){
+        if (!haveCamp()){
             tempDelay();
             return;
         }
@@ -487,10 +489,12 @@ public class CampList{
         if (currentUser.getRole().equals("staff")){
             viewCreatedCamp();
             System.out.println("Editing Camp Screen:");
-            if (haveCamp()){
+
+            if (!haveCamp()){
                 tempDelay();
                 return;
             }
+
             System.out.print("Camp's name': ");
             String campName = sc.nextLine();
 
@@ -884,26 +888,6 @@ public class CampList{
         tempDelay();
     }
 
-    // This method allow to view all the camps of which a student is a committee.
-    public void viewCampCommittee(){
-        System.out.println("You are currently Camp Committee of this camps:");
-
-        for (int i = 0; i < campList.size(); i++){
-            Camp camp_ith = campList.get(i);
-
-            if (camp_ith.isCommittee(currentUser)){
-                System.out.println(camp_ith.getCampName());
-                tempDelay();
-                return;
-            }
-        }
-
-
-        System.out.println("You are currently not a commitee of any camp!");
-        tempDelay();
-
-    }
-
     public void registerCamp(){
         pseudoClearScreen();
         System.out.println("Camp Registration");
@@ -1009,6 +993,17 @@ public class CampList{
         pseudoClearScreen();
 
         System.out.println("View Enquiry Screen");
+        if (!haveCamp()){
+            System.out.println("You don't have any camp!");
+            tempDelay();
+            return;
+        }
+
+        if (campList.size() == 0){
+            System.out.println("There is no camp to view enquiry");
+            tempDelay();
+            return;
+        }
 
         System.out.print("Camp's name: ");
         String campName = sc.nextLine();
@@ -1032,6 +1027,12 @@ public class CampList{
 
         System.out.println("Edit Enquiry Screem");
 
+        if (campList.size() == 0){
+            System.out.println("There is no camp to edit enquiry");
+            tempDelay();
+            return;
+        }
+
         System.out.print("Camp's name: ");
         String campName = sc.nextLine();
 
@@ -1053,6 +1054,12 @@ public class CampList{
         pseudoClearScreen();
 
         System.out.println("Delete Enquiry Screem");
+
+        if (campList.size() == 0){
+            System.out.println("There is no camp to delete enquiry");
+            tempDelay();
+            return;
+        }
 
         System.out.print("Camp's name: ");
         String campName = sc.nextLine();
@@ -1077,6 +1084,12 @@ public class CampList{
 
         if (currentUser.getRole().equals("staff")){
             System.out.println("Reply Enquiry Screem");
+
+            if (campList.size() == 0){
+                System.out.println("There is no camp to reply enquiry");
+                tempDelay();
+                return;
+            }
 
             System.out.print("Camp's name: ");
             campName = sc.nextLine();
@@ -1155,6 +1168,8 @@ public class CampList{
                 }
             }
         }
+
+        System.out.println("No camp matched or you are not the staff of the provided camp");
 
         tempDelay();
     }
