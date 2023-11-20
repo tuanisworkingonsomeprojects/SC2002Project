@@ -150,6 +150,7 @@ public class CommitteeMenu extends Menu{
             case 13:
                 System.out.println("Generate Camp report");
                 campList.generateReport();
+                break;
 
 
             case 14:
