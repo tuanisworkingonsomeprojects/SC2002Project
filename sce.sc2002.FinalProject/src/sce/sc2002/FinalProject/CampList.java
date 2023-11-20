@@ -999,11 +999,7 @@ public class CampList{
         pseudoClearScreen();
 
         System.out.println("View Enquiry Screen");
-        if (!haveCamp()){
-            System.out.println("You don't have any camp!");
-            tempDelay();
-            return;
-        }
+
 
         if (campList.size() == 0){
             System.out.println("There is no camp to view enquiry");
