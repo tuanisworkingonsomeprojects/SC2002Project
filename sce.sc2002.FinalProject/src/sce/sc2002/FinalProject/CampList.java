@@ -120,9 +120,51 @@ public class CampList{
             for (int j = 0; j < camp_ith.getEnquiries().size(); j++){
                 Enquiry enquiry_jth = camp_ith.getEnquiries().get(i);
 
-                // TODO: remember to add more to this part!
+                // 16.1 is Enquiry ID
+                stringBuilder.append(enquiry_jth.getEnquiryID() + "\n");
+
+                // 16.2 is Enquiry author ID
+                stringBuilder.append(enquiry_jth.getAuthor().getID() + "\n");
+
+                // 16.3 is Enquiry author faculty
+                stringBuilder.append(enquiry_jth.getAuthor().getFaculty() + "\n");
+
+                // 16.4 is Enquiry subject / Title
+                stringBuilder.append(enquiry_jth.getSubject() + "\n");
+
+                // 16.5 is Enquiry description
+                stringBuilder.append(enquiry_jth.getDescription() + "\n");
+
+                // 16.6 is Enquiry resolve status
+                stringBuilder.append(enquiry_jth.getResolved() + "\n");
+
+                // 16.7 is Enquiry reply
+                if (enquiry_jth.getResolved())
+                stringBuilder.append(enquiry_jth.getReply() + "\n");
             }
 
+            // 17 line is number of suggestions
+            stringBuilder.append(camp_ith.getSuggestions().size() + "\n");
+
+            for (int j = 0; j < camp_ith.getSuggestions().size(); j++){
+                Suggestion suggestion_jth = camp_ith.getSuggestions().get(j);
+
+                // 17.1 is suggestion ID
+                stringBuilder.append(suggestion_jth.getSuggestionID() + "\n");
+
+                // 17.2 is author ID
+                stringBuilder.append(suggestion_jth.getAuthor().getID() + "\n");
+                // We just need the author ID so when we retrieve the info we just need to search for his name in the committee list and then assign him in as an author
+
+                // 17.3 is Description
+                stringBuilder.append(suggestion_jth.getDescription() + "\n");
+
+                // 17.4 is status
+                stringBuilder.append(suggestion_jth.getStatus().toString() + "\n");
+
+                // 17.5 is resolve status
+                stringBuilder.append(suggestion_jth.getResolved() + "\n");
+            }
 
 
         }
@@ -244,22 +286,61 @@ public class CampList{
                 camp_ith.addBlacklist(new Student(blacklist_jth_ID, blacklist_jth_faculty));
             }
 
-            
+            int noOfEnquiries = Integer.parseInt(textFile.nextLine());
 
+            for (int j = 0; j < noOfEnquiries; j++){
+                int enquiry_jth_ID = Integer.parseInt(textFile.nextLine());
+
+                String enquiry_jth_authorID = textFile.nextLine();
+                String enquity_jth_author_faculty = textFile.nextLine();
+                String enquiry_jth_subject = textFile.nextLine();
+                String enquiry_jth_description = textFile.nextLine();
+                boolean enquiry_jth_resolve = Boolean.parseBoolean(textFile.nextLine());
+                String enquiry_jth_reply = "";
+                if (enquiry_jth_resolve){
+                    enquiry_jth_reply = textFile.nextLine();
+                }
+                camp_ith.addEnquiry(new Enquiry(enquiry_jth_ID, 
+                                                enquiry_jth_authorID, 
+                                                enquity_jth_author_faculty, 
+                                                enquiry_jth_subject,
+                                                enquiry_jth_description,
+                                                enquiry_jth_resolve,
+                                                enquiry_jth_reply));
+            }
+
+            int noOfSuggestion = Integer.parseInt(textFile.nextLine());
+
+            for (int j = 0; j < noOfSuggestion; j++){
+                int suggestion_jth_ID = Integer.parseInt(textFile.nextLine());
+
+                String suggestion_jth_authorID = textFile.nextLine();
+
+                Committee suggestion_jth_author = null;
+
+                for (int k = 0; k < camp_ith.getCommitteeList().size(); k++){
+                    Committee committee_kth = (Committee) camp_ith.getCommitteeList().get(k);
+
+                    if (committee_kth.getID().equals(suggestion_jth_authorID)){
+                        suggestion_jth_author = committee_kth;
+                        break;
+                    }
+                }
+
+                String suggestion_jth_description = textFile.nextLine();
+                SuggestionStatus suggestion_jth_status = SuggestionStatus.valueOf(textFile.nextLine());
+                boolean suggestion_jth_resolve = Boolean.parseBoolean(textFile.nextLine());
+
+                camp_ith.addSuggesstion(new Suggestion(suggestion_jth_ID, 
+                                                       suggestion_jth_author,
+                                                       suggestion_jth_description,
+                                                       suggestion_jth_status,
+                                                       suggestion_jth_resolve));
+            }
         }
     }
 
     
-
-
-
-
-
-
-
-
-
-
     private Scanner sc = new Scanner(System.in);
     
     public ArrayList<Camp> getCampList(){return campList;}

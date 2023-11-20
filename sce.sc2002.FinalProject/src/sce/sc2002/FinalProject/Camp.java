@@ -44,6 +44,9 @@ public class Camp{
 	public void addAttendee(Student new_attendee)     {campInfo.getAttendeeList().add(new_attendee);}
 	public void addBlacklist(Student new_blacklist)   {campInfo.getBlackList().add(new_blacklist);}
 
+	public void addEnquiry(Enquiry new_enquiry)		  {campInfo.getEnquiries().add(new_enquiry);}
+	public void addSuggesstion(Suggestion new_suggestion) {campInfo.getSuggestions().add(new_suggestion);}
+
 	
 	public String  getCampName()		{return campInfo.getCampName();}
 	public String  getStaffInCharge()	{return campInfo.getStaffInCharge();}
@@ -60,6 +63,7 @@ public class Camp{
 	public ArrayList<Student> getCommitteeList(){return campInfo.getCommitteeList();}
 	public ArrayList<Student> getBlackList()	{return campInfo.getBlackList();}
 	public ArrayList<Enquiry> getEnquiries()	{return campInfo.getEnquiries();}
+	public ArrayList<Suggestion> getSuggestions() {return campInfo.getSuggestions();}
 
 	// A person is a member of a camp if he/she is a committee or attendee of that camp.
 	public boolean isMemberOfCamp(Login currentUser)	{return campInfo.isCommittee(currentUser) || campInfo.isAttendee(currentUser);} 
@@ -338,7 +342,7 @@ public class Camp{
 
 
 
-				Enquiry enquiry = new Enquiry(this, student_ith, subject, description);
+				Enquiry enquiry = new Enquiry(student_ith, subject, description);
 
 				campInfo.addEnquiry(enquiry);
 				return;

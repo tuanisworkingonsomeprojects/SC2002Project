@@ -17,34 +17,27 @@ public class Enquiry {
     private boolean resolved;
 
     private Student author;
-    private Staff replyAuthor;
-    private Camp camp;
-    private Student responsibleCommitteeMember;
 
-    public Enquiry(Camp camp, Student author, String subject, String description) {
-        validateNonNull(camp, "Camp cannot be null");
+    public Enquiry(Student author, String subject, String description) {
         validateNonNull(author, "Author cannot be null");
 
         this.enquiryID = counter++;
-        this.camp = camp;
         this.author = author;
         this.subject = subject;
         this.description = description;
         this.resolved = false;  // Default to unresolved
     }
 
-    @Override
-    public String toString() 
-    {
-        return "Enquiry ID: " + enquiryID +
-            "\nSubject: " + subject +
-            "\nDescription: " + description +
-            "\nResolved: " + resolved +
-            "\nAuthor: " + author +
-            "\nReply Author: " + replyAuthor +
-            "\nCamp: " + camp +
-            "\nCommittee Member: " + responsibleCommitteeMember;
+    public Enquiry(int EID, String AID, String faculty, String title, String newDescription, boolean newResolve, String newReply){
+        enquiryID = EID;
+        author = new Student(AID, faculty);
+        subject = title;
+        description = newDescription;
+        resolved = newResolve;
+        reply = newReply;
+        counter = EID;
     }
+
 
     public String getDescription() {
         return description;
@@ -58,16 +51,8 @@ public class Enquiry {
         return enquiryID;
     }
 
-    public Camp getCamp() {
-        return camp;
-    }
-
     public Student getAuthor() {
         return author;
-    }
-
-    public Staff getReplyAuthor() {
-        return replyAuthor;
     }
 
     public boolean getResolved() {

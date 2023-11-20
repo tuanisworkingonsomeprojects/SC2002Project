@@ -8,8 +8,8 @@ enum SuggestionStatus {OPEN, DISCARDED, ACCEPTED}
 public class Suggestion 
 {
     private static int suggestionCount = 0;
-    private final int suggestionID;
-    private final Committee author;
+    private int suggestionID;
+    private Committee author;
     private String description;
     private SuggestionStatus status;
     private boolean resolved;
@@ -20,6 +20,15 @@ public class Suggestion
         this.description = description;
         this.status = SuggestionStatus.OPEN;
         this.resolved = false;
+    }
+
+    public Suggestion(int newID, Committee newAuthor, String newDescription, SuggestionStatus newStatus, boolean newResolve){
+        suggestionID = newID;
+        author = newAuthor;
+        description = newDescription;
+        status = newStatus;
+        resolved = newResolve;
+        suggestionCount = newID;
     }
     
     // Getter methods
