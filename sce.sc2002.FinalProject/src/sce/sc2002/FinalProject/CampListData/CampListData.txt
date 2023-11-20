@@ -7,10 +7,24 @@ SCSE
 North Spine
 33
 9
-SCSE student only
+SCSE student's only
 true
 HUKUMAR
 1
 YCHERN
 SCSE
 0
+0
+0
+0
+2
+0
+YCHERN
+
+OPEN
+false
+1
+YCHERN
+Why I cannot summit my suggestion
+OPEN
+false

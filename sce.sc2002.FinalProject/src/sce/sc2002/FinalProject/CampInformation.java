@@ -83,7 +83,7 @@ public class CampInformation {
 	public Date		getClosingDate()	{return closingDate;}
 	public String   getFaculty()		{return avaialbleTo;}
 	public String   getLocation()		{return location;}
-	public String	getDetail()			{return detail;}
+	public String	getDescription()			{return detail;}
 
 	public ArrayList<Student> getAttendeeList() 	{return studentAttendees;}
 	public ArrayList<Student> getCommitteeList()	{return committeeList;}

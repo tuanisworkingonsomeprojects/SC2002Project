@@ -1,5 +1,7 @@
 package sce.sc2002.FinalProject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Camp{
@@ -57,7 +59,7 @@ public class Camp{
 	public String  getFaculty()			{return campInfo.getFaculty();}
 	public int	   getCommitteeSlot()	{return campInfo.getCampCommSlot();}
 	public int	   getAttendeeSlot()	{return campInfo.getAttendeeSlot();}
-	public String  getDetail()			{return campInfo.getDetail();}
+	public String  getDescription()			{return campInfo.getDescription();}
 	public String  getLocation()		{return campInfo.getLocation();}
 	public ArrayList<Student> getAttendeeList() {return campInfo.getAttendeeList();}
 	public ArrayList<Student> getCommitteeList(){return campInfo.getCommitteeList();}
@@ -767,7 +769,81 @@ public class Camp{
 		
 	}
 
+	public void generateReportString(Login currentUser){
+		System.out.println("Report option: ");
+        System.out.println("1. Attendees Report");
+        System.out.println("2. Committees Reports");
+        if (currentUser.getRole().equals("staff")){
+            System.out.println("3. Committee performance report");
+        }
+
+        System.out.print("Your choice: ");
+        int choice = sc.nextInt();
+        sc.nextLine();
+
+        switch (choice) {
+            case 1:
+                generateAttendeeReport();
+                break;
+            case 2:
+
+                break;
+            case 3:
+                if (currentUser.getRole().equals("staff")){
+
+                }
+                else {
+                    System.out.println("Unknown error has occured!");
+                }
+                break;
+
+            default:
+                System.out.println("Unknown error has occured!");
+                break;
+        }
+	}
+
+	public String getCampDetail(){
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("Camp name: " + getCampName() + "\n" +
+							 "Start Date: " + getStartDate() +"\n" +
+							 "End Date: " + getEndDate() + "\n" +
+							 "Staff In Charge: " + getStaffInCharge() + "\n" +
+							 "Available to: " + getFaculty() + "\n" +
+							 "Remaining Total Slot: " + getAttendeeSlot() + "\n" +
+							 "Remaining Committee Slot: " + getCommitteeSlot() + "\n");
+		return stringBuilder.toString();
+	}
+
+	public void generateAttendeeReport(){
+		StringBuilder stringBuilder = new StringBuilder();
+		
+		stringBuilder.append(getCampDetail());
+		stringBuilder.append("Total Attendee: " + getAttendeeList().size() + "\n");
+		stringBuilder.append("Attendees list: \n");
+
+		
+		for (int i = 0; i < getAttendeeList().size(); i++){
+			Student student_ith = getAttendeeList().get(i);
+			stringBuilder.append((i + 1) + ". " + student_ith.getID() + "\n");
+		}
+
+		String reportFile = null;
+
+		try {
+			reportFile = System.getProperty("user.dir") + "/src/sce/sc2002/FinalProject/Reports/Report" + getCampName() + "Attendee.txt";
+			StringToText.stringToText(stringBuilder.toString(), reportFile);
+		}
+		catch (Exception exception) {
+			reportFile = System.getProperty("user.dir") + "/sce.sc2002.FinalProject/src/sce/sc2002/FinalProject/Reports/Report" + getCampName() + "Attendee.txt";
+			StringToText.stringToText(stringBuilder.toString(), reportFile);
+		}
+
+
+		
+	}
+
+
 
 }
-
 

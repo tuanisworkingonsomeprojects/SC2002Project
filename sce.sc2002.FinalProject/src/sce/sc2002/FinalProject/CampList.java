@@ -62,7 +62,7 @@ public class CampList{
             stringBuilder.append(camp_ith.getCommitteeSlot() + "\n");
 
             // 10 line is camp detail
-            stringBuilder.append(camp_ith.getDetail() + "\n");
+            stringBuilder.append(camp_ith.getDescription() + "\n");
 
             // 11 line is visibility
             stringBuilder.append(camp_ith.getVisibility() + "\n");
@@ -101,21 +101,21 @@ public class CampList{
             }
 
             // 15 line is number of BlackList students
-            stringBuilder.append(camp_ith.getBlackList().size());
+            stringBuilder.append(camp_ith.getBlackList().size() + "\n");
 
             for (int j = 0; j < camp_ith.getBlackList().size(); j++){
                 Student student_jth = camp_ith.getBlackList().get(i);
                 
                 // 15.1 is blacklist student ID
-                stringBuilder.append(student_jth.getID());
+                stringBuilder.append(student_jth.getID() + "\n");
 
                 // 15.2 is blacklist student faculty
-                stringBuilder.append(student_jth.getFaculty());
+                stringBuilder.append(student_jth.getFaculty() + "\n");
 
             }
 
             // 16 line is number of Enquiry
-            stringBuilder.append(camp_ith.getEnquiries().size());
+            stringBuilder.append(camp_ith.getEnquiries().size() + "\n");
 
             for (int j = 0; j < camp_ith.getEnquiries().size(); j++){
                 Enquiry enquiry_jth = camp_ith.getEnquiries().get(i);
@@ -855,9 +855,11 @@ public class CampList{
 
                 if (camp_ith.isAvailable() && camp_ith.getCampName().equals(campName)){
                     camp_ith.registerCamp(currentUser);
-                    break;
+                    return;
                 }
             }
+
+            System.out.println("There is no camp with such name!");
         }
         else {
             System.out.println("You are not a student!");
@@ -1110,6 +1112,27 @@ public class CampList{
                 return;
             }
         }
+    }
+
+
+    public void generateReport(){
+        pseudoClearScreen();
+        System.out.println("Generate Report Screen:");
+
+        System.out.println("Camp's name: ");
+        String campName = sc.nextLine();
+
+        for (int i = 0; i < campList.size(); i++){
+            Camp camp_ith = campList.get(i);
+
+            if (camp_ith.getCampName().equals(campName)){
+                camp_ith.generateReportString(currentUser);
+
+            }
+            break;
+        }
+
+        
     }
 
 

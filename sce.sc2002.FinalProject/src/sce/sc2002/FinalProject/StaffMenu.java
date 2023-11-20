@@ -129,10 +129,8 @@ public class StaffMenu extends Menu{
                 campList.replySuggestion();
                 break;
             case 10:
-            	System.out.println("Which report would you like to generate?");
-            	// TODO: calls method to generate report
-            	// has option to choose what kind of report to generate
-            	// attendance report; performance report; enquire report
+            	System.out.println("Generating report...");
+            	campList.generateReport();
                 break;
 
             
