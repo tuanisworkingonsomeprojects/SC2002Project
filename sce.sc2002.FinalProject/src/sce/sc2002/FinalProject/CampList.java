@@ -971,6 +971,12 @@ public class CampList{
         pseudoClearScreen();
 
         System.out.println("Create Enquiry Screen:");
+        
+        if (campList.size() == 0){
+            System.out.println("There is no camp ready for you to create Enquiry right now!");
+            tempDelay();
+            return;
+        }
 
         System.out.print("Camp's name: ");
         String campName = sc.nextLine();
