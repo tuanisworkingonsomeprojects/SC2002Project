@@ -35,7 +35,6 @@ public class AttendeeMenu extends Menu{
         // TODO: remember to update the exit variable appropriately
 		while(!exit) {
 			display();
-            System.out.print("Your choice: ");
 			int choice = getMenuChoice();
 			performAction(choice);
             if (campList.isCampCommittee()){
@@ -49,8 +48,19 @@ public class AttendeeMenu extends Menu{
 	 *----------------------------------------------------------------------------------- */
     private int getMenuChoice() {
         Scanner keyboard = new Scanner(System.in);
-        int choice = keyboard.nextInt();
-        keyboard.nextLine();
+        int choice = -1;
+        do {
+            System.out.print("Enter your choice: ");
+            try {
+                choice = Integer.parseInt(keyboard.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid selection. Numbers only please.");
+                continue;
+            }
+
+            if (choice < 0) System.out.println("Valid number only");
+
+        } while (choice < 0);
         return choice;
     }
 
@@ -121,18 +131,21 @@ public class AttendeeMenu extends Menu{
             
             case 9:
                 currentUser.logOut();
-                // TODO: remember to write the data back to the CSV file
+                campList.exportData();
                 exit = true;
+                clearScreen();
                 break;
 
             case 10:
                 currentUser.logOut();
-                // TODO: remember to write the data back to the CSV file
+                campList.exportData();
+                clearScreen();
+                System.out.println("Exiting...");
                 System.exit(0);
                 break;
 
             default:
-                System.out.println("Unknown error has occur");
+                System.out.println("Choice out of range!");
         }
     }
 

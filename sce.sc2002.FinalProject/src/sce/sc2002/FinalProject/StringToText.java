@@ -13,7 +13,7 @@ public class StringToText {
         
         try (PrintWriter writer = new PrintWriter(new File(filePath))) {
             writer.write(text.toString());
-            System.out.println(filePath);
+            //System.out.println(filePath);
             System.out.println("done!");
         } 
         catch (FileNotFoundException exception) {

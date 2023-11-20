@@ -28,7 +28,6 @@ public class CommitteeMenu extends Menu{
         
 		while(!exit) {
 			display();
-            System.out.print("Your choice: ");
 			int choice = getMenuChoice();
 			performAction(choice);
 		}
@@ -39,8 +38,19 @@ public class CommitteeMenu extends Menu{
 	 *----------------------------------------------------------------------------------- */
     private int getMenuChoice() {
         Scanner keyboard = new Scanner(System.in);
-        int choice = keyboard.nextInt();
-        keyboard.nextLine();
+        int choice = -1;
+        do {
+            System.out.print("Enter your choice: ");
+            try {
+                choice = Integer.parseInt(keyboard.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid selection. Numbers only please.");
+                continue;
+            }
+
+            if (choice < 0) System.out.println("Valid number only");
+
+        } while (choice < 0);
         return choice;
     }
 
@@ -139,21 +149,22 @@ public class CommitteeMenu extends Menu{
 
             case 13:
                 System.out.println("Generate Camp report");
-                // TODO: generate the report
+                campList.generateReport();
 
 
             case 14:
                 System.out.println("Logging out");
-                // TODO: remember to write the databack to the CSV file.
                 exit = true;
                 currentUser.logOut();
                 campList.exportData();
+                clearScreen();
                 break;
 
             case 15:
-                // TODO: remember to write the databack to the CSV file.
                 currentUser.logOut();
                 campList.exportData();
+                clearScreen();
+                System.out.println("Exiting...");
                 System.exit(0);
                 break;
 

@@ -89,6 +89,10 @@ public class CampInformation {
 	public ArrayList<Student> getCommitteeList()	{return committeeList;}
 	public ArrayList<Student> getBlackList()		{return blacklist;}
 
+	public boolean isMissClosingDate(){
+		Date today = new Date();
+		return today.after(closingDate);
+	}
 
 	public Date fromStringToDate(String dateText){
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -125,7 +129,11 @@ public class CampInformation {
 				System.out.println("The camp registering is clashing with one of the camp you have registered!");
 			}
 
-			// 5. If not, the user if good to register as a camp commitee
+			// 5. Check if the student have missed the closing date of the camp
+			else if (isMissClosingDate()){
+				System.out.println("You have missed the closing date of the camp");
+			}
+			// 6. If not, the user if good to register as a camp commitee
 			else{
 				committeeList.add(new Committee(currentUser.getUserid(), currentUser.getFaculty()));
 				campCommSlots--;
@@ -167,7 +175,12 @@ public class CampInformation {
 				System.out.println("The camp registering is clashing with one of the camp you have registered!");
 			}
 
-			// 5. If the user is not blacklisted or clash with other camps then it is oke to register the camp
+			// 5. Check if the student have missed the closing date of the camp
+			else if (isMissClosingDate()){
+				System.out.println("You have missed the closing date of the camp");
+			}
+
+			// 6. If the user is not blacklisted or clash with other camps then it is oke to register the camp
 			else{
 				studentAttendees.add(new Student(currentUser.getUserid(), currentUser.getFaculty()));
 				attendeeSlot--;

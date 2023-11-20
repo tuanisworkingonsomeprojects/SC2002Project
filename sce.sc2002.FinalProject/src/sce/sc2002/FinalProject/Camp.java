@@ -42,6 +42,8 @@ public class Camp{
 	}
 
 
+
+
 	public void addCommittee(Committee new_committee) {campInfo.getCommitteeList().add(new_committee);}
 	public void addAttendee(Student new_attendee)     {campInfo.getAttendeeList().add(new_attendee);}
 	public void addBlacklist(Student new_blacklist)   {campInfo.getBlackList().add(new_blacklist);}
@@ -157,7 +159,7 @@ public class Camp{
 		System.out.println("10. <<Back");		
 	}
 
-	public int getMenuChoice() {
+	private int getMenuChoice() {
         Scanner keyboard = new Scanner(System.in);
         int choice = -1;
         do {
@@ -166,10 +168,11 @@ public class Camp{
                 choice = Integer.parseInt(keyboard.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("Invalid selection. Numbers only please.");
+                continue;
             }
-            if (choice < 0) {
-                System.out.println("Choice outside of range. Please chose again.");
-            }
+
+            if (choice < 0) System.out.println("Valid number only");
+
         } while (choice < 0);
         return choice;
     }
@@ -360,8 +363,7 @@ public class Camp{
 		System.out.println("2. View Enquiry Detail");
 
 		System.out.print("Your choice: ");
-		int choice = sc.nextInt();
-		sc.nextLine();
+		int choice = getMenuChoice();
 
 		switch (choice){
 			case 1:
@@ -373,7 +375,7 @@ public class Camp{
 				break;
 
 			default:
-				System.out.println("Unknow error");
+				System.out.println("Choice out of range!");
 		}
 	}
 
@@ -472,8 +474,7 @@ public class Camp{
 					System.out.println("2. Edit description");
 					
 					System.out.print("Your choice: ");
-					int choice = sc.nextInt();
-					sc.nextLine();
+					int choice = getMenuChoice();
 
 					switch (choice) {
 						case 1:
@@ -599,8 +600,7 @@ public class Camp{
 		System.out.println("1. View all Suggestions");
 		System.out.println("2. View Suggestion Detail");
 		System.out.print("Your choice: ");
-		int choice = sc.nextInt();
-		sc.nextLine();
+		int choice = getMenuChoice();
 
 		switch (choice) {
 			case 1:
@@ -611,6 +611,7 @@ public class Camp{
 				break;
 
 			default:
+				System.out.println("Choice out of range!");
 				break;
 		}
 	}
@@ -772,33 +773,37 @@ public class Camp{
 	public void generateReportString(Login currentUser){
 		System.out.println("Report option: ");
         System.out.println("1. Attendees Report");
-        System.out.println("2. Committees Reports");
+        System.out.println("2. Committees Report");
+		System.out.println("3. Enquiry Report");
         if (currentUser.getRole().equals("staff")){
-            System.out.println("3. Committee performance report");
+            System.out.println("4. Committee performance report");
         }
 
         System.out.print("Your choice: ");
-        int choice = sc.nextInt();
-        sc.nextLine();
+        int choice = getMenuChoice();
 
         switch (choice) {
             case 1:
                 generateAttendeeReport();
                 break;
             case 2:
-
+				generateCommitteeReport();
                 break;
-            case 3:
+
+			case 3:
+
+				break;
+            case 4:
                 if (currentUser.getRole().equals("staff")){
 
                 }
                 else {
-                    System.out.println("Unknown error has occured!");
+                    System.out.println("Choice out of range");
                 }
                 break;
 
             default:
-                System.out.println("Unknown error has occured!");
+                System.out.println("Choice out of range");
                 break;
         }
 	}
@@ -838,12 +843,115 @@ public class Camp{
 			reportFile = System.getProperty("user.dir") + "/sce.sc2002.FinalProject/src/sce/sc2002/FinalProject/Reports/Report" + getCampName() + "Attendee.txt";
 			StringToText.stringToText(stringBuilder.toString(), reportFile);
 		}
+	}
 
+	public void generateCommitteeReport(){
+		StringBuilder stringBuilder = new StringBuilder();
 
-		
+		stringBuilder.append(getCampDetail());
+		stringBuilder.append("Total Committee: " + getCommitteeList().size() + "\n");
+		stringBuilder.append("Committee List: \n");
+
+		for (int i = 0; i < getCommitteeList().size(); i++){
+			Committee committee_ith = (Committee) getCommitteeList().get(i);
+			stringBuilder.append((i + 1) + ". " + committee_ith.getID() + "\n");
+		}
+
+		String reportFile = null;
+
+		try {
+			reportFile = System.getProperty("user.dir") + "/src/sce/sc2002/FinalProject/Reports/Report" + getCampName() + "Committee.txt";
+			StringToText.stringToText(stringBuilder.toString(), reportFile);
+		}
+		catch (Exception exception) {
+			reportFile = System.getProperty("user.dir") + "/sce.sc2002.FinalProject/src/sce/sc2002/FinalProject/Reports/Report" + getCampName() + "Committee.txt";
+			StringToText.stringToText(stringBuilder.toString(), reportFile);
+		}
+	}
+
+	public void generateEnquiryReport(){
+		StringBuilder stringBuilder = new StringBuilder();
+
+		stringBuilder.append(getCampDetail());
+		stringBuilder.append("Total Enquiries: " + getEnquiries().size() + "\n");
+
+		for (int i = 0; i < getEnquiries().size(); i++) {
+			Enquiry enquiry_ith = getEnquiries().get(i);
+
+			stringBuilder.append((i + 1) + ". Title: " + enquiry_ith.getSubject() + "\n");
+			stringBuilder.append("Description: " + enquiry_ith.getDescription());
+			if (enquiry_ith.getResolved()){
+				stringBuilder.append("  [RESOLVED]\n");
+				stringBuilder.append("Reply: " + enquiry_ith.getReply() + "\n\n");
+			}
+			else {
+				stringBuilder.append("\n\n");
+			}
+		}
+
+		String reportFile = null;
+
+		try {
+			reportFile = System.getProperty("user.dir") + "/src/sce/sc2002/FinalProject/Reports/Report" + getCampName() + "Enquiry.txt";
+			StringToText.stringToText(stringBuilder.toString(), reportFile);
+		}
+		catch (Exception exception) {
+			reportFile = System.getProperty("user.dir") + "/sce.sc2002.FinalProject/src/sce/sc2002/FinalProject/Reports/Report" + getCampName() + "Enquiry.txt";
+			StringToText.stringToText(stringBuilder.toString(), reportFile);
+		}
 	}
 
 
+	public void generatePerformanceReport(){
+		StringBuilder stringBuilder = new StringBuilder();
 
+		stringBuilder.append(getCampDetail());
+		
+		System.out.println("All committees:");
+
+		if (getCommitteeList().size() == 0){
+			System.out.println("There is no camp committee in your camp!");
+			return;
+		}
+
+		for (int i = 0; i < getCommitteeList().size(); i++){
+			Committee commitee_ith = (Committee) getCommitteeList().get(i);
+			System.out.println((i + 1) + ". " + commitee_ith.getID());
+		}
+
+		System.out.print("Committee User ID: ");
+		String committeeName = sc.nextLine();
+
+		for (int i = 0; i < getCommitteeList().size(); i++){
+			Committee commitee_ith = (Committee) getCommitteeList().get(i);
+			
+			if (commitee_ith.getID().equals(committeeName)){
+				stringBuilder.append("Committee User ID: " + commitee_ith.getID() + "\n");
+				stringBuilder.append("Committee point: " + commitee_ith.getPoint() + "\n");
+				System.out.print("Your commment: ");
+				String comment = sc.nextLine();
+
+				stringBuilder.append("Commment from staff: " + comment + "\n");
+
+				String reportFile = null;
+
+				try {
+					reportFile = System.getProperty("user.dir") + "/src/sce/sc2002/FinalProject/Reports/Report" + getCampName() + "Performance.txt";
+					StringToText.stringToText(stringBuilder.toString(), reportFile);
+				}
+				catch (Exception exception) {
+					reportFile = System.getProperty("user.dir") + "/sce.sc2002.FinalProject/src/sce/sc2002/FinalProject/Reports/Report" + getCampName() + "Performance.txt";
+					StringToText.stringToText(stringBuilder.toString(), reportFile);
+				}
+
+
+				return;
+			}
+		}
+
+		System.out.println("There is no committee matched!");
+
+		
+	}
 }
 

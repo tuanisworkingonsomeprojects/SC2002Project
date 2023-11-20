@@ -22,6 +22,23 @@ public class CampList{
         campList    = new ArrayList<Camp>();
     }
 
+    private int getMenuChoice() {
+        Scanner keyboard = new Scanner(System.in);
+        int choice = -1;
+        do {
+            System.out.print("Enter your choice: ");
+            try {
+                choice = Integer.parseInt(keyboard.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid selection. Numbers only please.");
+                continue;
+            }
+
+            if (choice < 0) System.out.println("Valid number only");
+
+        } while (choice < 0);
+        return choice;
+    }
 
     public void exportData(){
          StringBuilder stringBuilder = new StringBuilder();
@@ -412,7 +429,7 @@ public class CampList{
 
     public void deleteCamp(){
         pseudoClearScreen();
-
+        viewCreatedCamp();
         System.out.println("Deleting Camp Screen: ");
         Scanner sc = new Scanner(System.in);
         Camp camp_ith;
@@ -440,10 +457,12 @@ public class CampList{
                     if (choice.equals("Y") || choice.equals("y")){
                         campList.remove(i);
                         System.out.println("Camp remove Successfully!");
+                        tempDelay();
                         return;
                     }
                     else {
                         System.out.println("Cancelling...");
+                        tempDelay();
                         return;
                     }
                 }
@@ -511,11 +530,15 @@ public class CampList{
                 break;
 
             case 5:
+                viewCampWithFaculty();
+                break;
+
+            case 6:
                 if (isCampCommittee() || currentUser.getRole().equals("staff")) viewCampDetail();
                 else System.out.println("Unknow Error occured");
                 break;
             default:
-                System.out.println("Unknow Error occured");
+                System.out.println("Choice out of range");
                 break;
         }
 
@@ -533,12 +556,13 @@ public class CampList{
         }
         System.out.println("3. View available camps");
         System.out.println("4. View camp with location");
+        System.out.println("5. View camp with faculty");
 
         if (isCampCommittee() || currentUser.getRole().equals("staff"))
-        System.out.println("5. View camp detail");
+        System.out.println("6. View camp detail");
         
         System.out.print("Your choice: ");
-        handleCampFilter(sc.nextInt());
+        handleCampFilter(getMenuChoice());
         tempDelay();
     }
 
@@ -572,7 +596,6 @@ public class CampList{
         if (index == 1){
             System.out.println("There is no camp to view");
         }
-        sc.nextLine();
     }
 
     private void viewCreatedCamp(){
@@ -596,7 +619,6 @@ public class CampList{
         if (index == 1){
             System.out.println("You haven't created any camp!\n\n\n");
         }
-        sc.nextLine();
     }
 
     private void viewRegisteredCamp(){
@@ -619,7 +641,6 @@ public class CampList{
         }
 
         if (index == 1) System.out.println("You haven't registered any camp!");
-        sc.nextLine();
     }
     // This method that I've implemented will ask the Staff to choose to print the list of
     // Attendee or the list of Committee already so you don't have to worry about it!
@@ -648,7 +669,6 @@ public class CampList{
 
         if (index == 1) System.out.println("There is no available camp.");
 
-        sc.nextLine();
     }
 
     // This method is called by viewCampWithLocation()
@@ -666,7 +686,7 @@ public class CampList{
             }
         }
 
-        if (index == 1) System.out.println("No camp has been created in the system.");
+        if (index == 1) System.out.println("No camp with such loction has been created in the system.");
     }
 
     public void viewCampWithLocation(){
@@ -674,7 +694,6 @@ public class CampList{
         int index = 1;
 
 
-        sc.nextLine(); // Clear the enter before in the input
         System.out.println("View Camp with Location filter:");
         printLocation();
 
@@ -696,6 +715,53 @@ public class CampList{
                 else System.out.println();
             }
         }
+    }
+
+    public void printFaculty(){
+        int index = 1;
+        
+        System.out.println("Camp Faculties:");
+
+        for (int i = 0; i < campList.size(); i++){
+            Camp camp_ith = campList.get(i);
+
+            if (camp_ith.allowToView(currentUser)){
+                System.out.println(index + ". " + camp_ith.getFaculty());
+                index++;
+            }
+        }
+
+        if (index == 1) System.out.println("No camp with such faculty created in the system.");
+    }
+
+    public void viewCampWithFaculty(){
+        pseudoClearScreen();
+        int index = 1;
+
+
+        System.out.println("View Camp with faculty filter:");
+        printFaculty();
+
+        if (campList.size() == 0) {
+            return;
+        }
+
+        System.out.print("Faculty: ");
+        String faculty = sc.nextLine();
+
+        for (int i = 0; i < campList.size(); i++){
+            Camp camp_ith = campList.get(i);
+
+            if (camp_ith.getFaculty().equals(faculty) && camp_ith.allowToView(currentUser)){
+                System.out.print(index + ". " + camp_ith.getCampName());
+                if (camp_ith.isAttendee(currentUser))   System.out.println(" [Attendee]");
+                if (camp_ith.isCommittee(currentUser))  System.out.println(" [Committee]");
+                if (camp_ith.isStaffInCharge(currentUser))  System.out.println(" [In charge]");
+                else System.out.println();
+                index++;
+            }
+        }        
+        if (index == 1) System.out.println("No camp with such faculty created in the system.");
     }
 
     public void viewStudentList(){
@@ -720,7 +786,7 @@ public class CampList{
                 System.out.println("1. Attendee");
                 System.out.println("2. Commitee");
 
-                int choice = sc.nextInt();
+                int choice = getMenuChoice();
 
                 switch (choice) {
                     case 1:
@@ -819,6 +885,7 @@ public class CampList{
     }
 
     public void registerCamp(){
+        pseudoClearScreen();
         System.out.println("Camp Registration");
 
         if (currentUser.getRole().equals("student")){
@@ -855,6 +922,7 @@ public class CampList{
 
                 if (camp_ith.isAvailable() && camp_ith.getCampName().equals(campName)){
                     camp_ith.registerCamp(currentUser);
+                    tempDelay();
                     return;
                 }
             }
@@ -869,6 +937,8 @@ public class CampList{
     }
     
     public void withdawFromCamp(){
+        pseudoClearScreen();
+        System.out.println("Withdraw from camp screen:");
         if (currentUser.getRole().equals("student")){
             viewRegisteredCamp();
             System.out.print("Camp's name:");
@@ -983,7 +1053,7 @@ public class CampList{
         if (currentUser.getRole().equals("staff")){
             System.out.println("Reply Enquiry Screem");
 
-            System.out.println("Camp's name: ");
+            System.out.print("Camp's name: ");
             campName = sc.nextLine();
         }
         else {
@@ -1119,20 +1189,25 @@ public class CampList{
         pseudoClearScreen();
         System.out.println("Generate Report Screen:");
 
-        System.out.println("Camp's name: ");
-        String campName = sc.nextLine();
+        String campName = "INIT CAMPNAME";
+        
+        if (currentUser.getRole().equals("staff")){
+            System.out.println("Camp's name: ");
+            campName = sc.nextLine();   
+        }
+        
 
         for (int i = 0; i < campList.size(); i++){
             Camp camp_ith = campList.get(i);
 
-            if (camp_ith.getCampName().equals(campName)){
-                camp_ith.generateReportString(currentUser);
 
+
+            if ((camp_ith.getCampName().equals(campName) && camp_ith.isStaffInCharge(currentUser)) || camp_ith.isCommittee(currentUser)){
+                camp_ith.generateReportString(currentUser);
             }
             break;
         }
-
-        
+  
     }
 
 

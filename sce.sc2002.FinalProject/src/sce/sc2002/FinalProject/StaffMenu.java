@@ -74,7 +74,11 @@ public class StaffMenu extends Menu{
                 choice = Integer.parseInt(keyboard.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("Invalid selection. Numbers only please.");
+                continue;
             }
+
+            if (choice < 0) System.out.println("Valid number only");
+
         } while (choice < 0);
         return choice;
     }
@@ -139,17 +143,20 @@ public class StaffMenu extends Menu{
                 currentUser.logOut();
                 campList.exportData();
                 exit = true;
+                clearScreen();
                 break;
             
             case 12:
                 for (int i = 0; i < 100; i++) System.out.println();
-                System.out.println("Exiting...");
+                
                 currentUser.logOut();
                 campList.exportData();
+                clearScreen();
+                System.out.println("Exiting...");
                 System.exit(0);
                 break;
             default:
-                System.out.println("Unknown error has occured.");
+                System.out.println("Choice out of range!");
         }
     }
 }
