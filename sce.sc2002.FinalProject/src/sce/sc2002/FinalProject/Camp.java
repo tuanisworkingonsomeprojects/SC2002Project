@@ -305,8 +305,7 @@ public class Camp{
 		System.out.println("Choose your role in Camp:");
 		System.out.println("1. Camp Attendee");
 		System.out.println("2. Camp Committee");
-		System.out.print("Your choice: ");
-		int choice = sc.nextInt();
+		int choice = getMenuChoice();
 
 		switch (choice) {
 			case 1:
@@ -316,7 +315,7 @@ public class Camp{
 				campInfo.committeeRegister(currentUser);
 				break;
 			default:
-				System.out.println("Inappropriate choice! Going back...");
+				System.out.println("Choice out of range!");
 				break;
 		}
 	}
@@ -336,33 +335,30 @@ public class Camp{
 			return;
 		}
 
-		for (int i = 0; i < getAttendeeList().size(); i++){
-			Student student_ith = getAttendeeList().get(i);
 
-			if (student_ith.getID().equals(currentUser.getUserid())){
-				System.out.print("Subject / Title: ");
-				String subject = sc.nextLine();
-				System.out.println("Your Enquiry (in one line): ");
-				String description = sc.nextLine();
+		//if (getEnquiries().size() == 0) sc.nextLine();
+		System.out.print("Subject / Title: ");
+		String subject = sc.nextLine();
+		System.out.print("Your Enquiry (in one line): ");
+		String description = sc.nextLine();
 
 
 
-				Enquiry enquiry = new Enquiry(student_ith, subject, description);
+		Enquiry enquiry = new Enquiry(new Student(currentUser.getUserid(), currentUser.getFaculty()), subject, description);
 
-				campInfo.addEnquiry(enquiry);
-				return;
-			}
-		}
+		campInfo.addEnquiry(enquiry);
+		return;
+			
+		
 
 
 	}
 
 	public void viewEnquiry(Login currentUser){
 		System.out.println("What do you want to view:");
-		System.out.println("1. View all Enquiry:");
+		System.out.println("1. View all Enquiry");
 		System.out.println("2. View Enquiry Detail");
 
-		System.out.print("Your choice: ");
 		int choice = getMenuChoice();
 
 		switch (choice){
@@ -391,7 +387,7 @@ public class Camp{
 			
 
 			if (isStaffInCharge(currentUser) || isCommittee(currentUser)){
-				System.out.print("ID: " + enquiry_ith.getEnquiryID() + ". " + enquiry_ith.getSubject());
+				System.out.print("ID: " + enquiry_ith.getEnquiryID() + " ----- Subject: " + enquiry_ith.getSubject());
 				if (enquiry_ith.getResolved()) System.out.println(" [solved]");
 				else System.out.println();
 				test_idx++;
@@ -400,12 +396,13 @@ public class Camp{
 			else {
 				// Check if the enquiry is belong to the currentUser
 				if (enquiry_ith.getAuthor().getID().equals(currentUser.getUserid())){
-					System.out.print("ID: " + enquiry_ith.getEnquiryID() + ". " + enquiry_ith.getSubject());
+					System.out.print("ID: " + enquiry_ith.getEnquiryID() + " ----- Subject: " + enquiry_ith.getSubject());
 
 					if (enquiry_ith.getResolved()) System.out.println(" [solved]");
 					else System.out.println();
+					test_idx++;
 				}
-				test_idx++;
+				
 			}
 		}
 
@@ -416,8 +413,7 @@ public class Camp{
 	public void viewEnquiryDetail(Login currentUser){
 
 		System.out.print("Enquiry ID: ");
-		int enquriyID = sc.nextInt();
-		sc.nextLine();
+		int enquriyID = getMenuChoice();
 		
 
 		for (int i = 0; i < campInfo.getEnquiries().size(); i++){
@@ -543,7 +539,7 @@ public class Camp{
 		viewAllEnquiry(currentUser);
 
 		System.out.print("Enquiry ID: ");
-		int enquiryID = sc.nextInt();
+		int enquiryID = getMenuChoice();
 
 
 		for (int i = 0; i < campInfo.getEnquiries().size();i ++){
@@ -779,7 +775,6 @@ public class Camp{
             System.out.println("4. Committee performance report");
         }
 
-        System.out.print("Your choice: ");
         int choice = getMenuChoice();
 
         switch (choice) {
@@ -791,7 +786,7 @@ public class Camp{
                 break;
 
 			case 3:
-
+				generateEnquiryReport();
 				break;
             case 4:
                 if (currentUser.getRole().equals("staff")){

@@ -1,0 +1,9 @@
+Camp name: SCSE camp
+Start Date: Tue Dec 12 00:00:00 SGT 2023
+End Date: Sat Dec 30 00:00:00 SGT 2023
+Staff In Charge: HUKUMAR
+Available to: SCSE
+Remaining Total Slot: 33
+Remaining Committee Slot: 10
+Total Committee: 0
+Committee List: 

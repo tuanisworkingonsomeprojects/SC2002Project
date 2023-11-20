@@ -78,7 +78,7 @@ public class Password {
 
 			Scanner sc = new Scanner(System.in);
 
-			String password = sc.next();
+			String password = sc.nextLine();
 
 			return password;
 		}

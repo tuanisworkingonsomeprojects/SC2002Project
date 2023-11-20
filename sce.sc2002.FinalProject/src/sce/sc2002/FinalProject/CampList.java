@@ -397,6 +397,7 @@ public class CampList{
 
     public void createCamp(){
         pseudoClearScreen();
+        System.out.println("Screate camp Screen:");
         addCamp(Camp.createCamp(currentUser, this));
         tempDelay();
     }
@@ -451,8 +452,8 @@ public class CampList{
                         return;
                     }
 
-                    System.out.print("Confirm delete (Y/N):");
-                    String choice = sc.next();
+                    System.out.print("Confirm delete (Y/N): ");
+                    String choice = sc.nextLine();
 
                     if (choice.equals("Y") || choice.equals("y")){
                         campList.remove(i);
@@ -963,7 +964,7 @@ public class CampList{
 
         System.out.println("Create Enquiry Screen:");
 
-        System.out.println("Camp's name: ");
+        System.out.print("Camp's name: ");
         String campName = sc.nextLine();
 
         for (int i = 0; i < campList.size(); i++){

@@ -32,7 +32,7 @@ public class Login extends Password{
 		// Input Phase
 		while(!logedIn()) {
 			System.out.print("UserID: ");
-			String input_userid = sc.next();
+			String input_userid = sc.nextLine();
 			
 			
 			System.out.print("Password: ");
