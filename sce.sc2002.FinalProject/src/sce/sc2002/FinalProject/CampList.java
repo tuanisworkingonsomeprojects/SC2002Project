@@ -17,9 +17,18 @@ public class CampList{
     private String dataPath;
     
 
+
     public CampList(Login user){
         currentUser = user;
         campList    = new ArrayList<Camp>();
+    }
+
+    private boolean haveCamp(){
+        for (int i = 0; i < campList.size(); i++){
+            Camp camp_ith = campList.get(i);
+            if (camp_ith.isStaffInCharge(currentUser)) return true;
+        }
+        return false;
     }
 
     private int getMenuChoice() {
@@ -46,8 +55,7 @@ public class CampList{
         // First Line will always be the number of camp in the list
         stringBuilder.append(campList.size() + "\n");
 
-        // TODO: remember to delete this
-        System.out.println("Num of Camp: " + campList.size());
+        
 
         for (int i = 0; i < campList.size(); i++){
             Camp camp_ith = campList.get(i);
@@ -216,47 +224,37 @@ public class CampList{
             return;
         }
 
-        // TODO: remember to delete this
-        System.out.println("Num of camp: " + numOfCamp);
+
 
         for (int i = 0; i < numOfCamp; i++){
             String camp_ith_name = textFile.nextLine();
 
-            // TODO: remember to delete this
-            System.out.println("Camp's name: " + camp_ith_name);
+
 
             String camp_ith_startDate = textFile.nextLine();
             String camp_ith_endDate   = textFile.nextLine();
             String camp_ith_closingDate = textFile.nextLine();
 
-            // TODO: remember to delete this
-            System.out.println("start end close: " + camp_ith_startDate + " " + camp_ith_endDate + " " + camp_ith_closingDate);
+
 
 
             String camp_ith_faculty   = textFile.nextLine();
-            // TODO: remember to delete this
-            System.out.println("Faculty: " + camp_ith_faculty);
 
             String camp_ith_location  = textFile.nextLine();
-            // TODO: remember to delete this
-            System.out.println("Location: " + camp_ith_location);
+
 
             int    camp_ith_attendeeSlot  = Integer.parseInt(textFile.nextLine());
             int    camp_ith_committeeSlot = Integer.parseInt(textFile.nextLine());
-            // Remember to delete this
-            System.out.println("Attendee, Commitee: " + camp_ith_attendeeSlot + ", " + camp_ith_committeeSlot);
+
 
             String camp_ith_detail    = textFile.nextLine();
-            // Remember to delete this
-            System.out.println("Camp Detail: " + camp_ith_detail);
+
 
             boolean camp_ith_available = Boolean.parseBoolean(textFile.nextLine());
-            // Remember to delete this
-            System.out.println("Visibility: " + camp_ith_available);
+
 
             String camp_ith_staffInCharge = textFile.nextLine();
-            // Remember to delete this
-            System.out.println("Staff in charge: " + camp_ith_staffInCharge);
+
 
             Camp camp_ith = new Camp(this,
                                     camp_ith_name,
@@ -281,8 +279,7 @@ public class CampList{
                 int committee_jth_point = Integer.parseInt(textFile.nextLine());
                 camp_ith.addCommittee(new Committee(committee_jth_ID, committee_jth_faculty, committee_jth_point));
 
-                // TODO: remember to delete this:
-                System.out.println("Size: " + camp_ith.getCommitteeList().size());
+
             }
 
             int noOfAttendee = Integer.parseInt(textFile.nextLine());
@@ -432,7 +429,12 @@ public class CampList{
         pseudoClearScreen();
         viewCreatedCamp();
         System.out.println("Deleting Camp Screen: ");
-        Scanner sc = new Scanner(System.in);
+
+        // If the current User does not have any camp so he / She cannot delete the camp
+        if (haveCamp()){
+            tempDelay();
+            return;
+        }
         Camp camp_ith;
 
         if (currentUser.getRole().equals("staff")){
@@ -480,11 +482,15 @@ public class CampList{
 
     public void chooseCampToEdit(){
         pseudoClearScreen();
-        System.out.println("Editing Camp Screen:");
+        
 
         if (currentUser.getRole().equals("staff")){
-            Scanner sc = new Scanner(System.in);
             viewCreatedCamp();
+            System.out.println("Editing Camp Screen:");
+            if (haveCamp()){
+                tempDelay();
+                return;
+            }
             System.out.print("Camp's name': ");
             String campName = sc.nextLine();
 
@@ -497,7 +503,8 @@ public class CampList{
                     campList.get(i).editCamp(currentUser);
                 }
 
-                break;
+                tempDelay();
+                return;
             }
             
             System.out.println("There is no camp available to edit!");
@@ -634,8 +641,8 @@ public class CampList{
             if (camp_ith.isMemberOfCamp(currentUser)){
                 System.out.print(index + ". " + camp_ith.getCampName());
 
-                if (camp_ith.isAttendee(currentUser)) System.out.println("[Attendee]");
-                if (camp_ith.isCommittee(currentUser)) System.out.println("[Committee]");
+                if (camp_ith.isAttendee(currentUser)) System.out.println("\t[Attendee]");
+                if (camp_ith.isCommittee(currentUser)) System.out.println("\t[Committee]");
                 index++;
 
             }
@@ -774,6 +781,10 @@ public class CampList{
 
         System.out.println("View Student List Window:");
         viewCreatedCamp();
+        if (campList.size() == 0){
+            tempDelay();
+            return;
+        }
 
         System.out.print("Camp's name: ");
         String campName = sc.nextLine();
@@ -812,7 +823,15 @@ public class CampList{
 
     // This method allow camp committee to view detail of a camp
     public void viewCampDetail(){
+        pseudoClearScreen();
+        viewAllCamp();
         System.out.println("View camp detail screen:");
+
+        
+        if (campList.size() == 0){
+            tempDelay();
+            return;
+        }
         
         String campName = "INIT CAMPNAME";
         if (currentUser.getRole().equals("staff")){
@@ -911,9 +930,13 @@ public class CampList{
                 }
             }
 
-            if (index == 1) System.out.println("There is no available camp.");
-                System.out.print("Camp's name: ");
-                String campName = sc.nextLine();
+            if (index == 1) {
+                System.out.println("There is no available camp.");
+                tempDelay();
+                return;
+            }
+            System.out.print("Camp's name: ");
+            String campName = sc.nextLine();
 
             
             // Find the matching camp to register the Attendee
@@ -939,10 +962,11 @@ public class CampList{
     
     public void withdawFromCamp(){
         pseudoClearScreen();
-        System.out.println("Withdraw from camp screen:");
         if (currentUser.getRole().equals("student")){
+            
             viewRegisteredCamp();
-            System.out.print("Camp's name:");
+            System.out.println("Withdraw from camp screen:");
+            System.out.print("Camp's name: ");
             String campName = sc.nextLine();
 
             for (int i = 0; i < campList.size(); i++){

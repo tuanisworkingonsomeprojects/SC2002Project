@@ -94,14 +94,29 @@ public class Camp{
 			System.out.print("Camp name: ");
 			campInfo.setCampName(sc.nextLine());
 			
+
 			System.out.print("Start date (dd/MM/yyyy): ");
 			campInfo.setStartDate(sc.nextLine());
+
 			
-			System.out.print("End date (dd/MM/yyyy): ");
-			campInfo.setEndDate(sc.nextLine());
 			
-			System.out.print("Registration closing date (dd/MM/yyyy): ");
-			campInfo.setClosingDate(sc.nextLine());
+			do {
+				System.out.print("End date (dd/MM/yyyy): ");
+				campInfo.setEndDate(sc.nextLine());
+				if (getEndDate().before(getStartDate())){
+					System.out.println("End date cannot be set before start date!\n");
+				}
+			} while (getEndDate().before(getStartDate()));
+			
+			do {
+				System.out.print("Registration closing date (dd/MM/yyyy): ");
+				campInfo.setClosingDate(sc.nextLine());
+				if (campInfo.getClosingDate().after(campInfo.getClosingDate())){
+					System.out.println("Closing date cannot be set after closing date\n");
+				}
+
+			} while(campInfo.getClosingDate().after(campInfo.getClosingDate()));
+			
 			
 			System.out.print("School: ");
 			campInfo.setAvailableTo(sc.nextLine());
@@ -183,31 +198,54 @@ public class Camp{
             // Change password option
             case 1:
                 System.out.print("New camp name: ");
-                campInfo.setCampName(sc.next());
+                campInfo.setCampName(sc.nextLine());
                 break;
             case 2: 
             	System.out.print("New start date (dd/MM/yyyy): ");
-            	campInfo.setStartDate(sc.next());
+				do{
+					campInfo.setStartDate(sc.nextLine());
+					if (getStartDate().after(getClosingDate())){
+						System.out.println("Start day cannot be set after closing date\n");
+					}
+				}while(getStartDate().after(getClosingDate()));
+
                 break;
             case 3:
             	System.out.print("New end date (dd/MM/yyyy): ");
-            	campInfo.setEndDate(sc.next());
+				do {
+					campInfo.setEndDate(sc.nextLine());
+					if (getEndDate().before(getClosingDate())){
+						System.out.println("End date cannot be set before closing date\n");
+					}
+
+					if (getEndDate().before(getStartDate())){
+						System.out.println("End date cannot be set befor start date\n");
+					}
+				} while(getEndDate().before(getClosingDate()) || getEndDate().before(getStartDate()));
+            	
                 break;
             case 4:
-            	System.out.print("New Registration closign date (dd/MM/yyyy): ");
-            	campInfo.setClosingDate(sc.next());
+            	System.out.print("New Registration closing date (dd/MM/yyyy): ");
+				do {
+					campInfo.setClosingDate(sc.nextLine());
+
+					if (getClosingDate().after(getClosingDate())){
+						System.out.println("Closing date cannot be set after end date");
+					}
+				} while (getClosingDate().after(getClosingDate()));
+            	
                 break;
             case 5:
             	System.out.print("New School: ");
-            	campInfo.setAvailableTo(sc.next());
+            	campInfo.setAvailableTo(sc.nextLine());
                 break;
             case 6:
             	System.out.print("New location: ");
-            	campInfo.setLocation(sc.next());
+            	campInfo.setLocation(sc.nextLine());
             	break;
             case 7:
-            	System.out.print("New slots: ");
-            	campInfo.setAttendeeSlot(sc.nextInt());
+            	System.out.println("New slots: ");
+            	campInfo.setAttendeeSlot(getMenuChoice());
             	break;
 
 			case 8:
@@ -221,7 +259,7 @@ public class Camp{
 					break;
 				}
             	System.out.println("Availability? (Y/N): ");
-            	campInfo.setVisibility(sc.next().charAt(0));
+            	campInfo.setVisibility(sc.nextLine().charAt(0));
             	break;
 			case 10:
 				System.out.println("Exiting...");

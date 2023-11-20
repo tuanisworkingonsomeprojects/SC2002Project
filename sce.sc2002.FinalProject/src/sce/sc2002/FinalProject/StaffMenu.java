@@ -43,9 +43,10 @@ public class StaffMenu extends Menu{
         String[] options = {"Change Password",
                             "Create Camps",
                             "View Camps",
+                            "Edit Camp",
                             "Delete Camp",
                             "View Student List",
-                            "View Enquiries",           // TODO: He can view enquiries from the camp HE CREATED
+                            "View Enquiries",
                             "Reply Enquiries",
                             "View Suggestions",
                             "Consider Suggestions",
@@ -104,41 +105,46 @@ public class StaffMenu extends Menu{
                 break;
 
             case 4:
+                System.out.println("Editing Camp...");
+                campList.chooseCampToEdit();
+                break;
+
+            case 5:
                 System.out.println("Deleting Camp...");
                 campList.deleteCamp();
                 break;
 
-            case 5:
+            case 6:
                 System.out.println("Viewing student list...");
                 campList.viewStudentList();
                 break;
 
-            case 6:
+            case 7:
                 System.out.println("Viewing enquries...");
                 campList.viewEnquiry();
                 break;
 
-            case 7:
+            case 8:
                 System.out.println("Replying Enquiry...");
                 campList.replyEnquiry();
                 break;
             
-            case 8:
+            case 9:
                 System.out.println("Viewing suggestions...");
                 campList.viewSuggestion();
                 break;
 
-            case 9:
+            case 10:
                 System.out.println("Considering suggestion...");
                 campList.replySuggestion();
                 break;
-            case 10:
+            case 11:
             	System.out.println("Generating report...");
             	campList.generateReport();
                 break;
 
             
-            case 11:
+            case 12:
                 System.out.println("Logging out...");
                 currentUser.logOut();
                 campList.exportData();
@@ -146,7 +152,7 @@ public class StaffMenu extends Menu{
                 clearScreen();
                 break;
             
-            case 12:
+            case 13:
                 for (int i = 0; i < 100; i++) System.out.println();
                 
                 currentUser.logOut();

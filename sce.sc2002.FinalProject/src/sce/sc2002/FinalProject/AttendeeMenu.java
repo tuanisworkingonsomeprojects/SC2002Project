@@ -30,9 +30,6 @@ public class AttendeeMenu extends Menu{
     public void runMenu() {
 		printHeader();
 
-        
-
-        // TODO: remember to update the exit variable appropriately
 		while(!exit) {
 			display();
 			int choice = getMenuChoice();
