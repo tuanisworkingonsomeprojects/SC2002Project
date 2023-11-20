@@ -1216,6 +1216,12 @@ public class CampList{
 
         System.out.println("Reply Suggestion Screen:");
 
+        if (!haveCamp()){
+            System.out.println("You don't have any camp to consider the suggestion");
+            tempDelay();
+            return;
+        }
+
         System.out.print("Camp's Name: ");
         String campName = sc.nextLine();
 
@@ -1228,6 +1234,8 @@ public class CampList{
                 return;
             }
         }
+        System.out.println("No camp with such name or you are not staff in charge of provide camp");
+        tempDelay();
     }
 
 
@@ -1250,13 +1258,15 @@ public class CampList{
 
             if ((camp_ith.getCampName().equals(campName) && camp_ith.isStaffInCharge(currentUser)) || camp_ith.isCommittee(currentUser)){
                 camp_ith.generateReportString(currentUser);
+                System.out.println("Generated!");
+                tempDelay();
+                return;
             }
-            break;
+            
         }
+
+        System.out.println("No camp is matched with prodived camp name");
   
     }
-
-
-
 
 }
