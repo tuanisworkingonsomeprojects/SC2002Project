@@ -769,7 +769,7 @@ public class Camp{
 	}
 
 	public void replySuggestion(Login currentUser){
-		viewAllEnquiry(currentUser);
+		viewAllSuggestion(currentUser);
 
 		System.out.print("Suggestion ID: ");
 

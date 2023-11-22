@@ -124,7 +124,7 @@ public class CommitteeMenu extends Menu{
 
             case 8:
                 System.out.println("Deleting Suggestion...");
-                campList.editSuggestion();
+                campList.deleteSuggestion();
                 break;
             
             case 9:
