@@ -740,7 +740,7 @@ public class CampList{
 
 
 
-            if (camp_ith.isAvailable()){
+            if (camp_ith.isAvailable() && camp_ith.allowToView(currentUser)){
                 System.out.print(index + ". " + camp_ith.getCampName());
                 if (camp_ith.isBlackListed(currentUser)){
                     System.out.println("[blacklisted]");
@@ -996,7 +996,7 @@ public class CampList{
 
 
 
-                if (camp_ith.isAvailable()){
+                if (camp_ith.isAvailable() && camp_ith.allowToView(currentUser)){
                     System.out.print(index + ". " + camp_ith.getCampName());
                     if (camp_ith.isBlackListed(currentUser)){
                         System.out.println("[blacklisted]");
