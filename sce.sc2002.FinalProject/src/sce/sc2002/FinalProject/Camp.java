@@ -757,6 +757,8 @@ public class Camp{
 
 		viewAllEnquiry(currentUser);
 
+		
+
 		System.out.print("Enquiry ID: ");
 
 		int enquiryID = sc.nextInt();
@@ -796,7 +798,9 @@ public class Camp{
 	public void replyEnquiry(Login currentUser){
 		viewAllEnquiry(currentUser);
 
-		System.out.print("Enquiry ID: ");
+		if (getEnquiries().size() == 0) return;
+
+		System.out.println("Enquiry ID: ");
 		int enquiryID = getMenuChoice();
 
 
