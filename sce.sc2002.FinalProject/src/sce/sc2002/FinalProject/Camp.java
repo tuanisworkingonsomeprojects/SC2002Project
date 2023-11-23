@@ -941,8 +941,7 @@ public class Camp{
 	public void editSuggestion(Login currentUser){
 		viewAllSuggestion(currentUser);
 		System.out.print("Suggesstion ID: ");
-		int suggestionID = sc.nextInt();
-		sc.nextLine();
+		int suggestionID = getMenuChoice();
 
 		for (int i = 0; i < campInfo.getSuggestions().size(); i++){
 			Suggestion suggestion_ith = campInfo.getSuggestions().get(i);
@@ -1018,19 +1017,20 @@ public class Camp{
 		System.out.println("Suggestion ID: ");
 
 		int suggestionID = getMenuChoice();
-		for (int i = 0; i < campInfo.getEnquiries().size(); i++){
+		for (int i = 0; i < campInfo.getSuggestions().size(); i++){
 			Suggestion suggestion_ith = campInfo.getSuggestions().get(i);
+
 
 			if (suggestion_ith.getSuggestionID() == suggestionID){
 				System.out.println("Do you want to approve this suggestion?");
 				System.out.print("Your choice (Y / N): ");
-				char choice = sc.nextLine().charAt(0);
+				String choice = sc.nextLine();
 
 				switch(choice){
-					case 'Y':
+					case "Y":
 						suggestion_ith.approve();
 						break;
-					case 'N':
+					case "N":
 						suggestion_ith.discard();
 						break;
 					default:

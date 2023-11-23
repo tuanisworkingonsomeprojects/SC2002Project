@@ -13,7 +13,7 @@ OURIN
 1
 KOH1
 ADM
-0
+1
 0
 0
 0
@@ -26,5 +26,5 @@ false
 2
 KOH1
 new test
-OPEN
-false
+ACCEPTED
+true
