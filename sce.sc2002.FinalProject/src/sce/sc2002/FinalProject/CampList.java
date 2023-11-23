@@ -560,10 +560,11 @@ public class CampList{
                     currentUser.getUserid().equals(campList.get(i).getStaffInCharge())){
                     
                     campList.get(i).editCamp(currentUser);
+                    tempDelay();
+                    return;
                 }
 
-                tempDelay();
-                return;
+                
             }
             
             System.out.println("There is no camp available to edit!");
