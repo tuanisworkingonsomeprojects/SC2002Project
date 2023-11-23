@@ -1,9 +1,16 @@
 package sce.sc2002.FinalProject;
 import java.util.*;
 
+/**
+ * This is is the menu that will be displayed for Student Committee Menu
+ */
+
 public class CommitteeMenu extends Menu{
-
-
+	/**
+	 * Constructor for CommitteeMenu
+	 * @param user Current Logged in User
+	 * @param campList The Camplist
+	 */
     public CommitteeMenu(Login user, CampList campList){
         super(campList);
         currentUser = user;
@@ -11,7 +18,7 @@ public class CommitteeMenu extends Menu{
 
 	/**
 	 * This will print the header of the Camp App.
-	 *----------------------------------------------------------------------------------- */
+	 */
     private void printHeader() {
 		System.out.println("+-----------------------------------+");
         System.out.println("|           Welcome to              |");
@@ -21,7 +28,7 @@ public class CommitteeMenu extends Menu{
 
 	/**
 	 * This method will display the menu once the user has logged in.
-	 *----------------------------------------------------------------------------------- */
+	 */
     public void runMenu() {
 		printHeader();
 
@@ -35,7 +42,7 @@ public class CommitteeMenu extends Menu{
 
 	/**
 	 * This will return the choice that the user has selected.
-	 *----------------------------------------------------------------------------------- */
+	 */
     private int getMenuChoice() {
         Scanner keyboard = new Scanner(System.in);
         int choice = -1;
@@ -56,7 +63,7 @@ public class CommitteeMenu extends Menu{
 
 	/**
 	 * This is the display of the student's version of menu.
-	 *----------------------------------------------------------------------------------- */
+	 */
     public void display(){
         System.out.println("Student Committee Portal: ");
         System.out.println();
@@ -85,7 +92,10 @@ public class CommitteeMenu extends Menu{
         
     
 
-
+	/**
+	 * This will return the choice that the user has selected.
+	 * @param choice the choice that the user has keyed in
+	 */
     private void performAction(int choice) {
         switch (choice) {
 

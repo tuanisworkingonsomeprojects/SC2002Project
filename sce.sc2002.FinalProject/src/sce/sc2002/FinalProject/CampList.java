@@ -6,23 +6,46 @@ import java.util.*;
 import java.text.SimpleDateFormat;
 
 
+/**
+ * Camp list Class
+ */
+
 public class CampList{
-
+	/**
+	 * accesspath
+	 */
     private String accessPath;
-
+    /**
+     * Current Logged in user
+     */
     private Login currentUser;
+    /**
+     * campList Array
+     */
     private ArrayList<Camp> campList;
-
+    /**
+     * Scanner
+     */
     private Scanner textFile;
+    /**
+     * datapath
+     */
     private String dataPath;
     
 
-
+    /**
+     * Camp List
+     * @param user
+     */
     public CampList(Login user){
         currentUser = user;
         campList    = new ArrayList<Camp>();
     }
 
+    /**
+     * Boolean method
+     * @return
+     */
     private boolean haveCamp(){
 
         for (int i = 0; i < campList.size(); i++){
@@ -33,6 +56,10 @@ public class CampList{
         return false;
     }
 
+    /**
+     * This will return the choice that the user has selected.
+     * @return
+     */
     private int getMenuChoice() {
         Scanner keyboard = new Scanner(System.in);
         int choice = -1;
@@ -51,6 +78,9 @@ public class CampList{
         return choice;
     }
 
+    /**
+     * This method will export the data of the camp out
+     */
     public void exportData(){
          StringBuilder stringBuilder = new StringBuilder();
 
@@ -195,15 +225,13 @@ public class CampList{
 
 
         }
-
-        
-
-
-
         String data = stringBuilder.toString();
         StringToText.stringToText(data, dataPath);
     }
 
+    /**
+     * This method will the load the data of the camp details
+     */
     public void loadData(){
         
         
@@ -356,13 +384,22 @@ public class CampList{
         }
     }
 
-    
+    /**
+     * Scanner
+     */
     private Scanner sc = new Scanner(System.in);
-    
+    /**
+     * Array List for camp
+     * @return
+     */
     public ArrayList<Camp> getCampList(){return campList;}
 
     // System method
 
+    /**
+     * This boolean method will check if the student is a camp committee
+     * @return
+     */
     public boolean isCampCommittee(){
         for (int i = 0; i < campList.size(); i++){
             Camp camp_ith = campList.get(i);
@@ -375,6 +412,9 @@ public class CampList{
         return false;
     }
 
+    /**
+     * This method will "Delay" the display
+     */
     private void tempDelay(){
         System.out.println("Press Enter to go Back!");
         sc.nextLine();
@@ -385,6 +425,9 @@ public class CampList{
         return;
     }
 
+    /**
+     * Just a method to clean up the display for asthetics
+     */
     private void pseudoClearScreen(){
         for (int i = 0; i < 100; i++){
             System.out.println();
@@ -393,7 +436,9 @@ public class CampList{
 
 
     // Method for staff
-
+    /**
+     * This method will allow the staf to create camps
+     */
     public void createCamp(){
         pseudoClearScreen();
         System.out.println("Screate camp Screen:");
@@ -401,6 +446,10 @@ public class CampList{
         tempDelay();
     }
 
+    /**
+     * Adding the created camps into the camp list
+     * @param camp Created camp
+     */
     private void addCamp(Camp camp){
         System.out.println("Adding Camp to the list...");
 
@@ -427,6 +476,9 @@ public class CampList{
         }
     }
 
+    /**
+     * This method allows the staff to delete the camp that the staff created
+     */
     public void deleteCamp(){
         pseudoClearScreen();
         viewCreatedCamp();
@@ -482,6 +534,9 @@ public class CampList{
         tempDelay();
     }
 
+    /**
+     * This method will allow the staff to edit the camp that the staff created
+     */
     public void chooseCampToEdit(){
         pseudoClearScreen();
         
@@ -521,6 +576,10 @@ public class CampList{
     }
 
 
+    /**
+     * This method will be called by viewCamp()
+     * @param choice
+     */
     // This method will be called by viewCamp()
     private void handleCampFilter(int choice){
         switch(choice){
@@ -556,6 +615,9 @@ public class CampList{
 
     }
 
+    /**
+     * This method displays the camp menu
+     */
     public void viewCamp(){
         pseudoClearScreen();
         System.out.println("Camps view filter: ");
@@ -578,7 +640,9 @@ public class CampList{
         tempDelay();
     }
 
-
+    /**
+     * This method displays all camp
+     */
     private void viewAllCamp(){
         pseudoClearScreen();
 
@@ -610,6 +674,9 @@ public class CampList{
         }
     }
 
+    /**
+     * This method allows the user to view created camp
+     */
     private void viewCreatedCamp(){
         pseudoClearScreen();
         int index = 1;
@@ -633,6 +700,9 @@ public class CampList{
         }
     }
 
+    /**
+     * This method allows the user to view the camps he or she has registered for
+     */
     private void viewRegisteredCamp(){
         pseudoClearScreen();
 
@@ -657,6 +727,9 @@ public class CampList{
     // This method that I've implemented will ask the Staff to choose to print the list of
     // Attendee or the list of Committee already so you don't have to worry about it!
 
+    /**
+     * This method allows the user to view all the camps that are available to sign up for
+     */
     private void viewAvailableCamp(){
         pseudoClearScreen();
 
@@ -683,6 +756,9 @@ public class CampList{
 
     }
 
+    /**
+     * This method will be called by viewCampWithLocation() method
+     */
     // This method is called by viewCampWithLocation()
     private void printLocation(){
         int index = 1;
@@ -701,6 +777,9 @@ public class CampList{
         if (index == 1) System.out.println("No camp with such loction has been created in the system.");
     }
 
+    /**
+     * This method will allow the user to see the camp location
+     */
     public void viewCampWithLocation(){
         pseudoClearScreen();
         int index = 1;
@@ -729,6 +808,9 @@ public class CampList{
         }
     }
 
+    /**
+     * This method will show the faculty
+     */
     public void printFaculty(){
         int index = 1;
         
@@ -746,6 +828,9 @@ public class CampList{
         if (index == 1) System.out.println("No camp with such faculty created in the system.");
     }
 
+    /**
+     * This method will show the camp faculty of the camp
+     */
     public void viewCampWithFaculty(){
         pseudoClearScreen();
         int index = 1;
@@ -776,6 +861,9 @@ public class CampList{
         if (index == 1) System.out.println("No camp with such faculty created in the system.");
     }
 
+    /**
+     * This method will show the student list of reigstered attendee
+     */
     public void viewStudentList(){
 
         pseudoClearScreen();
@@ -825,6 +913,9 @@ public class CampList{
         }
     }
 
+    /**
+     * This method will allow the camp commitee to view the details of a camp
+     */
     // This method allow camp committee to view detail of a camp
     public void viewCampDetail(){
         pseudoClearScreen();
@@ -888,6 +979,9 @@ public class CampList{
         tempDelay();
     }
 
+    /**
+     * This method will allow the student to register for a camp but the student is not able to register for a camp that he or she has withdrawn from
+     */
     public void registerCamp(){
         pseudoClearScreen();
         System.out.println("Camp Registration");
@@ -944,6 +1038,9 @@ public class CampList{
         tempDelay();
     }
     
+    /**
+     * This method will let the user withdraw from a registered camp
+     */
     public void withdawFromCamp(){
         pseudoClearScreen();
         if (currentUser.getRole().equals("student")){
@@ -966,6 +1063,9 @@ public class CampList{
         tempDelay();
     }
 
+    /**
+     * This method will let the user create an enquiry
+     */
     // Enquiry section
     public void createEnquiry(){
         pseudoClearScreen();
@@ -995,6 +1095,9 @@ public class CampList{
         tempDelay();
     }
 
+    /**
+     * This will allow the user to view the enquires that were made for the camp
+     */
     public void viewEnquiry(){
         pseudoClearScreen();
 
@@ -1024,6 +1127,9 @@ public class CampList{
         tempDelay();
     }
 
+    /**
+     * This method will allow the user to edit the enquiry that he or she made
+     */
     public void editEnquiry(){
         pseudoClearScreen();
 
@@ -1052,6 +1158,9 @@ public class CampList{
         tempDelay();
     }
 
+    /**
+     * This method will allow the user to delete the enquiry that he or she made
+     */
     public void deletetEnquiry(){
         pseudoClearScreen();
 
@@ -1080,8 +1189,12 @@ public class CampList{
         tempDelay();
     }
 
+    /**
+     * This method will allow the user to reply the enquiry that was made
+     */
     public void replyEnquiry(){
         pseudoClearScreen();
+        viewAllCamp();
         String campName = "INIT CAMPNAME";
 
         if (currentUser.getRole().equals("staff")){
@@ -1122,11 +1235,10 @@ public class CampList{
         System.out.println("There is no camp with such name");
         tempDelay();
     }
-
     
-
-
-    
+    /**
+     * This method will allow the student committee to create suggestions for a camp he or she is a committee of
+     */
     // Suggestion section
     public void createSuggestion(){
         pseudoClearScreen();
@@ -1144,6 +1256,9 @@ public class CampList{
         }
     }
 
+    /**
+     * This allows the user to view the suggestions made
+     */
     public void viewSuggestion(){
         pseudoClearScreen();
 
@@ -1176,6 +1291,9 @@ public class CampList{
         tempDelay();
     }
 
+    /**
+     * This allows the user to edit the suggestion that he or she made that is unprocessed (Only Student Committee)
+     */
     public void editSuggestion(){
         pseudoClearScreen();
 
@@ -1193,6 +1311,9 @@ public class CampList{
 
     }
 
+    /**
+     * This will allow the user to delete the suggestion that was made by the user that is unprocessed (Student Committee Only)
+     */
     public void deleteSuggestion(){
         pseudoClearScreen();
 
@@ -1207,6 +1328,9 @@ public class CampList{
         }
     }
 
+    /**
+     * This will allow the user to reply suggestions made by a student committee (Staff only)
+     */
     public void replySuggestion(){
         pseudoClearScreen();
 
@@ -1234,7 +1358,9 @@ public class CampList{
         tempDelay();
     }
 
-
+    /**
+     * This will allow the user to generate reports
+     */
     public void generateReport(){
         pseudoClearScreen();
         System.out.println("Generate Report Screen:");

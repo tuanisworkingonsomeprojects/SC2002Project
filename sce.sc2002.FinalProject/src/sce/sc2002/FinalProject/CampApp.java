@@ -1,7 +1,13 @@
 package sce.sc2002.FinalProject;
 
+/**
+ * Main method of campApp
+ */
 public class CampApp {
-	
+	/**
+	 * This is main method of the campApp
+	 * @param args arguments of the campApp
+	 */
 	public static void main(String[] args) {
 		Login loginScreen = new Login();
 		
@@ -23,14 +29,14 @@ public class CampApp {
 			currentSection.runMenu();
 			loginScreen.display();
 		}
-
-		
-		
-
-		
-		
 	}
 
+	/**
+	 * This method will return the respective menu, depending on if the user is staff, Student Attendee or Student Committee
+	 * @param currentUser The user logged in
+	 * @param campList The camplist
+	 * @return
+	 */
 	public static Menu returnMenu(Login currentUser, CampList campList){
 		if (currentUser.getRole().equals("staff")){
 			return new StaffMenu(currentUser, campList);
@@ -42,7 +48,4 @@ public class CampApp {
 			return new AttendeeMenu(currentUser, campList);
 		}
 	}
-
-
-	
 }

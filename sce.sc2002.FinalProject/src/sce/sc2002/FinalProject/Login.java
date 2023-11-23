@@ -14,14 +14,16 @@ import java.util.*;
 
 public class Login extends Password{
 
-	
+	/**
+	 * Login Constructor
+	 */
 	public Login() {
 		super();
 	}
 
 	/**
 	 * This method will control the flow of the login system.
-	 *----------------------------------------------------------------------------------- */
+	 */
 	public void display(){
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);

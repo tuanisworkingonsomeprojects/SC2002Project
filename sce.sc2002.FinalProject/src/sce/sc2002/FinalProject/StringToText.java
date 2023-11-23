@@ -4,9 +4,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
+/**
+ * Class to convert string to text
+ */
 public class StringToText {
     
-
+	/**
+	 * Constructor for StringToText
+	 * @param text text
+	 * @param filePath filepath 
+	 */
     public static void stringToText(String text, String filePath){
         
         

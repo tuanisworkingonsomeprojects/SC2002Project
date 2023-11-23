@@ -13,15 +13,20 @@ import java.util.*;
 
 
 public class StaffMenu extends Menu{
-
-
+	/**
+	 * StaffMenu constructor
+	 * @param user Current user that is Logged in
+	 * @param campList The Camplist
+	 */
     public StaffMenu(Login user, CampList campList){
         super(campList);
         currentUser = user;
     }
 
 
-	
+	/**
+	 * This method will display the menu once the user has logged in.
+	 */
 	public void runMenu() {
 		printHeader();
 
@@ -31,14 +36,18 @@ public class StaffMenu extends Menu{
 			performAction(choice);
 		}
 	}
-	
+	/**
+	 * This will print the header of the Camp App.
+	 */
 	private void printHeader() {
 		System.out.println("+-----------------------------------+");
         System.out.println("|           Welcome to              |");
         System.out.println("|        Awesome Camp App           |");
         System.out.println("+-----------------------------------+");
 	}
-
+	/**
+	 * This is the display of the staff's version of menu.
+	 */
 	public void display() {
         String[] options = {"Change Password",
                             "Create Camps",
@@ -65,7 +74,10 @@ public class StaffMenu extends Menu{
             
 	}
 	
-	
+	/**
+	 * This method will display the menu once the user has logged in.
+	 * @return returning the option the user has keyed in.
+	 */
     private int getMenuChoice() {
         Scanner keyboard = new Scanner(System.in);
         int choice = -1;
@@ -83,7 +95,10 @@ public class StaffMenu extends Menu{
         } while (choice < 0);
         return choice;
     }
-
+    /**
+     * Displays the different options that the student has in the menu screen.
+     * @param choice The option that the user has keyed in.
+     */
     private void performAction(int choice) {
         switch (choice) {
 

@@ -4,15 +4,42 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+/**
+ * Camp File
+ */
 public class Camp{
-	
+	/**
+	 * The Camp Info
+	 */
 	private CampInformation campInfo;
-	private Scanner sc = new Scanner(System.in);
+	/**
+	 * The Scanner to get user input
+	 */
 	
+	private Scanner sc = new Scanner(System.in);
+	/**
+	 * Constructor for camp
+	 * @param campList Camplist
+	 */
 	public Camp(CampList campList) { //constructor for Camp object
 		campInfo = new CampInformation(campList);
 	}
-
+	
+	/**
+	 * 
+	 * @param campList The camplist
+	 * @param campName The camp's name
+	 * @param startDate The start date of the camp
+	 * @param endDate The end date of the camp
+	 * @param closingDate The closing registration date
+	 * @param faculty The faculty of the camp
+	 * @param location The location of the camp
+	 * @param attendeeSlot The amount of attendee that can register for the camp
+	 * @param committeeSlot The amount of committee that can register for the camp
+	 * @param detail The details about the camp
+	 * @param visibility The visibility of the camp to students
+	 * @param staffInCharge The staff that created the camp and is in charge of the camp.
+	 */
 	public Camp(CampList	campList,
 				String		campName,
 				String		startDate,
@@ -43,52 +70,194 @@ public class Camp{
 
 
 
-
+	/**
+	 * This method adds the student that has signed up as a committee for the camp
+	 * @param new_committee The new committee for the camp
+	 */
 	public void addCommittee(Committee new_committee) {campInfo.getCommitteeList().add(new_committee);}
+
+	/**
+	 * This method adds the student that has signed up as an attendee for the camp
+	 * @param new_attendee The new attendee for the camp
+	 */
 	public void addAttendee(Student new_attendee)     {campInfo.getAttendeeList().add(new_attendee);}
-	public void addBlacklist(Student new_blacklist)   {campInfo.getBlackList().add(new_blacklist);}
-
-	public void addEnquiry(Enquiry new_enquiry)		  {campInfo.getEnquiries().add(new_enquiry);}
-	public void addSuggesstion(Suggestion new_suggestion) {campInfo.getSuggestions().add(new_suggestion);}
-
 	
+	/**
+	 * This method will add the student into a blacklist to ensure that the student is unable to register back into the same camp.
+	 * @param new_blacklist The new blacklist
+	 */
+	public void addBlacklist(Student new_blacklist)   {campInfo.getBlackList().add(new_blacklist);}
+	
+	/**
+	 * This method will let the student attendee submit a new enquiry for a camp.
+	 * @param new_enquiry The enquiry made 
+	 */
+	public void addEnquiry(Enquiry new_enquiry)		  {campInfo.getEnquiries().add(new_enquiry);}
+	
+	/**
+	 * This method will let the student committee submit a new suggestion for the camp
+	 * @param new_suggestion The suggestion made
+	 */
+	public void addSuggesstion(Suggestion new_suggestion) {campInfo.getSuggestions().add(new_suggestion);}
+	
+	/**
+	 * This getter method gets the camp name
+	 * @return returns the camp name
+	 */
 	public String  getCampName()		{return campInfo.getCampName();}
+	
+	/**
+	 * This getter method gets the name of the staff in charge of the camp
+	 * @return Gets the staff in charge
+	 */
 	public String  getStaffInCharge()	{return campInfo.getStaffInCharge();}
+	
+	/**
+	 * This getter method will get back the visibility of the camp
+	 * @return Gets the visibility of the camp
+	 */
 	public boolean getVisibility()		{return campInfo.getVisibility();}
+	
+	/**
+	 * This getter method will get the start date of the camp
+	 * @return Gets the start date of the camp
+	 */
 	public Date	   getStartDate()		{return campInfo.getStartDate();}
+	
+	/**
+	 * This getter method will get the end date of the camp
+	 * @return The end date of the camp
+	 */
 	public Date    getEndDate()			{return campInfo.getEndDate();}
+	
+	/**
+	 * This getter method will get the closing date for registration of this camp
+	 * @return The registration closing date
+	 */
 	public Date	   getClosingDate()		{return campInfo.getClosingDate();}
+	
+	/**
+	 * This method will get the faculty of the camp
+	 * @return The faculty of the camp
+	 */
 	public String  getFaculty()			{return campInfo.getFaculty();}
+	
+	/**
+	 * This method will get the amount of committee slots there is in the camp
+	 * @return The committee slots
+	 */
 	public int	   getCommitteeSlot()	{return campInfo.getCampCommSlot();}
+	
+	/**
+	 * This method will get the amount of attendee slots there is in the camp
+	 * @return The attendee slots
+	 */
 	public int	   getAttendeeSlot()	{return campInfo.getAttendeeSlot();}
+	
+	/**
+	 * This method will get the description of the camp
+	 * @return This is the description of the camp
+	 */
 	public String  getDescription()			{return campInfo.getDescription();}
+	
+	/**
+	 * This method will get the location of the camp
+	 * @return The location of the camp
+	 */
 	public String  getLocation()		{return campInfo.getLocation();}
+	
+	/**
+	 * The array of Student Attendees
+	 * @return The student attendees
+	 */
 	public ArrayList<Student> getAttendeeList() {return campInfo.getAttendeeList();}
+	
+	/**
+	 * The array of Student Committees
+	 * @return The Student Committees
+	 */
 	public ArrayList<Student> getCommitteeList(){return campInfo.getCommitteeList();}
+	
+	/**
+	 * The array of blacklisted student for withdrawing from a camp
+	 * @return The blacklist
+	 */
 	public ArrayList<Student> getBlackList()	{return campInfo.getBlackList();}
+	
+	/**
+	 * The array of enquires made by student
+	 * @return The array of enquires
+	 */
 	public ArrayList<Enquiry> getEnquiries()	{return campInfo.getEnquiries();}
+	
+	/**
+	 * The array of suggestions made by Student Committee
+	 * @return The array of suggestions
+	 */
 	public ArrayList<Suggestion> getSuggestions() {return campInfo.getSuggestions();}
 
+	/**
+	 * This method will determine if the student is a member of a camp
+	 * @param currentUser The current user logged in
+	 * @return returns if the person is a member of a camp
+	 */
 	// A person is a member of a camp if he/she is a committee or attendee of that camp.
 	public boolean isMemberOfCamp(Login currentUser)	{return campInfo.isCommittee(currentUser) || campInfo.isAttendee(currentUser);} 
 
+	/**
+	 * This method will return if the student is a committee of a camp
+	 * @param currentUser The current user logged in
+	 * @return returns if the student is a committee or not
+	 */
 	public boolean isCommittee	   (Login currentUser)	{return campInfo.isCommittee(currentUser);}
+	
+	/**
+	 * This method will return if the student is an attendee of a camp
+	 * @param currentUser The current user logged in
+	 * @return returns if the student is a attendee or not
+	 */
 	public boolean isAttendee	   (Login currentUser)	{return campInfo.isAttendee(currentUser);}
+	
+	/**
+	 * This method will return if the user is the staff in charge of the camp (creator of the camp)
+	 * @param currentUser The current user logged in
+	 * @return returns if the user is the staff in charge of the camp or not
+	 */
 	public boolean isStaffInCharge (Login currentUser)	{return campInfo.getStaffInCharge().equals(currentUser.getUserid());}
+	
+	/**
+	 * This method will return if the user is blacklisted from the camp
+	 * @param currentUser The current user logged in
+	 * @return returns if the user is blacklisted from the camp
+	 */
 	public boolean isBlackListed   (Login currentUser)	{return campInfo.isBlackListed(currentUser);}
+	
+	/**
+	 * This method will check if there is still available slots for the student to register for the camp (Attendee and Committee)
+	 * @return returns if the camp is full or available
+	 */
 	public boolean isAvailable	   ()	{
 		if (getCommitteeSlot() > 0 || getAttendeeSlot() > 0) return true;
 
 		return false;
 	}
 	
-
+	/**
+	 * This method will create the camp created by a staff
+	 * @param currentUser The current user logged in
+	 * @param campList The camp list
+	 * @return returns the newly created camp
+	 */
 	public static Camp createCamp(Login currentUser, CampList campList){
 		Camp newCamp = new Camp(campList);
 		newCamp.createCampManager(currentUser);
 		return newCamp;
 	}
 
+	/**
+	 * This method will tag the camp creator to the camp that was created
+	 * @param currentUser The current user logged in
+	 */
 	public void createCampManager(Login currentUser) {
 		if(currentUser.getRole().equals("staff")) {
 			System.out.print("Camp name: ");
@@ -142,6 +311,10 @@ public class Camp{
 		
 	}
 	
+	/**
+	 * This method will allow the staff to edit the camp if he or she is the staff that created that camp
+	 * @param currentUser The user logged in
+	 */
 	public void editCamp(Login currentUser) {
 		
 		int choice = 0;
@@ -159,6 +332,9 @@ public class Camp{
 		}
 	}
 
+	/**
+	 * This method will display the choices the user has to edit the camps
+	 */
 	public void displayEditCamp() {
 		System.out.println("What would you like to edit?");
 		System.out.println();
@@ -173,7 +349,10 @@ public class Camp{
 		System.out.println("9.	Available");
 		System.out.println("10. <<Back");		
 	}
-
+	
+	/**
+	 * This will return the choice that the user has selected.
+	 */
 	private int getMenuChoice() {
         Scanner keyboard = new Scanner(System.in);
         int choice = -1;
@@ -192,6 +371,10 @@ public class Camp{
         return choice;
     }
 	
+    /**
+     * Displays the different options that the staff has when editing the camp details and allow the editing to proceed.
+     * @param choice This is the staff chosen choice.
+     */
 	private void performActionEditCamp(int choice) {
         switch (choice) {
 
@@ -275,6 +458,11 @@ public class Camp{
         }
     }
 	
+	/**
+	 * This method will determine if the user is able to view the camp 
+	 * @param currentUser The current user logged in
+	 * @return If the user is able to view the camp
+	 */
 	public boolean allowToView(Login currentUser){
 
 		// If it is staff the visibility is always true
@@ -289,7 +477,11 @@ public class Camp{
 		}
 		return false;
 	}
-
+	
+	/**
+	 * This method will show the attendee list for the camp only if the user is a staff or the Student Committee of that camp
+	 * @param currentUser The user logged in
+	 */
 	public void printAttendeeList(Login currentUser){
 		if (currentUser.getRole().equals("staff")){
 			System.out.println("Student Attendee List:");
@@ -312,6 +504,10 @@ public class Camp{
 		}
 	}
 
+	/**
+	 * This method will display the list of committee for the camp
+	 * @param currentUser The user logged in
+	 */
 	public void printCommitteList(Login currentUser){
 		if (currentUser.getRole().equals("staff")){
 			System.out.println("Student Committee List:");
@@ -334,6 +530,10 @@ public class Camp{
 		}
 	}
 
+	/**
+	 * This method will allow the student to register for the camp that is available to him or her
+	 * @param currentUser The user logged in
+	 */
 	public void registerCamp(Login currentUser){
 		if (isCommittee(currentUser) || isAttendee(currentUser)){
 			System.out.println("You have registered for this camp!");
@@ -357,41 +557,41 @@ public class Camp{
 				break;
 		}
 	}
-
+	
+	/**
+	 * This method will let the user withdraw from the camp that he or she has signed up for
+	 * @param currentUser The user logged in
+	 */
 	public void withdawFromCamp(Login currentUser){
 		campInfo.attendeeWithdrawal(currentUser);
 	}
 
-
-
-
-
+	/**
+	 * This method will let the user create an enquiry for the specific camp
+	 * @param currentUser The user logged in
+	 */
 	public void createEnquiry(Login currentUser){
 
 		if (isCommittee(currentUser)){
 			System.out.println("Camp committee cannot create Enquiry for this camp");
 			return;
 		}
-
-
 		//if (getEnquiries().size() == 0) sc.nextLine();
 		System.out.print("Subject / Title: ");
 		String subject = sc.nextLine();
 		System.out.print("Your Enquiry (in one line): ");
 		String description = sc.nextLine();
 
-
-
 		Enquiry enquiry = new Enquiry(new Student(currentUser.getUserid(), currentUser.getFaculty()), subject, description);
 
 		campInfo.addEnquiry(enquiry);
 		return;
-			
-		
-
-
 	}
 
+	/**
+	 * This method will allow the user to view the enquires that were made 
+	 * @param currentUser This user logged in
+	 */
 	public void viewEnquiry(Login currentUser){
 		System.out.println("What do you want to view:");
 		System.out.println("1. View all Enquiry");
@@ -413,6 +613,10 @@ public class Camp{
 		}
 	}
 
+	/**
+	 * This method will allow the user to view all enquires made
+	 * @param currentUser The user logged in
+	 */
 	public void viewAllEnquiry(Login currentUser){
 
 		
@@ -448,6 +652,10 @@ public class Camp{
 
 	}
 
+	/**
+	 * This method will allow the user to the enquiry in details
+	 * @param currentUser The user logged in
+	 */
 	public void viewEnquiryDetail(Login currentUser){
 
 		System.out.print("Enquiry ID: ");
@@ -484,6 +692,10 @@ public class Camp{
 		System.out.println("There is no viewable enquiry in this camp");
 	}
 
+	/**
+	 * This method will allow the user to edit the enquiry that was created by him or her 
+	 * @param currentUser The user logged in
+	 */
 	public void editEnquiry(Login currentUser){
 
 		viewAllEnquiry(currentUser);
@@ -537,6 +749,10 @@ public class Camp{
 		
 	}
 
+	/**
+	 * This method will allow the user to delete the enquiry that was made by him or her
+	 * @param currentUser The user logged in
+	 */
 	public void deleteEnquiry(Login currentUser){
 
 		viewAllEnquiry(currentUser);
@@ -573,6 +789,10 @@ public class Camp{
 		System.out.println("There you have no enquiry for this camp");
 	}
 
+	/**
+	 * This method will allow the user to reply to the enquiry made
+	 * @param currentUser The user logged in
+	 */
 	public void replyEnquiry(Login currentUser){
 		viewAllEnquiry(currentUser);
 
@@ -604,14 +824,11 @@ public class Camp{
 
 		System.out.println("No matching ID found!");
 	}
-
-
-
-
-
-
-
-
+	
+	/**
+	 * This method will allow the user to create suggestions for the camp (Only student committee is able to)
+	 * @param currentUser The user logged in
+	 */
 	public void createSuggestion(Login currentUser){
 
 		for (int i = 0; i < campInfo.getCommitteeList().size(); i++){
@@ -629,16 +846,19 @@ public class Camp{
 
 	}
 
+	/**
+	 * This method will allow the user to view the suggestions that were made by the student committee
+	 * @param currentUser The user logged in
+	 */
 	public void viewSuggestion(Login currentUser){
 		System.out.println("Suggestion view options:");
 		System.out.println("1. View all Suggestions");
 		System.out.println("2. View Suggestion Detail");
-		System.out.print("Your choice: ");
 		int choice = getMenuChoice();
 
 		switch (choice) {
 			case 1:
-				viewAllEnquiry(currentUser);
+				viewAllSuggestion(currentUser);
 				break;
 			case 2:
 				viewSuggestionDetail(currentUser);
@@ -650,6 +870,10 @@ public class Camp{
 		}
 	}
 
+	/**
+	 * This method will allow the user to view all the suggestions that were made for the camp
+	 * @param currentUser The user logged in
+	 */
 	public void viewAllSuggestion(Login currentUser){
 		int index = 1;
 
@@ -669,10 +893,14 @@ public class Camp{
 		}
 
 		if (index == 1){
-			System.out.println("There is no enquiry in this camp");
+			System.out.println("There is no suggestion in this camp");
 		}
 	}
 
+	/**
+	 * This method will allow the user to view the suggestions made in details
+	 * @param currentUser The user logged in
+	 */
 	public void viewSuggestionDetail(Login currentUser){
 		viewAllSuggestion(currentUser);
 		System.out.print("Suggesstion ID: ");
@@ -702,6 +930,10 @@ public class Camp{
 
 	}
 
+	/**
+	 * This method will allow the user to edit the suggestion that he or she made before it is processed (Only Student Committee)
+	 * @param currentUser The user logged in
+	 */
 	public void editSuggestion(Login currentUser){
 		viewAllSuggestion(currentUser);
 		System.out.print("Suggesstion ID: ");
@@ -736,6 +968,10 @@ public class Camp{
 		System.out.println("There is no matching suggestion for this camp");
 	}
 
+	/**
+	 * This method will allow the user to delete the suggestion that he or she made before it is processed (Only Student Committee)
+	 * @param currentUser The user logged in
+	 */
 	public void deleteSuggestion(Login currentUser){
 		viewAllSuggestion(currentUser);
 		System.out.print("Suggesstion ID: ");
@@ -768,35 +1004,36 @@ public class Camp{
 		System.out.println("There is no matching suggestion for this camp");
 	}
 
+	/**
+	 * This will allow the user to reply to the suggestions that were made (Only the Staff that is in charge of the camp - Creator)
+	 * @param currentUser The user logged in
+	 */
 	public void replySuggestion(Login currentUser){
 		viewAllSuggestion(currentUser);
 
-		System.out.print("Suggestion ID: ");
+		System.out.println("Suggestion ID: ");
 
-		int suggestionID = sc.nextInt();
-		sc.nextLine();
-
+		int suggestionID = getMenuChoice();
 		for (int i = 0; i < campInfo.getEnquiries().size(); i++){
 			Suggestion suggestion_ith = campInfo.getSuggestions().get(i);
 
-			if (suggestion_ith.getAuthor().getID().equals(currentUser.getUserid())){
-				if (suggestionID == suggestion_ith.getSuggestionID()){
-					if (suggestion_ith.getResolved()){
-						System.out.println("You cannot delete the resolved suggestion");
-						return;
-					}
+			if (suggestion_ith.getSuggestionID() == suggestionID){
+				System.out.println("Do you want to approve this suggestion?");
+				System.out.print("Your choice (Y / N): ");
+				char choice = sc.nextLine().charAt(0);
 
-					System.out.print("Confirm deletion (Y / N):");
-					String choice = sc.nextLine();
-
-					if (choice == "Y"){
-						campInfo.getSuggestions().remove(suggestionID);
-						return;
-					}
-					else {
-						return;
-					}
+				switch(choice){
+					case 'Y':
+						suggestion_ith.approve();
+						break;
+					case 'N':
+						suggestion_ith.discard();
+						break;
+					default:
+						System.out.println("Not appropriate choice");
+						break;
 				}
+				return;
 			}
 		}
 
@@ -804,6 +1041,10 @@ public class Camp{
 		
 	}
 
+	/**
+	 * This will allow the user to generate the report for the camp (only staff can generate reports 1-3, student committee only report 1 and 3)
+	 * @param currentUser The user logged in
+	 */
 	public void generateReportString(Login currentUser){
 		System.out.println("Report option: ");
         System.out.println("1. Attendees Report");
@@ -841,6 +1082,10 @@ public class Camp{
         }
 	}
 
+	/**
+	 * This method will get the camp details
+	 * @return The camp details
+	 */
 	public String getCampDetail(){
 		StringBuilder stringBuilder = new StringBuilder();
 		stringBuilder.append("Camp name: " + getCampName() + "\n" +
@@ -853,6 +1098,9 @@ public class Camp{
 		return stringBuilder.toString();
 	}
 
+	/**
+	 * This method will generate the attendee report of the camp (Only Student Committee and Staff in charge)
+	 */
 	public void generateAttendeeReport(){
 		StringBuilder stringBuilder = new StringBuilder();
 		
@@ -878,6 +1126,9 @@ public class Camp{
 		}
 	}
 
+	/**
+	 * This method will generate the committee report for the camp (Only Staff in charge - Creator)
+	 */
 	public void generateCommitteeReport(){
 		StringBuilder stringBuilder = new StringBuilder();
 
@@ -902,6 +1153,9 @@ public class Camp{
 		}
 	}
 
+	/**
+	 * This method will generate the enquiry report of the camp (Only Student Committee and Staff in charge)
+	 */
 	public void generateEnquiryReport(){
 		StringBuilder stringBuilder = new StringBuilder();
 
@@ -934,7 +1188,9 @@ public class Camp{
 		}
 	}
 
-
+	/**
+	 * This method will generate the performance report of the committee (Only Staff in charge - Creator)
+	 */
 	public void generatePerformanceReport(){
 		StringBuilder stringBuilder = new StringBuilder();
 

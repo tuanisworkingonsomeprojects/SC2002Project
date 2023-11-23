@@ -3,20 +3,41 @@ package sce.sc2002.FinalProject;
 import java.io.*;
 import java.util.*;
 
+/**
+ * User Data class that contains the user datas
+ */
+
 public class UserData {
 	
 	// This will in the format Name, Email, Faculty, Password, userID
+	/**
+	 * String user data
+	 */
 	private String[][] userData;
+	/**
+	 * int number of users
+	 */
 	private int numberOfUser; 
+	/**
+	 * Acces Path
+	 */
 	private String accessPath;
 	
+	/**
+	 * Constructor for user data
+	 * @param role role of the user
+	 */
 	public UserData(String role) {
 		numberOfUser = countRow(getDataFromCSV(role));
 		userData = new String[numberOfUser][5];
 		constructUserData(getDataFromCSV(role));
 		
 	}
-	
+	/**
+	 * scanner to scan the data from csv file
+	 * @param role role of the user
+	 * @return
+	 */
 	private Scanner getDataFromCSV(String role) {
 		Scanner sc = null;
 		
@@ -58,7 +79,11 @@ public class UserData {
 		
 		return sc;
 	}
-	
+	/**
+	 * row counter for the csv file containing the user data
+	 * @param csvFile
+	 * @return
+	 */
 	private int countRow(Scanner csvFile) {
 		csvFile.nextLine();
 		int i = 0;
@@ -72,7 +97,10 @@ public class UserData {
 		
 	}
 
-	
+	/**
+	 * Constructing the user data from the csvfile
+	 * @param csvFile
+	 */
 	private void constructUserData(Scanner csvFile) {
 		csvFile.nextLine();
 		int u = 0;
@@ -110,7 +138,12 @@ public class UserData {
 		}
 			
 	}
-	
+	/**
+	 * This getter method will get the user password
+	 * @param userid
+	 * @param key
+	 * @return
+	 */
 	public String getPassword(String userid, String key) {
 		if (key.equals("asdfljknqwe6238745fg23av3gv246hrejbq4tybetjysdafg5y")){
 			for (int i = 0; i < numberOfUser; i++) {
@@ -120,7 +153,11 @@ public class UserData {
 		}
 		return null;
 	}
-
+	/**
+	 * This getter method will get the user faculty
+	 * @param userid
+	 * @return
+	 */
 	public String getFaculty(String userid){
 		for (int i = 0; i < numberOfUser; i++) {
 			if (userData[i][4].equals(userid)) 
@@ -129,7 +166,12 @@ public class UserData {
 		
 		return null;
 	}
-	
+	/**
+	 * This method will help the user change  password
+	 * @param userid
+	 * @param new_password
+	 * @param key
+	 */
 	public void changePassword(String userid, String new_password, String key) {
 		if (key.equals("asdfljknqwe6238745fg23av3gv246hrejbq4tybetjysdafg5y")){
 			for (int i = 0; i < numberOfUser; i++) {

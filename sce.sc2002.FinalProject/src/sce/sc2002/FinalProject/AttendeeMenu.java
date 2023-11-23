@@ -2,13 +2,18 @@ package sce.sc2002.FinalProject;
 import java.util.*;
 
 /**
+ This is the menu that will be displayed for Students.
  @author Chong Wen Rong, Chelson
  @version 1.0
  @since 11/2/2023
 */
 
 public class AttendeeMenu extends Menu{
-
+    /**
+     * The Attendee Menu
+     * @param user user that is logged in
+     * @param campList the camplist
+     */
     public AttendeeMenu(Login user, CampList campList){
         super(campList);
         currentUser = user;
@@ -16,7 +21,7 @@ public class AttendeeMenu extends Menu{
 
 	/**
 	 * This will print the header of the Camp App.
-	 *----------------------------------------------------------------------------------- */
+	 */
     private void printHeader() {
 		System.out.println("+-----------------------------------+");
         System.out.println("|           Welcome to              |");
@@ -26,7 +31,7 @@ public class AttendeeMenu extends Menu{
 
 	/**
 	 * This method will display the menu once the user has logged in.
-	 *----------------------------------------------------------------------------------- */
+	 */
     public void runMenu() {
 		printHeader();
 
@@ -40,9 +45,10 @@ public class AttendeeMenu extends Menu{
 		}
 	}
 
+    
 	/**
 	 * This will return the choice that the user has selected.
-	 *----------------------------------------------------------------------------------- */
+	 */
     private int getMenuChoice() {
         Scanner keyboard = new Scanner(System.in);
         int choice = -1;
@@ -63,7 +69,7 @@ public class AttendeeMenu extends Menu{
 
 	/**
 	 * This is the display of the student's version of menu.
-	 *----------------------------------------------------------------------------------- */
+	 */
     public void display(){
         System.out.println("Student Attendee Portal: ");
         System.out.println();
@@ -84,7 +90,10 @@ public class AttendeeMenu extends Menu{
         }
     }
 
-
+    /**
+     * Displays the different options that the student has in the menu screen.
+     * @param choice This is the students chosen choice.
+     */
     private void performAction(int choice) {
         switch (choice) {
 
@@ -102,17 +111,14 @@ public class AttendeeMenu extends Menu{
                 System.out.println("Registering Camp...");
                 campList.registerCamp();
                 break;
-            
             case 4:
                 System.out.println("Withdrawing Camp...");
                 campList.withdawFromCamp();
                 break;
-
             case 5:
                 System.out.println("Submit Enquiry...");
                 campList.createEnquiry();
                 break;
-
             case 6:
                 System.out.println("Viewing Enquiry...");
                 campList.viewEnquiry();
@@ -125,14 +131,12 @@ public class AttendeeMenu extends Menu{
                 System.out.print("Deleting enquiry...");
                 campList.deletetEnquiry();
                 break;
-            
             case 9:
                 currentUser.logOut();
                 campList.exportData();
                 exit = true;
                 clearScreen();
                 break;
-
             case 10:
                 currentUser.logOut();
                 campList.exportData();
@@ -140,7 +144,6 @@ public class AttendeeMenu extends Menu{
                 System.out.println("Exiting...");
                 System.exit(0);
                 break;
-
             default:
                 System.out.println("Choice out of range!");
         }
