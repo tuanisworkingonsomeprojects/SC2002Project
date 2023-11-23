@@ -635,7 +635,6 @@ public class CampList{
         if (isCampCommittee() || currentUser.getRole().equals("staff"))
         System.out.println("6. View camp detail");
         
-        System.out.print("Your choice: ");
         handleCampFilter(getMenuChoice());
         tempDelay();
     }
