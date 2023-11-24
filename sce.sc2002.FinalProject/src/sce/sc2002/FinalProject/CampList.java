@@ -175,7 +175,7 @@ public class CampList{
             stringBuilder.append(camp_ith.getEnquiries().size() + "\n");
 
             for (int j = 0; j < camp_ith.getEnquiries().size(); j++){
-                Enquiry enquiry_jth = camp_ith.getEnquiries().get(i);
+                Enquiry enquiry_jth = camp_ith.getEnquiries().get(j);
 
                 // 16.1 is Enquiry ID
                 stringBuilder.append(enquiry_jth.getEnquiryID() + "\n");
