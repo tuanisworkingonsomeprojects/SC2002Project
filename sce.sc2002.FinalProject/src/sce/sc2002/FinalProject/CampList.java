@@ -161,7 +161,7 @@ public class CampList{
             stringBuilder.append(camp_ith.getBlackList().size() + "\n");
 
             for (int j = 0; j < camp_ith.getBlackList().size(); j++){
-                Student student_jth = camp_ith.getBlackList().get(i);
+                Student student_jth = camp_ith.getBlackList().get(j);
                 
                 // 15.1 is blacklist student ID
                 stringBuilder.append(student_jth.getID() + "\n");
